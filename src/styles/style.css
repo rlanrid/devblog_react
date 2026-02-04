@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+/* setting */
+@import "setting/reset.css";
+@import "setting/variable.css";
+@import "setting/util.css";
+@import "setting/commons.css";
+
+/* section */
+@import "section/aside.css";
+@import "section/main.css";
+@import "section/header.css";
+@import "section/footer.css";
+@import "section/responsible.css";
