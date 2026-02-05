@@ -24,7 +24,26 @@ function App() {
     },
   };
 
-  const [state, setState] = useState(initialState);
+  // const [state, setState] = useState(initialState);
+
+  // useReducer
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  function reducer(state, action) {
+    switch (action.type) {
+      case "SET_TAG":
+        return {
+          ...state,
+          filter: {
+            ...state.filter,
+            tag: action.payload,
+          },
+        };
+
+      default:
+        return state;
+    }
+  };
 
   // 함수
   const getDataProcessing = (state) => {
@@ -42,7 +61,7 @@ function App() {
   };
 
   // 임시
-  const tempTags = ["HTML5", "CSS", "JavaScript", "React", "Vue", "Jquery", "Css"];
+  const tempTags = ["HTML5", "CSS", "JavaScript", "React", "Vue", "Jquery", "CS"];
 
   const postList = getDataProcessing(state);
 
@@ -101,10 +120,10 @@ function App() {
               {tempTags.map((tag) => (
                 <li key={tag} className="sidebar__tag-item">
                   <button data-tag={tag} onClick={() => {
-                    setState(prev => ({
-                      ...prev,
-                      filter: { ...prev.filter, tag: tag }
-                    }));
+                    dispatch({
+                      type: "SET_TAG",
+                      payload: tag,
+                    });
                   }}>
                     #{tag}
                   </button>
