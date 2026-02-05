@@ -11,7 +11,7 @@ function App() {
     },
     filter: {
       tag: '',
-      sort: 'latest',
+      sort: '최신순',
       query: '',
     },
     pagination: {
@@ -24,7 +24,37 @@ function App() {
     },
   };
 
-  // const [state, setState] = useState(initialState);
+  const sortMap = {
+    "최신순": (a, b) => b.id - a.id,
+    "조회순": (a, b) => b.info.view - a.info.view,
+    "댓글순": (a, b) => b.info.comment - a.info.comment,
+  };
+
+  // useState
+  // const [searchKeyword, setSearchKeyword] = useState("");
+
+  // handler
+  const handlerSearchChange = (e) => {
+    dispatch({ type: "SET_KEYWORD", payload: e.target.value });
+  };
+
+  const handlerSearchSubmit = (e) => {
+    e.preventDefault();
+  };
+
+  const handlerTagChange = (tag) => {
+    dispatch({
+      type: "SET_TAG",
+      payload: tag,
+    });
+  };
+
+  const handlerSortChange = (sort) => {
+    dispatch({
+      type: "SET_SORT",
+      payload: sort,
+    });
+  };
 
   // useReducer
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -39,6 +69,24 @@ function App() {
             tag: action.payload,
           },
         };
+
+      case "SET_KEYWORD":
+        return {
+          ...state,
+          filter: {
+            ...state.filter,
+            query: action.payload,
+          }
+        };
+
+      case "SET_SORT":
+        return {
+          ...state,
+          filter: {
+            ...state.filter,
+            sort: action.payload,
+          }
+        }
 
       default:
         return state;
@@ -56,12 +104,35 @@ function App() {
       result = result.filter(post => post.tag.some(t => t.toLowerCase() === targetTag));
     }
 
+    // 검색
+    if (state.filter.query !== "") {
+      const keyword = state.filter.query.toLowerCase();
+
+      result = result.filter(post =>
+        post.title.toLowerCase().includes(keyword) ||
+        post.summary.toLowerCase().includes(keyword)
+      );
+    }
+
+    // 정렬
+    // if (state.filter.sort === "최신순") {
+    //   result.sort((a, b) => b.id - a.id);
+    // } else if (state.filter.sort === "조회순") {
+    //   result.sort((a, b) => b.info.view - a.info.view);
+    // } else if (state.filter.sort === "댓글순") {
+    //   result.sort((a, b) => b.info.comment - a.info.comment);
+    // }
+
+    if (sortMap[state.filter.sort]) {
+      result.sort(sortMap[state.filter.sort]);
+    }
 
     return result;
   };
 
   // 임시
   const tempTags = ["HTML5", "CSS", "JavaScript", "React", "Vue", "Jquery", "CS"];
+  const tempSorts = ["최신순", "조회순", "댓글순"];
 
   const postList = getDataProcessing(state);
 
@@ -148,7 +219,7 @@ function App() {
               <p className="header__subtitle">Welcome to my blog. Subscribe and get my latest blog post in your inbox.</p>
             </div>
 
-            <form className="header__search" action="/" method="">
+            <form className="header__search" action="/" method="" onSubmit={(e) => { handlerSearchSubmit(e) }}>
               {/* <label for="header__select" className="sr-only">검색 대상</label>
           <select name="type" id="header__select" className="header__select">
             <option value="post">게시글</option>
@@ -156,7 +227,15 @@ function App() {
           </select> */}
 
               <label htmlFor="header__input" className="sr-only">검색어 입력</label>
-              <input type="search" id="header__input" className="header__input" placeholder="Search for posts..." name="search" />
+              <input
+                type="search"
+                id="header__input"
+                className="header__input"
+                placeholder="Search for posts..."
+                name="search"
+                value={state.filter.query}
+                onChange={handlerSearchChange}
+              />
 
               <button type="submit" className="header__button">Search</button>
             </form>
@@ -166,8 +245,21 @@ function App() {
         <main className="main">
           <div className="post__inner">
             <div className="post__filtering" role="group" aria-label="게시글 정렬">
-              <button type="button" data-sort="latest" className="is-active" aria-pressed="true">최신순</button>
-              <button type="button" data-sort="views" aria-pressed="false">조회순</button>
+              {tempSorts.map((sort) => {
+                const isActive = state.filter.sort === sort;
+
+                return (
+                  <button
+                    key={sort}
+                    type="button"
+                    className={isActive ? "is-active" : ""}
+                    aria-pressed={isActive}
+                    onClick={() => handlerSortChange(sort)}
+                  >
+                    {sort}
+                  </button>
+                );
+              })}
             </div>
             <div className="post__list">
               {postList.map((post) => (
@@ -193,7 +285,7 @@ function App() {
                       <ul className="post__tag-list">
                         {post.tag.map((tag) => (
                           <li key={tag} className="post__tag-item">
-                            <button data-tag={tag}>
+                            <button onClick={() => handlerTagChange(tag)}>
                               #{tag}
                             </button>
                           </li>
