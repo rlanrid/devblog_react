@@ -115,14 +115,6 @@ function App() {
     }
 
     // 정렬
-    // if (state.filter.sort === "최신순") {
-    //   result.sort((a, b) => b.id - a.id);
-    // } else if (state.filter.sort === "조회순") {
-    //   result.sort((a, b) => b.info.view - a.info.view);
-    // } else if (state.filter.sort === "댓글순") {
-    //   result.sort((a, b) => b.info.comment - a.info.comment);
-    // }
-
     if (sortMap[state.filter.sort]) {
       result.sort(sortMap[state.filter.sort]);
     }
@@ -130,11 +122,20 @@ function App() {
     return result;
   };
 
+  const paginate = (processedPosts, pagination) => {
+    const startIndex = (pagination.page - 1) * pagination.pageSize;
+
+    return processedPosts.slice(startIndex, startIndex + pagination.pageSize);
+  };
+
   // 임시
   const tempTags = ["HTML5", "CSS", "JavaScript", "React", "Vue", "Jquery", "CS"];
   const tempSorts = ["최신순", "조회순", "댓글순"];
 
-  const postList = getDataProcessing(state);
+  // 포스트
+  const processedPosts = getDataProcessing(state);
+  const totalPage = Math.ceil(processedPosts.length / state.pagination.pageSize);
+  const postList = paginate(processedPosts, state.pagination);
 
   return (
     <>
@@ -299,7 +300,19 @@ function App() {
           </div>
 
           <nav className="pagination">
+            <ul>
+              <li><a href="/" className={state.pagination.page === 1 ? 'prev disabled' : 'prev'} >이전</a></li>
+              {Array.from({ length: totalPage }, (_, i) => i + 1).map((index) => (
+                <li key={index}>
+                  <a href={"/posts?page=" + index} className={index === state.pagination.page ? 'active' : ''}>
+                    {index}
+                  </a>
+                </li>
+              ))}
 
+              {/* todo: page dispatch */}
+              <li><a href="/" className={state.pagination.page === totalPage ? 'next disabled' : 'next '} >다음</a></li>
+            </ul>
           </nav>
         </main>
 
