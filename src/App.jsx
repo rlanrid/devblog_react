@@ -50,10 +50,18 @@ function App() {
   };
 
   const handlerSortChange = (sort) => {
+    e.preventDefault();
     dispatch({
       type: "SET_SORT",
       payload: sort,
     });
+  };
+
+  const hanlderPageChange = (page) => {
+    dispatch({
+      type: "SET_PAGE",
+      payload: page,
+    })
   };
 
   // useReducer
@@ -85,6 +93,15 @@ function App() {
           filter: {
             ...state.filter,
             sort: action.payload,
+          }
+        };
+
+      case "SET_PAGE":
+        return {
+          ...state,
+          pagination: {
+            ...state.pagination,
+            page: action.payload,
           }
         }
 
@@ -301,17 +318,40 @@ function App() {
 
           <nav className="pagination">
             <ul>
-              <li><a href="/" className={state.pagination.page === 1 ? 'prev disabled' : 'prev'} >이전</a></li>
+              <li>
+                <a
+                  href="/"
+                  className={state.pagination.page === 1 ? 'prev disabled' : 'prev'}
+                  aria-disabled={state.pagination.page === 1}
+                  onClick={() => { hanlderPageChange(state.pagination.page - 1) }}
+                >
+                  이전
+                </a>
+              </li>
               {Array.from({ length: totalPage }, (_, i) => i + 1).map((index) => (
                 <li key={index}>
-                  <a href={"/posts?page=" + index} className={index === state.pagination.page ? 'active' : ''}>
+                  <a
+                    href={"/posts?page=" + index}
+                    className={index === state.pagination.page ? 'active' : ''}
+                    aria-disabled={state.pagination.page !== index}
+                    onClick={() => hanlderPageChange(index)}
+                  >
                     {index}
                   </a>
                 </li>
               ))}
 
               {/* todo: page dispatch */}
-              <li><a href="/" className={state.pagination.page === totalPage ? 'next disabled' : 'next '} >다음</a></li>
+              <li>
+                <a
+                  href="/"
+                  className={state.pagination.page === totalPage ? 'next disabled' : 'next '}
+                  aria-disabled={state.pagination.page === totalPage}
+                  onClick={() => { hanlderPageChange(state.pagination.page + 1) }}
+                >
+                  다음
+                </a>
+              </li>
             </ul>
           </nav>
         </main>
