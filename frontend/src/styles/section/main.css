@@ -1,0 +1,178 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin-left: 320px;
+}
+
+.main {
+  flex: 1;
+}
+
+.post__inner {
+  max-width: 1200px;
+  padding: 50px;
+}
+
+.post__filtering {
+  display: flex;
+  padding: 15px 0;
+}
+
+.post__filtering button {
+  color: var(--text-color2);
+  font-size: 12px;
+}
+
+.post__filtering button.is-active {
+  color: var(--text-color);
+  font-size: 12px;
+}
+
+.post__filtering button:not(:last-child)::after {
+  content: "|";
+  vertical-align: 1px;
+  padding: 0 5px;
+  color: var(--text-color);
+}
+
+.post__list {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+.post__list>p {
+  margin-top: 50px;
+  text-align: center;
+}
+
+.post__item {
+  display: flex;
+  gap: 20px;
+}
+
+.post__thumbnail {
+  width: 130px;
+  height: 130px;
+  flex-shrink: 0;
+}
+
+.post__thumbnail>img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.post__content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.post__title {
+  width: 100%;
+  margin-top: -4px;
+  line-height: 1.2;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.post__title a {
+  display: block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.post__info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #888888;
+  font-size: 14px;
+}
+
+.dot {
+  width: 4px;
+  height: 4px;
+  background-color: #888888;
+  border-radius: 50%;
+}
+
+.post__summary {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.25;
+}
+
+.post__tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.post__tag-item button {
+  display: block;
+  color: var(--text-color);
+  background-color: #8383837a;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.post__tag-item button:hover {
+  background-color: #5959597a;
+}
+
+.pagination {
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.pagination ul {
+  display: flex;
+  gap: 10px;
+}
+
+.pagination a {
+  display: block;
+  padding: 8px 12px;
+  color: var(--text-color);
+  border-radius: 4px;
+}
+
+.pagination a:hover {
+  background-color: #333;
+  color: #fff;
+  transition-duration: 0.15s;
+}
+
+.pagination a.active {
+  background-color: #333;
+  color: #fff;
+}
+
+.overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(102, 102, 102, 0);
+  backdrop-filter: blur(0);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, background-color 0.3s ease, backdrop-filter 0.3s ease;
+  z-index: 1050;
+}
+
+.overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+  background-color: rgba(102, 102, 102, 0.3);
+  backdrop-filter: blur(5px);
+}

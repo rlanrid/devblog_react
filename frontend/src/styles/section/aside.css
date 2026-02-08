@@ -1,0 +1,97 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 320px;
+  height: 100vh;
+  transition: transform 0.3s ease;
+}
+
+.sidebar__inner {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  color: white;
+  height: 100%;
+  padding: 30px 25px;
+  background-color: #2D3447;
+}
+
+.sidebar__header {
+  border-bottom: 1px solid #fff;
+  margin-bottom: 25px;
+}
+
+.sidebar__header>* {
+  margin-bottom: 25px;
+}
+
+.sidebar__logo {
+  font-size: 26px;
+  margin-bottom: 30px;
+}
+
+.sidebar__profile {
+  display: flex;
+  justify-content: center;
+}
+
+.profile {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
+
+.social {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.social__img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: black;
+}
+
+.menu {
+  margin-bottom: 25px;
+}
+
+.menu__item a {
+  display: block;
+  padding: 8px 0;
+  cursor: pointer;
+}
+
+.menu__item a:hover {
+  background-color: #ffffff50;
+  transition-duration: 0.2s;
+}
+
+.sidebar__tag-list {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-top: 25px;
+  border-top: 1px solid #fff;
+}
+
+.sidebar__tag-item {
+  background-color: #ffffff20;
+  border-radius: 4px;
+}
+
+.sidebar__tag-item:hover {
+  background-color: #ffffff50;
+  transition-duration: 0.2s;
+}
+
+.sidebar__tag-item button {
+  padding: 5px 8px;
+  cursor: pointer;
+  color: #fff;
+}

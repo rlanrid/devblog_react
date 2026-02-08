@@ -1,0 +1,18 @@
+.theme__toggle-btn {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--text-color);
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.5s;
+}
+
+.theme__toggle-btn:hover {
+  background-color: var(--text-color);
+}
