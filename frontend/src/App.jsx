@@ -1,10 +1,11 @@
-import { useReducer, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 
 import { posts } from "./data/posts";
 import profileImg from "./assets/images/profile.jpg";
 import XImg from "./assets/images/X.jpg";
 
 function App() {
+
   const initialState = {
     data: {
       posts: posts,
@@ -57,7 +58,8 @@ function App() {
     });
   };
 
-  const hanlderPageChange = (page) => {
+  const hanlderPageChange = (e, page) => {
+    e.preventDefault();
     dispatch({
       type: "SET_PAGE",
       payload: page,
@@ -323,7 +325,7 @@ function App() {
                   href="/"
                   className={state.pagination.page === 1 ? 'prev disabled' : 'prev'}
                   aria-disabled={state.pagination.page === 1}
-                  onClick={() => { hanlderPageChange(state.pagination.page - 1) }}
+                  onClick={(e) => { hanlderPageChange(e, state.pagination.page - 1) }}
                 >
                   이전
                 </a>
@@ -331,10 +333,10 @@ function App() {
               {Array.from({ length: totalPage }, (_, i) => i + 1).map((index) => (
                 <li key={index}>
                   <a
-                    href={"/posts?page=" + index}
+                    href="/"
                     className={index === state.pagination.page ? 'active' : ''}
                     aria-disabled={state.pagination.page !== index}
-                    onClick={() => hanlderPageChange(index)}
+                    onClick={(e) => hanlderPageChange(e, index)}
                   >
                     {index}
                   </a>
@@ -347,7 +349,7 @@ function App() {
                   href="/"
                   className={state.pagination.page === totalPage ? 'next disabled' : 'next '}
                   aria-disabled={state.pagination.page === totalPage}
-                  onClick={() => { hanlderPageChange(state.pagination.page + 1) }}
+                  onClick={(e) => { hanlderPageChange(e, state.pagination.page + 1) }}
                 >
                   다음
                 </a>
