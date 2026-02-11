@@ -1,4 +1,5 @@
 import React from 'react'
+import PostList from '../post/PostList';
 
 const Main = ({ state, actions, postList, totalPage }) => {
   // 임시
@@ -24,6 +25,8 @@ const Main = ({ state, actions, postList, totalPage }) => {
             );
           })}
         </div>
+
+        <PostList postList={postList} />
         <div className="post__list">
           {postList.map((post) => (
             <article key={post.id} className="post__item">
