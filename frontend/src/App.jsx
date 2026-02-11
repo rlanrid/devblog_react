@@ -156,7 +156,7 @@ function App() {
 
   return (
     <>
-      <Sidebar onTag={actions.onTagChange} />
+      <Sidebar onTag={actions.onTag} />
       {/* aside */}
 
       <div className="wrap">
@@ -166,15 +166,7 @@ function App() {
 
         <Main state={state} actions={actions} postList={postList} totalPage={totalPage} />
 
-        {/* <Footer /> */}
-
-
-        <footer className="footer">
-          <div className="footer__content">
-            <p>이 사이트의 디자인은 Dribble을 참고하여 만들었습니다.</p>
-            <p>© 2024 DevBlog. All rights reserved. | Built with Passion</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
       {/* wrap */}
 

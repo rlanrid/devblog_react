@@ -1,6 +1,6 @@
 import React from 'react'
 
-const PostItem = ({ post }) => {
+const PostItem = ({ post, actions }) => {
   return (
     <article className="post__item">
       <div className="post__thumbnail">
