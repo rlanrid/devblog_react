@@ -27,7 +27,6 @@ const Pagination = ({ state, actions, totalPage }) => {
           </li>
         ))}
 
-        {/* todo: page dispatch */}
         <li>
           <a
             href="/"

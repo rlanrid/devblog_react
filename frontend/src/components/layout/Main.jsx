@@ -14,7 +14,6 @@ const Main = ({ state, actions, postList, totalPage }) => {
       </div>
 
       <Pagination state={state} actions={actions} totalPage={totalPage} />
-
     </main>
   )
 }

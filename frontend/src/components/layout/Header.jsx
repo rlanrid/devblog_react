@@ -16,7 +16,7 @@ const Header = ({ state, onSearch }) => {
           <p className="header__subtitle">Welcome to my blog. Subscribe and get my latest blog post in your inbox.</p>
         </div>
 
-        <form className="header__search" action="/" method="" onSubmit={(e) => { handlerSearchSubmit(e) }}>
+        <form className="header__search" action="/" method="" onSubmit={(e) => { e.preventDefault(); }}>
           {/* <label for="header__select" className="sr-only">검색 대상</label>
           <select name="type" id="header__select" className="header__select">
             <option value="post">게시글</option>
@@ -31,7 +31,7 @@ const Header = ({ state, onSearch }) => {
             placeholder="Search for posts..."
             name="search"
             value={state.filter.query}
-            onChange={onSearch}
+            onChange={(e) => onSearch(e.target.value)}
           />
 
           <button type="submit" className="header__button">Search</button>

@@ -1,18 +1,18 @@
 import { sortMap } from "./constants";
 
-export const getDataProcessing = (state) => {
-  let result = [...state.data.posts];
+export const getDataProcessing = (data) => {
+  let result = [...data.posts];
 
   // 태그 필터링
-  if (state.filter.tag !== "") {
-    const targetTag = state.filter.tag.toLowerCase();
+  if (data.filter.tag !== "") {
+    const targetTag = data.filter.tag.toLowerCase();
 
     result = result.filter(post => post.tag.some(t => t.toLowerCase() === targetTag));
   }
 
   // 검색
-  if (state.filter.query !== "") {
-    const keyword = state.filter.query.toLowerCase();
+  if (data.filter.query !== "") {
+    const keyword = data.filter.query.toLowerCase();
 
     result = result.filter(post =>
       post.title.toLowerCase().includes(keyword) ||
@@ -21,8 +21,8 @@ export const getDataProcessing = (state) => {
   }
 
   // 정렬
-  if (sortMap[state.filter.sort]) {
-    result.sort(sortMap[state.filter.sort]);
+  if (sortMap[data.filter.sort]) {
+    result.sort(sortMap[data.filter.sort]);
   }
 
   return result;
