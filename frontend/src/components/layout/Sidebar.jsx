@@ -1,9 +1,10 @@
+import { tempTags } from "../../utils/constants";
+
 import profileImg from "../../assets/images/profile.jpg";
 import XImg from "../../assets/images/X.jpg";
 
-const Sidebar = ({ onTag }) => {
-  const tempTags = ["HTML5", "CSS", "JavaScript", "React", "Vue", "Jquery", "CS"];
 
+const Sidebar = ({ onTag }) => {
   return (
     <aside className="sidebar">
       <div className="sidebar__inner">
