@@ -1,4 +1,4 @@
-import { useMemo, useReducer } from "react";
+import { useEffect, useMemo, useReducer } from "react";
 
 import { initialState } from "./store/initialState";
 
@@ -9,6 +9,7 @@ import Footer from "./components/layout/Footer";
 
 import { getDataProcessing, paginate } from "./utils/dataProcess";
 import { postReducer } from "./store/reducer/postReducer";
+import { replace, useSearchParams } from "react-router-dom";
 
 function App() {
 
@@ -22,8 +23,42 @@ function App() {
     },
   };
 
+  // router
+  const [searchParams, setSearchParams] = useSearchParams();
+
   // reducer
-  const [state, dispatch] = useReducer(postReducer, initialState);
+  const [state, dispatch] = useReducer(
+    postReducer,
+    initialState,
+    (baseState) => ({
+      ...baseState,
+      filter: {
+        tag: searchParams.get("tag") || "",
+        sort: searchParams.get("sort") || "최신순",
+        query: searchParams.get("query") || "",
+      },
+      pagination: {
+        ...baseState.pagination,
+        page: Number(searchParams.get("page")) || 1,
+      },
+    })
+  );
+
+  useEffect(() => {
+    const params = {};
+
+    if (state.filter.tag) params.tag = state.filter.tag;
+    if (state.filter.sort !== "최신순") params.sort = state.filter.sort;
+    if (state.filter.query) params.query = state.filter.query;
+    if (state.pagination.page !== 1) params.page = state.pagination.page;
+
+    console.log(state.pagination.page)
+
+    setSearchParams(params), { replace: true };
+  }, [
+    state.filter,
+    state.pagination.page,
+  ]);
 
   // post
   const processedPosts = useMemo(() => {

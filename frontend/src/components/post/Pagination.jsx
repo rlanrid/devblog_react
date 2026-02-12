@@ -30,7 +30,7 @@ const Pagination = ({ state, actions, totalPage }) => {
         <li>
           <a
             href="/"
-            className={state.pagination.page === totalPage ? 'next disabled' : 'next '}
+            className={state.pagination.page >= totalPage ? 'next disabled' : 'next '}
             aria-disabled={state.pagination.page === totalPage}
             onClick={(e) => { actions.onPage(e, state.pagination.page + 1) }}
           >
