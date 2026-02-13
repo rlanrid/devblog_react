@@ -34,7 +34,22 @@ export const postReducer = (state, action) => {
           ...state.pagination,
           page: action.payload,
         }
-      }
+      };
+
+    case "SYNC_FROM_URL":
+      return {
+        ...state,
+        filter: {
+          ...state.filter,
+          tag: action.payload.tag,
+          sort: action.payload.sort,
+          query: action.payload.query,
+        },
+        pagination: {
+          ...state.pagination,
+          page: action.payload.page,
+        },
+      };
 
     default:
       return state;

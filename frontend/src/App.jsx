@@ -13,6 +13,7 @@ import { replace, useSearchParams } from "react-router-dom";
 
 function App() {
 
+  // actions
   const actions = {
     onSearch: (keyword) => dispatch({ type: "SET_KEYWORD", payload: keyword }),
     onTag: (tag) => dispatch({ type: "SET_TAG", payload: tag }),
@@ -26,7 +27,7 @@ function App() {
   // router
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // reducer
+  // 초기 state
   const [state, dispatch] = useReducer(
     postReducer,
     initialState,
@@ -44,6 +45,7 @@ function App() {
     })
   );
 
+  // state 변경 -> URL 동기화
   useEffect(() => {
     const params = {};
 
@@ -52,15 +54,49 @@ function App() {
     if (state.filter.query) params.query = state.filter.query;
     if (state.pagination.page !== 1) params.page = state.pagination.page;
 
-    console.log(state.pagination.page)
+    // 루프 방지
+    const currentParams = Object.fromEntries([...searchParams]);
+    const isDifferent = JSON.stringify(currentParams) !== JSON.stringify(params);
 
-    setSearchParams(params), { replace: true };
+    if (isDifferent) {
+      setSearchParams(params, { replace: true });
+    }
   }, [
-    state.filter,
+    state.filter.tag,
+    state.filter.sort,
+    state.filter.query,
     state.pagination.page,
   ]);
 
-  // post
+  // URL 변경 -> state 동기화 (앞/뒤로가기 대응)
+  useEffect(() => {
+    const urlState = {
+      tag: searchParams.get("tag") || "",
+      sort: searchParams.get("sort") || "최신순",
+      query: searchParams.get("query") || "",
+      page: Number(searchParams.get("page")) || 1,
+    };
+
+    const isDifferent =
+      state.filter.tag !== urlState.tag ||
+      state.filter.sort !== urlState.sort ||
+      state.filter.query !== urlState.query ||
+      state.pagination.page !== urlState.page;
+
+    if (isDifferent) {
+      dispatch({
+        type: "SYNC_FROM_URL",
+        payload: urlState,
+      })
+    }
+  }, [
+    searchParams.get("tag"),
+    searchParams.get("sort"),
+    searchParams.get("query"),
+    searchParams.get("page"),
+  ]);
+
+  // 데이터 처리
   const processedPosts = useMemo(() => {
     return getDataProcessing({
       posts: state.data.posts,
@@ -69,6 +105,7 @@ function App() {
   }, [state.data.posts, state.filter]);
 
   const totalPage = Math.ceil(processedPosts.length / state.pagination.pageSize);
+
   const postList = paginate(processedPosts, state.pagination);
 
   return (
