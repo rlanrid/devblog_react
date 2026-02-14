@@ -1,14 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-const Header = ({ state, onSearch }) => {
-  const handlerSearchSubmit = (e) => {
-    e.preventDefault();
-  };
+const Header = ({ state, isMenuOpen, onSearch, syncMenuUI }) => {
 
   return (
     <header className="header">
       <div className="header__inner">
-        <button className="hamburger" aria-label="메뉴" aria-expanded="false">
+        <button
+          className={`hamburger ${isMenuOpen ? "is-open" : ""} `}
+          aria-label="메뉴"
+          aria-expanded={isMenuOpen ? "True" : "False"}
+          onClick={syncMenuUI}
+        >
           <span></span>
         </button>
         <div className="header__intro">
@@ -34,10 +36,10 @@ const Header = ({ state, onSearch }) => {
             onChange={(e) => onSearch(e.target.value)}
           />
 
-          <button type="submit" className="header__button">Search</button>
+          <button type="submit" className="header__button" onClick={(e) => e.preventDefault()}>Search</button>
         </form>
       </div>
-    </header>
+    </header >
   )
 }
 

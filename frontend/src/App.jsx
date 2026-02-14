@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useReducer } from "react";
+import { useEffect, useMemo, useReducer, useState } from "react";
 
 import { initialState } from "./store/initialState";
 
@@ -9,9 +9,16 @@ import Footer from "./components/layout/Footer";
 
 import { getDataProcessing, paginate } from "./utils/dataProcess";
 import { postReducer } from "./store/reducer/postReducer";
-import { replace, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 function App() {
+
+  // UI
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const syncMenuUI = () => {
+    setIsMenuOpen(prev => !prev);
+  };
 
   // actions
   const actions = {
@@ -110,13 +117,13 @@ function App() {
 
   return (
     <>
-      <Sidebar onTag={actions.onTag} />
+      <Sidebar onTag={actions.onTag} isMenuOpen={isMenuOpen} />
       {/* aside */}
 
       <div className="wrap">
-        <div className="overlay"></div>
+        <div className={`overlay ${isMenuOpen ? "is-open" : ""}`}></div>
 
-        <Header state={state} onSearch={actions.onSearch} />
+        <Header state={state} isMenuOpen={isMenuOpen} onSearch={actions.onSearch} syncMenuUI={syncMenuUI} />
 
         <Main state={state} actions={actions} postList={postList} totalPage={totalPage} />
 

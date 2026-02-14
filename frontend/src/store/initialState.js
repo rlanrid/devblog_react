@@ -13,8 +13,4 @@ export const initialState = {
     page: 1,
     pageSize: 5,
   },
-  UI: {
-    isMenuOpen: false,
-    theme: '',
-  },
 };

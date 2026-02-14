@@ -4,9 +4,9 @@ import profileImg from "../../assets/images/profile.jpg";
 import XImg from "../../assets/images/X.jpg";
 
 
-const Sidebar = ({ onTag }) => {
+const Sidebar = ({ onTag, isMenuOpen }) => {
   return (
-    <aside className="sidebar">
+    <aside className={`sidebar ${isMenuOpen ? "is-open" : ""}`}>
       <div className="sidebar__inner">
         <header className="sidebar__header">
           <h1 className="sidebar__logo">WJ's blog</h1>
