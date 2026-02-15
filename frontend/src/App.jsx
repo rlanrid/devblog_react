@@ -145,6 +145,15 @@ function App() {
     searchParams.get("page"),
   ]);
 
+  // 페이지 초기화
+  useEffect(() => {
+    dispatch({ type: "SET_PAGE", payload: 1 })
+  }, [
+    state.filter.tag,
+    state.filter.sort,
+    state.filter.query,
+  ]);
+
   // 데이터 처리
   const processedPosts = useMemo(() => {
     return getDataProcessing({
