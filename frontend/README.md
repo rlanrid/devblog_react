@@ -7,3 +7,6 @@
 **상태 흐름**
 `UI 이벤트 -> state 변경 -> URL 동기화`
 `뒤로가기(URL 변경) -> state`
+
+**메모리 누수 방지**
+`removeEventListener`

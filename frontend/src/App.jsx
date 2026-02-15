@@ -2,6 +2,8 @@ import { useEffect, useMemo, useReducer, useState } from "react";
 
 import { initialState } from "./store/initialState";
 
+import { useTheme } from "./context/ThemeContext";
+
 import Sidebar from "./components/layout/Sidebar";
 import Header from "./components/layout/Header";
 import Main from "./components/layout/Main";
@@ -13,12 +15,52 @@ import { useSearchParams } from "react-router-dom";
 
 function App() {
 
+  // Theme
+  const { theme, changeTheme } = useTheme();
+
+  const handleThemeToggle = () => {
+    const nextTheme = theme === "light" ? "dark" : "light";
+    changeTheme(nextTheme);
+  };
+
   // UI
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const syncMenuUI = () => {
     setIsMenuOpen(prev => !prev);
   };
+
+  useEffect(() => {
+    // scroll bar
+    const getScrollbarWidth = () => window.innerWidth - document.documentElement.clientWidth;
+    const scrollBarWidth = getScrollbarWidth();
+
+    if (isMenuOpen) {
+      if (scrollBarWidth > 0) {
+        document.body.style.paddingRight = `${scrollBarWidth}px`;
+      }
+      document.body.classList.add("is-locked");
+    } else {
+      document.body.style.paddingRight = '';
+      document.body.classList.remove("is-locked");
+    }
+
+    // resize
+    const handleResize = () => {
+      if (window.innerWidth >= 980 && isMenuOpen) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    // 메모리 누수 방지
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      document.body.style.paddingRight = '';
+      document.body.classList.remove("is-locked");
+    };
+  }, [isMenuOpen]);
 
   // actions
   const actions = {
@@ -121,7 +163,10 @@ function App() {
       {/* aside */}
 
       <div className="wrap">
-        <div className={`overlay ${isMenuOpen ? "is-open" : ""}`}></div>
+        <div
+          className={`overlay ${isMenuOpen ? "is-open" : ""}`}
+          onClick={syncMenuUI}
+        ></div>
 
         <Header state={state} isMenuOpen={isMenuOpen} onSearch={actions.onSearch} syncMenuUI={syncMenuUI} />
 
@@ -131,7 +176,14 @@ function App() {
       </div>
       {/* wrap */}
 
-      <button id="theme__toggle" className="theme__toggle-btn" aria-label="다크모드로 전환">🌙</button>
+      <button
+        id="theme__toggle"
+        className="theme__toggle-btn"
+        aria-label={`${theme === "dark" ? "라이트" : "다크"}모드로 전환`}
+        onClick={handleThemeToggle}
+      >
+        {theme === "dark" ? "☀️" : "🌙"}
+      </button>
       {/* toggle */}
     </>
   )

@@ -1,11 +1,6 @@
 :root {
   --mainfont: "Pretendard Variable", Pretendard, sans-serif;
 
-  --bg-color: #ffffff;
-  --text-color: #000000;
-  --text-color2: #6f6f6f;
-  --header-bg: #FAFAFA;
-
   --black: #000;
   --black100: #1b1b1b;
   --black200: #3a3a3a;
@@ -21,4 +16,18 @@
   --white500: #767676;
 
   font-family: var(--mainfont);
+}
+
+:root[data-theme="light"] {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --text-color2: #6f6f6f;
+  --header-bg: #FAFAFA;
+}
+
+:root[data-theme="dark"] {
+  --bg-color: #000000;
+  --text-color: #ffffff;
+  --text-color2: #999999;
+  --header-bg: #0a0a0a;
 }
