@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 
-const Header = ({ state, isMenuOpen, onSearch, syncMenuUI }) => {
+const Header = ({ query, updateQuery, isMenuOpen, syncMenuUI }) => {
 
   return (
     <header className="header">
@@ -32,8 +32,8 @@ const Header = ({ state, isMenuOpen, onSearch, syncMenuUI }) => {
             className="header__input"
             placeholder="Search for posts..."
             name="search"
-            value={state.filter.query}
-            onChange={(e) => onSearch(e.target.value)}
+            value={query}
+            onChange={(e) => updateQuery("query", e.target.value)}
           />
 
           <button type="submit" className="header__button" onClick={(e) => e.preventDefault()}>Search</button>

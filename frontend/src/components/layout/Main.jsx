@@ -3,17 +3,17 @@ import PostList from '../post/PostList';
 import Pagination from '../post/Pagination';
 import PostSort from '../post/PostSort';
 
-const Main = ({ state, actions, postList, totalPage }) => {
+const Main = ({ postSort, page, updateQuery, postList, totalPage }) => {
 
   return (
     <main className="main">
       <div className="post__inner">
-        <PostSort state={state} actions={actions} />
+        <PostSort postSort={postSort} updateQuery={updateQuery} />
 
-        <PostList postList={postList} actions={actions} />
+        <PostList postList={postList} updateQuery={updateQuery} />
       </div>
 
-      <Pagination state={state} actions={actions} totalPage={totalPage} />
+      <Pagination page={page} updateQuery={updateQuery} totalPage={totalPage} />
     </main>
   )
 }

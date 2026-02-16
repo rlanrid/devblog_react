@@ -11,7 +11,7 @@ import Footer from "./components/layout/Footer";
 
 import { getDataProcessing, paginate } from "./utils/dataProcess";
 import { postReducer } from "./store/reducer/postReducer";
-import { useSearchParams } from "react-router-dom";
+import { Navigate, Route, Routes, useSearchParams } from "react-router-dom";
 
 function App() {
 
@@ -62,113 +62,53 @@ function App() {
     };
   }, [isMenuOpen]);
 
-  // actions
-  const actions = {
-    onSearch: (keyword) => dispatch({ type: "SET_KEYWORD", payload: keyword }),
-    onTag: (tag) => dispatch({ type: "SET_TAG", payload: tag }),
-    onSort: (sort) => dispatch({ type: "SET_SORT", payload: sort }),
-    onPage: (e, page) => {
-      e.preventDefault();
-      dispatch({ type: "SET_PAGE", payload: page })
-    },
-  };
+  // 초기 state 
+  const [state, dispatch] = useReducer(postReducer, initialState);
 
   // router
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // 초기 state
-  const [state, dispatch] = useReducer(
-    postReducer,
-    initialState,
-    (baseState) => ({
-      ...baseState,
-      filter: {
-        tag: searchParams.get("tag") || "",
-        sort: searchParams.get("sort") || "최신순",
-        query: searchParams.get("query") || "",
-      },
-      pagination: {
-        ...baseState.pagination,
-        page: Number(searchParams.get("page")) || 1,
-      },
-    })
-  );
+  const updateQuery = (key, value) => {
+    const params = Object.fromEntries([...searchParams]);
 
-  // state 변경 -> URL 동기화
-  useEffect(() => {
-    const params = {};
-
-    if (state.filter.tag) params.tag = state.filter.tag;
-    if (state.filter.sort !== "최신순") params.sort = state.filter.sort;
-    if (state.filter.query) params.query = state.filter.query;
-    if (state.pagination.page !== 1) params.page = state.pagination.page;
-
-    // 루프 방지
-    const currentParams = Object.fromEntries([...searchParams]);
-    const isDifferent = JSON.stringify(currentParams) !== JSON.stringify(params);
-
-    if (isDifferent) {
-      setSearchParams(params, { replace: true });
+    if (value === "" || value == null) {
+      delete params[key];
+    } else {
+      params[key] = value;
     }
-  }, [
-    state.filter.tag,
-    state.filter.sort,
-    state.filter.query,
-    state.pagination.page,
-  ]);
 
-  // URL 변경 -> state 동기화 (앞/뒤로가기 대응)
-  useEffect(() => {
-    const urlState = {
-      tag: searchParams.get("tag") || "",
-      sort: searchParams.get("sort") || "최신순",
-      query: searchParams.get("query") || "",
-      page: Number(searchParams.get("page")) || 1,
-    };
-
-    const isDifferent =
-      state.filter.tag !== urlState.tag ||
-      state.filter.sort !== urlState.sort ||
-      state.filter.query !== urlState.query ||
-      state.pagination.page !== urlState.page;
-
-    if (isDifferent) {
-      dispatch({
-        type: "SYNC_FROM_URL",
-        payload: urlState,
-      })
+    if (key !== "page") {
+      params.page = 1;
     }
-  }, [
-    searchParams.get("tag"),
-    searchParams.get("sort"),
-    searchParams.get("query"),
-    searchParams.get("page"),
-  ]);
 
-  // 페이지 초기화
+    setSearchParams(params);
+  };
+
+  const tag = searchParams.get("tag") || "";
+  const sort = searchParams.get("sort") || "최신순";
+  const query = searchParams.get("query") || "";
+  const page = Number(searchParams.get("page")) || 1;
+
+  // 스크롤 초기화
   useEffect(() => {
-    dispatch({ type: "SET_PAGE", payload: 1 })
-  }, [
-    state.filter.tag,
-    state.filter.sort,
-    state.filter.query,
-  ]);
+    window.scrollTo({ top: 0 });
+  }, [tag, sort, query, page]);
 
   // 데이터 처리
   const processedPosts = useMemo(() => {
     return getDataProcessing({
       posts: state.data.posts,
-      filter: state.filter,
+      filter: { tag, sort, query },
     });
-  }, [state.data.posts, state.filter]);
+  }, [state.data.posts, tag, sort, query]);
 
-  const totalPage = Math.ceil(processedPosts.length / state.pagination.pageSize);
+  const totalPage = Math.ceil(processedPosts.length / state.pageSize);
 
-  const postList = paginate(processedPosts, state.pagination);
+  const postList = paginate(processedPosts, { page, pageSize: state.pageSize });
 
   return (
     <>
-      <Sidebar onTag={actions.onTag} isMenuOpen={isMenuOpen} />
+      <Sidebar updateQuery={updateQuery} isMenuOpen={isMenuOpen} />
       {/* aside */}
 
       <div className="wrap">
@@ -177,9 +117,12 @@ function App() {
           onClick={syncMenuUI}
         ></div>
 
-        <Header state={state} isMenuOpen={isMenuOpen} onSearch={actions.onSearch} syncMenuUI={syncMenuUI} />
+        <Header query={query} updateQuery={updateQuery} isMenuOpen={isMenuOpen} syncMenuUI={syncMenuUI} />
 
-        <Main state={state} actions={actions} postList={postList} totalPage={totalPage} />
+        <Routes>
+          <Route path="/" element={<Navigate to="/posts" replace />} />
+          <Route path="/posts" element={<Main postSort={sort} page={page} updateQuery={updateQuery} postList={postList} totalPage={totalPage} />} />
+        </Routes>
 
         <Footer />
       </div>

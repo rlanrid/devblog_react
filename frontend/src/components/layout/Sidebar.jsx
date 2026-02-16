@@ -4,7 +4,7 @@ import profileImg from "../../assets/images/profile.jpg";
 import XImg from "../../assets/images/X.jpg";
 
 
-const Sidebar = ({ onTag, isMenuOpen }) => {
+const Sidebar = ({ updateQuery, isMenuOpen }) => {
   return (
     <aside className={`sidebar ${isMenuOpen ? "is-open" : ""}`}>
       <div className="sidebar__inner">
@@ -59,7 +59,7 @@ const Sidebar = ({ onTag, isMenuOpen }) => {
             {tempTags.map((tag) => (
               <li key={tag} className="sidebar__tag-item">
                 <button data-tag={tag} onClick={() => {
-                  onTag(tag)
+                  updateQuery("tag", tag);
                 }}>
                   #{tag}
                 </button>

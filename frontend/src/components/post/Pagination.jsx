@@ -1,15 +1,18 @@
 import React from 'react'
 
-const Pagination = ({ state, actions, totalPage }) => {
+const Pagination = ({ page, updateQuery, totalPage }) => {
   return (
     <nav className="pagination">
       <ul>
         <li>
           <a
             href="/"
-            className={state.pagination.page === 1 ? 'prev disabled' : 'prev'}
-            aria-disabled={state.pagination.page === 1}
-            onClick={(e) => { actions.onPage(e, state.pagination.page - 1) }}
+            className={page === 1 ? 'prev disabled' : 'prev'}
+            aria-disabled={page === 1}
+            onClick={(e) => {
+              e.preventDefault();
+              updateQuery("page", page - 1)
+            }}
           >
             이전
           </a>
@@ -18,9 +21,12 @@ const Pagination = ({ state, actions, totalPage }) => {
           <li key={index}>
             <a
               href="/"
-              className={index === state.pagination.page ? 'active' : ''}
-              aria-disabled={state.pagination.page !== index}
-              onClick={(e) => actions.onPage(e, index)}
+              className={index === page ? 'active' : ''}
+              aria-disabled={page !== index}
+              onClick={(e) => {
+                e.preventDefault();
+                updateQuery("page", index)
+              }}
             >
               {index}
             </a>
@@ -30,9 +36,12 @@ const Pagination = ({ state, actions, totalPage }) => {
         <li>
           <a
             href="/"
-            className={state.pagination.page >= totalPage ? 'next disabled' : 'next '}
-            aria-disabled={state.pagination.page === totalPage}
-            onClick={(e) => { actions.onPage(e, state.pagination.page + 1) }}
+            className={page >= totalPage ? 'next disabled' : 'next '}
+            aria-disabled={page === totalPage}
+            onClick={(e) => {
+              e.preventDefault();
+              updateQuery("page", page + 1)
+            }}
           >
             다음
           </a>

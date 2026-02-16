@@ -1,6 +1,6 @@
 import React from 'react'
 
-const PostItem = ({ post, actions }) => {
+const PostItem = ({ post, updateQuery }) => {
   return (
     <article className="post__item">
       <div className="post__thumbnail">
@@ -24,7 +24,7 @@ const PostItem = ({ post, actions }) => {
           <ul className="post__tag-list">
             {post.tag.map((tag) => (
               <li key={tag} className="post__tag-item">
-                <button onClick={() => actions.onTag(tag)}>
+                <button onClick={() => updateQuery("tag", tag)}>
                   #{tag}
                 </button>
               </li>
