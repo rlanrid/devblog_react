@@ -5,7 +5,7 @@ const PostList = ({ postList, updateQuery }) => {
   return (
     <div className="post__list">
       {postList.map((post) => (
-        <PostItem key={post.id} post={post} updateQuery={updateQuery} />
+        <PostItem key={post._id} post={post} updateQuery={updateQuery} />
       ))}
     </div>
   )

@@ -11,7 +11,7 @@ const PostItem = ({ post, updateQuery }) => {
           <a href="/">{post.title}</a>
         </h2>
         <div className="post__info">
-          <span>{post.info.date}</span>
+          <span>{post.createdAt}</span>
           <span className="dot"></span>
           <span>{post.info.view} 조회수</span>
           <span className="dot"></span>
@@ -22,7 +22,7 @@ const PostItem = ({ post, updateQuery }) => {
         </div>
         <div className="post__tags">
           <ul className="post__tag-list">
-            {post.tag.map((tag) => (
+            {post.tags.map((tag) => (
               <li key={tag} className="post__tag-item">
                 <button onClick={() => updateQuery("tag", tag)}>
                   #{tag}

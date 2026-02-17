@@ -7,7 +7,7 @@ export const getDataProcessing = (data) => {
   if (data.filter.tag !== "") {
     const targetTag = data.filter.tag.toLowerCase();
 
-    result = result.filter(post => post.tag.some(t => t.toLowerCase() === targetTag));
+    result = result.filter(post => post.tags.some(t => t.toLowerCase() === targetTag));
   }
 
   // 검색

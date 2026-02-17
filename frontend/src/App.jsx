@@ -62,8 +62,17 @@ function App() {
     };
   }, [isMenuOpen]);
 
-  // 초기 state 
-  const [state, dispatch] = useReducer(postReducer, initialState);
+  // state
+  const [state, dispatch] = useReducer(postReducer, { pageSize: 5 });
+
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5050/api/posts")
+      .then(res => res.json())
+      .then(data => { setPosts(data) })
+      .catch(err => console.error(err));
+  }, []);
 
   // router
   const [searchParams, setSearchParams] = useSearchParams();
@@ -97,10 +106,10 @@ function App() {
   // 데이터 처리
   const processedPosts = useMemo(() => {
     return getDataProcessing({
-      posts: state.data.posts,
+      posts: posts,
       filter: { tag, sort, query },
     });
-  }, [state.data.posts, tag, sort, query]);
+  }, [posts, tag, sort, query]);
 
   const totalPage = Math.ceil(processedPosts.length / state.pageSize);
 
