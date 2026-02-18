@@ -1,6 +1,8 @@
 import React from 'react'
+import { formatTimeAgo } from '../../utils/dataProcess'
 
 const PostItem = ({ post, updateQuery }) => {
+
   return (
     <article className="post__item">
       <div className="post__thumbnail">
@@ -11,7 +13,7 @@ const PostItem = ({ post, updateQuery }) => {
           <a href="/">{post.title}</a>
         </h2>
         <div className="post__info">
-          <span>{post.createdAt}</span>
+          <span>{formatTimeAgo(post.createdAt)}</span>
           <span className="dot"></span>
           <span>{post.info.view} 조회수</span>
           <span className="dot"></span>

@@ -1,9 +1,9 @@
 import React from 'react'
-import PostList from '../post/PostList';
-import Pagination from '../post/Pagination';
-import PostSort from '../post/PostSort';
+import PostList from '../components/post/PostList';
+import Pagination from '../components/post/Pagination';
+import PostSort from '../components/post/PostSort';
 
-const Main = ({ postSort, page, updateQuery, postList, totalPage }) => {
+const PostListPage = ({ postSort, page, updateQuery, postList, totalPage }) => {
 
   return (
     <main className="main">
@@ -18,4 +18,4 @@ const Main = ({ postSort, page, updateQuery, postList, totalPage }) => {
   )
 }
 
-export default Main
+export default PostListPage

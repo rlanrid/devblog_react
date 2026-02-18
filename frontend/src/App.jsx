@@ -6,12 +6,15 @@ import { useTheme } from "./context/ThemeContext";
 
 import Sidebar from "./components/layout/Sidebar";
 import Header from "./components/layout/Header";
-import Main from "./components/layout/Main";
+import Main from "./pages/PostListPage";
 import Footer from "./components/layout/Footer";
 
 import { getDataProcessing, paginate } from "./utils/dataProcess";
 import { postReducer } from "./store/reducer/postReducer";
 import { Navigate, Route, Routes, useSearchParams } from "react-router-dom";
+import PostCreate from "./pages/PostCreatePage";
+import PostListPage from "./pages/PostListPage";
+import PostCreatePage from "./pages/PostCreatePage";
 
 function App() {
 
@@ -78,19 +81,21 @@ function App() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const updateQuery = (key, value) => {
-    const params = Object.fromEntries([...searchParams]);
+    setSearchParams(prev => {
+      const params = new URLSearchParams(prev);
 
-    if (value === "" || value == null) {
-      delete params[key];
-    } else {
-      params[key] = value;
-    }
+      if (!value) {
+        params.delete(key);
+      } else {
+        params.set(key, value);
+      }
 
-    if (key !== "page") {
-      params.page = 1;
-    }
+      if (key !== "page") {
+        params.get("page", 1);
+      }
 
-    setSearchParams(params);
+      return params;
+    })
   };
 
   const tag = searchParams.get("tag") || "";
@@ -130,7 +135,8 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Navigate to="/posts" replace />} />
-          <Route path="/posts" element={<Main postSort={sort} page={page} updateQuery={updateQuery} postList={postList} totalPage={totalPage} />} />
+          <Route path="/posts" element={<PostListPage postSort={sort} page={page} updateQuery={updateQuery} postList={postList} totalPage={totalPage} />} />
+          <Route path="/posts/create" element={<PostCreatePage />} />
         </Routes>
 
         <Footer />

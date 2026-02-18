@@ -1,6 +1,14 @@
 import React from 'react'
+import { useEffect } from 'react';
+import { useState } from 'react';
 
 const Header = ({ query, updateQuery, isMenuOpen, syncMenuUI }) => {
+
+  const [searchQuery, setSearchQuery] = useState(query);
+
+  useEffect(() => {
+    setSearchQuery(query);
+  }, [query]);
 
   return (
     <header className="header">
@@ -32,8 +40,12 @@ const Header = ({ query, updateQuery, isMenuOpen, syncMenuUI }) => {
             className="header__input"
             placeholder="Search for posts..."
             name="search"
-            value={query}
-            onChange={(e) => updateQuery("query", e.target.value)}
+            value={searchQuery}
+            onChange={(e) => {
+              const value = e.target.value;
+              setSearchQuery(value);
+              updateQuery("query", e.target.value);
+            }}
           />
 
           <button type="submit" className="header__button" onClick={(e) => e.preventDefault()}>Search</button>
