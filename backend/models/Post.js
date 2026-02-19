@@ -33,7 +33,6 @@ const postSchema = new mongoose.Schema(
     },
     summary: {
       type: String,
-      required: true,
     },
     tags: {
       type: [String],

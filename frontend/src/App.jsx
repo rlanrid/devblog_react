@@ -15,6 +15,8 @@ import { Navigate, Route, Routes, useSearchParams } from "react-router-dom";
 import PostCreate from "./pages/PostCreatePage";
 import PostListPage from "./pages/PostListPage";
 import PostCreatePage from "./pages/PostCreatePage";
+import PostDeatilPage from "./pages/PostDeatilPage";
+import PostEditPage from "./components/post/PostEditPage";
 
 function App() {
 
@@ -70,11 +72,18 @@ function App() {
 
   const [posts, setPosts] = useState([]);
 
+  const fetchPosts = async () => {
+    try {
+      const res = await fetch("http://localhost:5050/api/posts");
+      const data = await res.json();
+      setPosts(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   useEffect(() => {
-    fetch("http://localhost:5050/api/posts")
-      .then(res => res.json())
-      .then(data => { setPosts(data) })
-      .catch(err => console.error(err));
+    fetchPosts();
   }, []);
 
   // router
@@ -136,7 +145,11 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/posts" replace />} />
           <Route path="/posts" element={<PostListPage postSort={sort} page={page} updateQuery={updateQuery} postList={postList} totalPage={totalPage} />} />
-          <Route path="/posts/create" element={<PostCreatePage />} />
+
+          <Route path="/posts/:id" element={<PostDeatilPage fetchPosts={fetchPosts} />} />
+
+          <Route path="/posts/create" element={<PostCreatePage fetchPosts={fetchPosts} />} />
+          <Route path="/posts/edit/:id" element={<PostEditPage fetchPosts={fetchPosts} />} />
         </Routes>
 
         <Footer />

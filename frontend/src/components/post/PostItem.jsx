@@ -1,5 +1,6 @@
 import React from 'react'
 import { formatTimeAgo } from '../../utils/dataProcess'
+import { Link } from 'react-router-dom'
 
 const PostItem = ({ post, updateQuery }) => {
 
@@ -10,7 +11,9 @@ const PostItem = ({ post, updateQuery }) => {
       </div>
       <div className="post__content">
         <h2 className="post__title">
-          <a href="/">{post.title}</a>
+          <Link to={`/posts/${post._id}`}>
+            {post.title}
+          </Link>
         </h2>
         <div className="post__info">
           <span>{formatTimeAgo(post.createdAt)}</span>

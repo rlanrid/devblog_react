@@ -9,7 +9,6 @@ const PostListPage = ({ postSort, page, updateQuery, postList, totalPage }) => {
     <main className="main">
       <div className="post__inner">
         <PostSort postSort={postSort} updateQuery={updateQuery} />
-
         <PostList postList={postList} updateQuery={updateQuery} />
       </div>
 
