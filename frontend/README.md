@@ -14,3 +14,4 @@
 **메모리 누수 방지**
 `removeEventListener`
 
+**관심사 분리**

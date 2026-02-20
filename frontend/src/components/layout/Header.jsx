@@ -12,7 +12,7 @@ const Header = ({ query, updateQuery, isMenuOpen, syncMenuUI }) => {
 
   return (
     <header className="header">
-      <div className="header__inner">
+      <div className="header__inner container">
         <button
           className={`hamburger ${isMenuOpen ? "is-open" : ""} `}
           aria-label="메뉴"

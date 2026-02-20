@@ -1,4 +1,5 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const router = express.Router();
 
 const Post = require("../models/Post");
@@ -54,7 +55,20 @@ router.post("/", async (req, res) => {
 // PUT
 router.put("/:id", async (req, res) => {
   try {
-    const updatePost = await Post.findByIdAndUpdate(req.params.id, req.body, { returnDocument: "after" });
+    const { id } = req.params;
+    const { title, content, tags, thumbnail } = req.body;
+
+    console.log(id)
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invaild ID" });
+    }
+
+    const updatePost = await Post.findByIdAndUpdate(
+      id,
+      { title, content, tags, thumbnail },
+      { returnDocument: "after", runValidators: true },
+    );
 
     if (!updatePost) {
       return res.status(404).json({ message: "Post not found" });
