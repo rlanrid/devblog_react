@@ -47,8 +47,6 @@ const Header = ({ query, updateQuery, isMenuOpen, syncMenuUI }) => {
               updateQuery("query", e.target.value);
             }}
           />
-
-          <button type="submit" className="header__button" onClick={(e) => e.preventDefault()}>Search</button>
         </form>
       </div>
     </header >

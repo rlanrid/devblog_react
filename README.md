@@ -1,6 +1,11 @@
-# devblog_react
+# DevBlog(React)
 
-## 개념 
+## 1. 프로젝트 개요
 
-##
-- initFn (useReducer)
+## 2. 기술 스택
+
+## 3. 핵심 기능
+
+## 4. 트러블 슈팅
+
+## 5. 개선 사항

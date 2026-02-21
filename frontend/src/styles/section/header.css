@@ -1,6 +1,6 @@
 .header {
   height: 250px;
-  background-color: var(--header-bg);
+  background-color: var(--bg-header);
 }
 
 .header__inner {
@@ -30,7 +30,7 @@
   left: 50%;
   width: 24px;
   height: 2px;
-  background-color: var(--text-color);
+  background-color: var(--btn-secondary-text);
   transform: translateX(-50%);
   transition: 0.3s;
 }
@@ -42,7 +42,7 @@
   left: 50%;
   width: 24px;
   height: 2px;
-  background-color: var(--text-color);
+  background-color: var(--btn-secondary-text);
   transform: translateX(-50%);
   transition: 0.3s;
 }
@@ -54,7 +54,7 @@
   left: 50%;
   width: 24px;
   height: 2px;
-  background-color: var(--text-color);
+  background-color: var(--btn-secondary-text);
   transform: translateX(-50%);
   transition: 0.3s;
 }
@@ -66,13 +66,13 @@
 .header__inner .hamburger.is-open span::before {
   top: 0;
   transform: translateX(-50%) rotate(45deg);
-  background-color: #fff;
+  background-color: var(--btn-secondary-text);
 }
 
 .header__inner .hamburger.is-open span::after {
   top: 0;
   transform: translateX(-50%) rotate(-45deg);
-  background-color: #fff;
+  background-color: var(--btn-secondary-text);
 }
 
 .header__logo {
@@ -90,13 +90,13 @@
   border: 1px solid gray;
   padding: 10px;
   border-radius: 3px;
-  color: var(--text-color);
+  color: var(--text-primary);
 }
 
 .header__button {
   flex-shrink: 0;
-  border: 1px solid #4acd5b;
-  background-color: #61CB70;
+  background-color: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
   border-radius: 3px;
   padding: 10px;
 }

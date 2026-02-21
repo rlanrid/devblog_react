@@ -7,10 +7,10 @@
 
 .main {
   flex: 1;
+  background-color: var(--bg-page);
 }
 
 .post__inner {
-  /* max-width: 1200px; */
   padding: 50px;
 }
 
@@ -20,12 +20,12 @@
 }
 
 .post__filtering button {
-  color: var(--text-color2);
+  color: var(--text-secondary);
   font-size: 12px;
 }
 
 .post__filtering button.is-active {
-  color: var(--text-color);
+  color: var(--text-primary);
   font-size: 12px;
 }
 
@@ -33,23 +33,25 @@
   content: "|";
   vertical-align: 1px;
   padding: 0 5px;
-  color: var(--text-color);
+  color: var(--text-primary);
+}
+
+.post__none {
+  margin-top: 50px;
+  text-align: center;
 }
 
 .post__list {
-  display: flex;
-  flex-direction: column;
-  gap: 60px;
-}
-
-.post__list>p {
-  margin-top: 50px;
-  text-align: center;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
 }
 
 .post__item {
   display: flex;
   gap: 20px;
+
+  border: 1px solid var(--text-primary);
 }
 
 .post__thumbnail {
@@ -91,14 +93,14 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  color: #888888;
+  color: var(--text-secondary);
   font-size: 14px;
 }
 
 .dot {
   width: 4px;
   height: 4px;
-  background-color: #888888;
+  background-color: var(--btn-neutral-bg);
   border-radius: 50%;
 }
 
@@ -117,16 +119,20 @@
   gap: 8px;
 }
 
+.post__tag-item {
+  background-color: var(--btn-secondary-bg);
+  border-radius: 4px;
+}
+
 .post__tag-item button {
   display: block;
-  color: var(--text-color);
-  background-color: #8383837a;
+  color: var(--btn-secondary-text);
   padding: 4px 8px;
   border-radius: 4px;
 }
 
 .post__tag-item button:hover {
-  background-color: #5959597a;
+  background-color: var(--btn-secondary-hover);
 }
 
 .pagination {
@@ -143,19 +149,19 @@
 .pagination a {
   display: block;
   padding: 8px 12px;
-  color: var(--text-color);
+  color: var(--text-primary);
   border-radius: 4px;
 }
 
 .pagination a:hover {
-  background-color: #333;
-  color: #fff;
+  background-color: var(--btn-neutral-bg);
+  color: var(--btn-neutral-text);
   transition-duration: 0.15s;
 }
 
 .pagination a.active {
-  background-color: #333;
-  color: #fff;
+  background-color: var(--btn-neutral-bg);
+  color: var(--btn-neutral-text);
 }
 
 .overlay {

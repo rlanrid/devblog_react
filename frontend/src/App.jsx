@@ -142,15 +142,17 @@ function App() {
 
         <Header query={query} updateQuery={updateQuery} isMenuOpen={isMenuOpen} syncMenuUI={syncMenuUI} />
 
-        <Routes>
-          <Route path="/" element={<Navigate to="/posts" replace />} />
-          <Route path="/posts" element={<PostListPage postSort={sort} page={page} updateQuery={updateQuery} postList={postList} totalPage={totalPage} />} />
+        <main className="main">
+          <Routes>
+            <Route path="/" element={<Navigate to="/posts" replace />} />
+            <Route path="/posts" element={<PostListPage postSort={sort} page={page} updateQuery={updateQuery} postList={postList} totalPage={totalPage} />} />
 
-          <Route path="/posts/:id" element={<PostDeatilPage fetchPosts={fetchPosts} />} />
+            <Route path="/posts/:id" element={<PostDeatilPage fetchPosts={fetchPosts} />} />
 
-          <Route path="/posts/create" element={<PostCreatePage fetchPosts={fetchPosts} />} />
-          <Route path="/posts/edit/:id" element={<PostEditPage fetchPosts={fetchPosts} />} />
-        </Routes>
+            <Route path="/posts/create" element={<PostCreatePage fetchPosts={fetchPosts} />} />
+            <Route path="/posts/edit/:id" element={<PostEditPage fetchPosts={fetchPosts} />} />
+          </Routes>
+        </main>
 
         <Footer />
       </div>

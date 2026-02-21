@@ -1,11 +1,10 @@
 .footer {
-  width: 100%;
-  border-top: 1px solid #666;
+  border-top: 1px solid var(--border-strong);
   padding: 20px;
 }
 
-.footer__content {
+.footer__inner {
   text-align: center;
-  color: #666;
+  color: var(--text-secondary);
   font-size: 14px;
 }

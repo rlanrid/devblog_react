@@ -39,8 +39,8 @@ button {
 body {
   font-family: "Pretendard Variable", Pretendard, sans-serif;
   letter-spacing: -0.02em;
-  color: var(--text-color);
-  background-color: var(--bg-color);
+  color: var(--text-primary);
+  background-color: var(--bg-page);
 }
 
 body.is-locked {

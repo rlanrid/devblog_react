@@ -1,32 +1,60 @@
 :root {
   --mainfont: "Pretendard Variable", Pretendard, sans-serif;
 
-  --black: #000;
-  --black100: #1b1b1b;
-  --black200: #3a3a3a;
-  --black300: #6b6b6b;
-  --black400: #9c9c9c;
-  --black500: #cbcbcb;
+  --white: #ffffff;
+  --black: #000000;
 
-  --white: #fff;
-  --white100: #e7e7e7;
-  --white200: #cacaca;
-  --white300: #b8b8b8;
-  --white400: #8e8e8e;
-  --white500: #767676;
+  --gray-50: #f8f9fa;
+  --gray-100: #f1f3f5;
+  --gray-200: #e9ecef;
+  --gray-300: #dee2e6;
+  --gray-400: #ced4da;
+  --gray-500: #adb5bd;
+  --gray-600: #868e96;
+  --gray-700: #495057;
+  --gray-800: #343a40;
+  --gray-900: #212529;
+
+  --brand-500: #364fc7;
+  --brand-600: #2f44b2;
+  --brand-900: #2D3447;
 
   font-family: var(--mainfont);
 }
 
 :root[data-theme="light"] {
-  --bg-color: #ffffff;
-  --text-color: #000000;
-  --text-color2: #6f6f6f;
-  --header-bg: #FAFAFA;
+  /* background */
+  --bg-page: var(--white);
+  --bg-header: var(--gray-50);
+  --bg-sidebar: var(--brand-900);
+  --bg-card: var(--white);
+
+  /* text */
+  --text-primary: var(--gray-900);
+  --text-secondary: var(--gray-600);
+
+  /* border */
+  --border-default: var(--gray-200);
+  --border-bold: var(--gray-300);
+  --border-strong: var(--gray-800);
+
+  /* button */
+  --btn-primary-bg: var(--brand-500);
+  --btn-primary-text: var(--white);
+  --btn-primary-hover: var(--brand-600);
+
+  --btn-secondary-bg: var(--gray-400);
+  --btn-secondary-text: var(--gray-800);
+  --btn-secondary-hover: var(--gray-500);
+
+  --btn-neutral-bg: var(--gray-700);
+  --btn-neutral-text: var(--white);
+  --btn-neutral-hover: var(--gray-600);
 }
 
 :root[data-theme="dark"] {
-  --bg-color: #000000;
+  --bg-page: #000000;
+
   --text-color: #ffffff;
   --text-color2: #999999;
   --header-bg: #0a0a0a;
