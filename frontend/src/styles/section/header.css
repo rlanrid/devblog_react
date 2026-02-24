@@ -1,6 +1,6 @@
 .header {
   height: 250px;
-  background-color: var(--bg-header);
+  background-color: var(--bg-sub);
 }
 
 .header__inner {

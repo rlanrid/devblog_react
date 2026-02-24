@@ -22,12 +22,25 @@ const PostItem = ({ post, updateQuery }) => {
           {post.content}
         </div>
         <div className="post__info">
+          <div className="post__info-top">
+            <span>{formatTimeAgo(post.createdAt)}</span>
+            <span className="dot"></span>
+            <span>{post.info.view} 조회수</span>
+            <span className="dot"></span>
+            <span>{post.info.comment} 댓글</span>
+          </div>
+          <div className="post__info-bottom">
+            <span>{post.info.author}</span>
+            <span>{"3 좋아요"}</span>
+          </div>
+        </div>
+        {/* <div className="post__info">
           <span>{formatTimeAgo(post.createdAt)}</span>
           <span className="dot"></span>
           <span>{post.info.view} 조회수</span>
           <span className="dot"></span>
           <span>{post.info.comment} 댓글</span>
-        </div>
+        </div> */}
         {/* <div className="post__tags">
           <ul className="post__tag-list">
             {post.tags.map((tag) => (

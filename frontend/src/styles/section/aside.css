@@ -14,7 +14,7 @@
   color: white;
   height: 100%;
   padding: 30px 25px;
-  background-color: var(--bg-sidebar);
+  background-color: var(--bg-inverse);
 }
 
 .sidebar__header {

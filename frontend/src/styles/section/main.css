@@ -7,7 +7,7 @@
 
 .main {
   flex: 1;
-  background-color: var(--bg-page);
+  background-color: var(--bg-base);
 }
 
 .post__inner {
