@@ -1,15 +1,3 @@
-.wrap {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  margin-left: 320px;
-}
-
-.main {
-  flex: 1;
-  background-color: var(--bg-base);
-}
-
 .post__inner {
   padding: 50px;
 }
@@ -20,7 +8,7 @@
 }
 
 .post__filtering button {
-  color: var(--text-secondary);
+  color: var(--text-disabled);
   font-size: 12px;
 }
 
@@ -49,21 +37,22 @@
 
 .post__item {
   display: flex;
+  flex-direction: column;
   gap: 20px;
-
+  background-color: var(--bg-surface);
   border: 1px solid var(--text-primary);
 }
 
 .post__thumbnail {
-  width: 130px;
-  height: 130px;
+  overflow: hidden;
   flex-shrink: 0;
+  background-color: var(--bg-base);
 }
 
 .post__thumbnail>img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  object-position: center;
 }
 
 .post__content {
@@ -100,7 +89,7 @@
 .dot {
   width: 4px;
   height: 4px;
-  background-color: var(--btn-neutral-bg);
+  background-color: var(--action-neutral);
   border-radius: 50%;
 }
 
@@ -120,19 +109,19 @@
 }
 
 .post__tag-item {
-  background-color: var(--btn-secondary-bg);
+  background-color: var(--action-secondary);
   border-radius: 4px;
 }
 
 .post__tag-item button {
   display: block;
-  color: var(--btn-secondary-text);
+  color: var(--text-primary);
   padding: 4px 8px;
   border-radius: 4px;
 }
 
 .post__tag-item button:hover {
-  background-color: var(--btn-secondary-hover);
+  background-color: var(--action-secondary-hover);
 }
 
 .pagination {
@@ -154,31 +143,12 @@
 }
 
 .pagination a:hover {
-  background-color: var(--btn-neutral-bg);
-  color: var(--btn-neutral-text);
+  background-color: var(--action-neutral);
+  color: var(--text-inverse);
   transition-duration: 0.15s;
 }
 
 .pagination a.active {
-  background-color: var(--btn-neutral-bg);
-  color: var(--btn-neutral-text);
-}
-
-.overlay {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(102, 102, 102, 0);
-  backdrop-filter: blur(0);
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, background-color 0.3s ease, backdrop-filter 0.3s ease;
-  z-index: 1050;
-}
-
-.overlay.is-open {
-  opacity: 1;
-  visibility: visible;
-  background-color: rgba(102, 102, 102, 0.3);
-  backdrop-filter: blur(5px);
+  background-color: var(--action-neutral);
+  color: var(--text-inverse);
 }

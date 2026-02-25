@@ -30,7 +30,7 @@
   left: 50%;
   width: 24px;
   height: 2px;
-  background-color: var(--btn-secondary-text);
+  background-color: var(--bg-inverse);
   transform: translateX(-50%);
   transition: 0.3s;
 }
@@ -42,7 +42,7 @@
   left: 50%;
   width: 24px;
   height: 2px;
-  background-color: var(--btn-secondary-text);
+  background-color: var(--bg-inverse);
   transform: translateX(-50%);
   transition: 0.3s;
 }
@@ -54,7 +54,7 @@
   left: 50%;
   width: 24px;
   height: 2px;
-  background-color: var(--btn-secondary-text);
+  background-color: var(--bg-inverse);
   transform: translateX(-50%);
   transition: 0.3s;
 }
@@ -66,13 +66,13 @@
 .header__inner .hamburger.is-open span::before {
   top: 0;
   transform: translateX(-50%) rotate(45deg);
-  background-color: var(--btn-secondary-text);
+  background-color: var(--bg-base);
 }
 
 .header__inner .hamburger.is-open span::after {
   top: 0;
   transform: translateX(-50%) rotate(-45deg);
-  background-color: var(--btn-secondary-text);
+  background-color: var(--bg-base);
 }
 
 .header__logo {
@@ -95,8 +95,8 @@
 
 .header__button {
   flex-shrink: 0;
-  background-color: var(--btn-primary-bg);
-  color: var(--btn-primary-text);
+  background-color: var(--action-primary);
+  color: var(--text-primary);
   border-radius: 3px;
   padding: 10px;
 }

@@ -3,6 +3,8 @@
 
   --color-white: #ffffff;
   --color-black: #000000;
+  --color-green: #40c057;
+  --color-red: #fa5252;
 
   --color-gray-50: #f8f9fa;
   --color-gray-100: #f1f3f5;
@@ -15,60 +17,49 @@
   --color-gray-800: #343a40;
   --color-gray-900: #212529;
 
-  --brand-500: #364fc7;
-  --brand-600: #2f44b2;
-  --brand-900: #2D3447;
-
-  font-family: var(--mainfont);
+  --color-brand-500: #364fc7;
+  --color-brand-600: #2f44b2;
+  --color-brand-900: #2D3447;
 }
 
 :root[data-theme="light"] {
   /* 배경 */
   --bg-base: var(--color-white);
   --bg-sub: var(--color-gray-50);
+  --bg-surface: var(--color-gray-100);
   --bg-inverse: var(--color-gray-900);
 
+  /* 텍스트 */
+  --text-primary: var(--color-gray-900);
+  --text-secondary: var(--color-gray-700);
+  --text-inverse: var(--color-gray-100);
+  --text-disabled: var(--color-gray-600);
 
+  /* 보더 */
+  --border-default: var(--color-gray-200);
+  --border-strong: var(--color-gray-800);
 
+  /* 액션 */
+  --action-primary: var(--color-brand-500);
+  --action-primary-hover: var(--color-brand-600);
 
+  --action-secondary: var(--color-gray-300);
+  --action-secondary-hover: var(--color-gray-400);
 
-
-
-
-
-
-
-  /* background */
-  --bg-sidebar: var(--brand-900);
-  --bg-card: var(--white);
-
-  /* text */
-  --text-primary: var(--gray-900);
-  --text-secondary: var(--gray-600);
-
-  /* border */
-  --border-default: var(--gray-200);
-  --border-bold: var(--gray-300);
-  --border-strong: var(--gray-800);
-
-  /* button */
-  --btn-primary-bg: var(--brand-500);
-  --btn-primary-text: var(--white);
-  --btn-primary-hover: var(--brand-600);
-
-  --btn-secondary-bg: var(--gray-400);
-  --btn-secondary-text: var(--gray-800);
-  --btn-secondary-hover: var(--gray-500);
-
-  --btn-neutral-bg: var(--gray-700);
-  --btn-neutral-text: var(--white);
-  --btn-neutral-hover: var(--gray-600);
+  --action-neutral: var(--color-gray-700);
+  --action-neutral-hover: var(--color-gray-600);
 }
 
 :root[data-theme="dark"] {
-  --bg-page: #000000;
+  /* 배경 */
+  --bg-base: #121212;
+  --bg-sub: var(--color-gray-900);
+  --bg-surface: #1e1e1e;
 
-  --text-color: #ffffff;
-  --text-color2: #999999;
-  --header-bg: #0a0a0a;
+  /* 텍스트 */
+
+  /* 보더 */
+
+  /* 액션 */
+
 }

@@ -37,7 +37,7 @@ button {
 }
 
 body {
-  font-family: "Pretendard Variable", Pretendard, sans-serif;
+  font-family: var(--mainfont);
   letter-spacing: -0.02em;
   color: var(--text-primary);
   background-color: var(--bg-base);

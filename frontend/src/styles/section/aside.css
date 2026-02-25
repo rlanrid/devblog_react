@@ -53,7 +53,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: var(--btn-neutral-bg);
+  background-color: var(--action-neutral);
 }
 
 .menu {
@@ -67,7 +67,7 @@
 }
 
 .menu__item a:hover {
-  background-color: var(--btn-neutral-hover);
+  background-color: var(--action-neutral-hover);
   transition-duration: 0.2s;
 }
 
@@ -81,17 +81,17 @@
 }
 
 .sidebar__tag-item {
-  background-color: var(--btn-neutral-bg);
+  background-color: var(--action-neutral);
   border-radius: 4px;
 }
 
 .sidebar__tag-item:hover {
-  background-color: var(--btn-neutral-hover);
+  background-color: var(--action-neutral-hover);
   transition-duration: 0.2s;
 }
 
 .sidebar__tag-item button {
   padding: 5px 8px;
   cursor: pointer;
-  color: var(--btn-primary-text);
+  color: var(--text-inverse);
 }
