@@ -1,5 +1,6 @@
 .post__inner {
   padding: 50px;
+  max-width: 1800px;
 }
 
 .post__filtering {
@@ -31,29 +32,34 @@
 
 .post__list {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 32px;
+  overflow: hidden;
 }
 
 .post__item {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  background-color: var(--bg-surface);
-  border: 1px solid var(--text-primary);
+  background-color: var(--bg-base);
+  box-shadow: 0 4px 16px 0 rgba(0, 0, 0, .04);
 }
 
 .post__thumbnail {
+  width: 100%;
   overflow: hidden;
   flex-shrink: 0;
-  background-color: var(--bg-base);
+  aspect-ratio: 2 / 1;
 }
 
 .post__thumbnail>img {
-  aspect-ratio: 16 / 9;
-  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   object-position: center;
 }
+
+
 
 .post__content {
   display: flex;

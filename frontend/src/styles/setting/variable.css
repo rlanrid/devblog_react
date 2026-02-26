@@ -25,7 +25,7 @@
 :root[data-theme="light"] {
   /* 배경 */
   --bg-base: var(--color-white);
-  --bg-sub: var(--color-gray-50);
+  --bg-sub: var(--color-gray-200);
   --bg-surface: var(--color-gray-100);
   --bg-inverse: var(--color-gray-900);
 

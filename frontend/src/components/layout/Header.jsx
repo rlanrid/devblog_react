@@ -14,7 +14,7 @@ const Header = ({ query, updateQuery, isMenuOpen, syncMenuUI }) => {
     <header className="header">
       <div className="header__inner container">
         <button
-          className={`hamburger ${isMenuOpen ? "is-open" : ""} `}
+          // className={`hamburger ${isMenuOpen ? "is-open" : ""} `}
           aria-label="메뉴"
           aria-expanded={isMenuOpen ? "True" : "False"}
           onClick={syncMenuUI}
