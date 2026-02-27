@@ -23,11 +23,11 @@ const PostItem = ({ post, updateQuery }) => {
         </div>
         <div className="post__info">
           <div className="post__info-top">
-            <span>{formatTimeAgo(post.createdAt)}</span>
+            <span className="post__info-item">{formatTimeAgo(post.createdAt)}</span>
             <span className="dot"></span>
-            <span>{post.info.view} 조회수</span>
+            <span className="post__info-item">{post.info.view} 조회수</span>
             <span className="dot"></span>
-            <span>{post.info.comment} 댓글</span>
+            <span className="post__info-item">{post.info.comments} 댓글</span>
           </div>
           <div className="post__info-bottom">
             <span>{post.info.author}</span>
