@@ -9,7 +9,7 @@ const PostListPage = ({ postSort, page, updateQuery, postList, totalPage }) => {
     <>
       <div className="post__inner">
         <PostSort postSort={postSort} updateQuery={updateQuery} />
-        <PostList postList={postList} updateQuery={updateQuery} />
+        <PostList postList={postList} />
       </div>
 
       <Pagination page={page} updateQuery={updateQuery} totalPage={totalPage} />

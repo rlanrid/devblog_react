@@ -1,14 +1,14 @@
 import React from 'react'
 import PostItem from './PostItem'
 
-const PostList = ({ postList, updateQuery }) => {
+const PostList = ({ postList }) => {
   return (
     <>
       {postList && postList.length > 0 ?
         <div className="post__list">
           {
             postList.map((post) => (
-              <PostItem key={post._id} post={post} updateQuery={updateQuery} />
+              <PostItem key={post._id} post={post} />
             ))
           }
         </div> :

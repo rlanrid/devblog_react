@@ -29,12 +29,15 @@ const PostDeatilPage = ({ fetchPosts }) => {
 
   return (
     <>
-      <div>제목:{detailPost.title}</div>
-      <div>내용:{detailPost.content}</div>
-      <div>태그:{detailPost.tags}</div>
-      <div>이미지:{detailPost.thumbnail} </div>
+      <div className="post__detail">
+        <div>제목:{detailPost.title}</div>
+        <div>내용:{detailPost.content}</div>
+        <div>태그:{detailPost.tags}</div>
+        <div>이미지:{detailPost.thumbnail} </div>
 
-      <button onClick={handleDelete}>삭제</button>
+        <button onClick={handleDelete}>삭제</button>
+
+      </div>
     </>
   )
 }

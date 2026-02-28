@@ -9,11 +9,11 @@ const Sidebar = ({ updateQuery, isMenuOpen }) => {
     <aside className={`sidebar ${isMenuOpen ? "is-open" : ""}`}>
       <div className="sidebar__inner">
         <header className="sidebar__header">
-          <h1 className="sidebar__logo">WJ's blog</h1>
+          <h1 className="sidebar__logo">Anonymous</h1>
           <div className="sidebar__profile">
             <img src={profileImg} alt="프로필 이미지" className="profile" />
           </div>
-          <p className="sidebar__bio">Hi, my name is Mike. </p>
+          <p className="sidebar__bio">로그인이 필요합니다.</p>
           <ul className="social">
             <li className="social__item Github">
               <a href="">

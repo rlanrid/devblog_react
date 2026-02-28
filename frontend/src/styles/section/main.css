@@ -49,6 +49,11 @@
   transform: translateY(-4px);
 }
 
+.post__item a {
+  display: block;
+  height: 100%;
+}
+
 .post__thumbnail {
   width: 100%;
   overflow: hidden;
@@ -56,7 +61,7 @@
   aspect-ratio: 2 / 1;
 }
 
-.post__thumbnail>img {
+.post__thumbnail img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -80,7 +85,6 @@
 }
 
 .post__title a {
-  display: block;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -97,12 +101,13 @@
   height: 3.75em;
   font-size: 14px;
   color: var(--text-secondary);
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 .post__info {
   display: flex;
-  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   gap: 10px;
   color: var(--text-secondary);
   font-size: 12px;
@@ -110,6 +115,16 @@
 
 .post__info-top {
   color: var(--text-disabled);
+}
+
+.post__info-bottom {
+  display: flex;
+  justify-content: space-between;
+}
+
+.post__info-bottom span {
+  color: var(--text-primary);
+  font-weight: 500;
 }
 
 .post__info-item {
@@ -173,4 +188,11 @@
 .pagination a.active {
   background-color: var(--action-neutral);
   color: var(--text-inverse);
+}
+
+/* 게시글 디테일 */
+
+.post__detail {
+  padding: 50px;
+  max-width: 800px;
 }
