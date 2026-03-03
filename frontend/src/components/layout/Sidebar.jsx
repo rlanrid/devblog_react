@@ -13,7 +13,7 @@ const Sidebar = ({ updateQuery, isMenuOpen }) => {
           <div className="sidebar__profile">
             <img src={profileImg} alt="프로필 이미지" className="profile" />
           </div>
-          <p className="sidebar__bio">로그인이 필요합니다.</p>
+          <p className="sidebar__bio">-</p>
           <ul className="social">
             <li className="social__item Github">
               <a href="">
