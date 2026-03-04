@@ -32,6 +32,9 @@ const PostDeatilPage = ({ fetchPosts }) => {
       <div className="post-detail">
         <div className="post-detail__meta">
           <h1 className="post-detail__title">{detailPost.title}</h1>
+          <div className="post-detail__info">
+
+          </div>
         </div>
 
 
