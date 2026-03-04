@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
+import { formatTimeAgo } from '../utils/dataProcess';
 
 const PostDeatilPage = ({ fetchPosts }) => {
   const { id } = useParams();
@@ -32,9 +33,21 @@ const PostDeatilPage = ({ fetchPosts }) => {
       <div className="post-detail">
         <div className="post-detail__meta">
           <h1 className="post-detail__title">{detailPost.title}</h1>
-          <div className="post-detail__info">
 
+          <div className="post-detail__info">
+            <div className="post-detail__info-left">
+              <span>{detailPost.info?.author}</span>
+              <span>{formatTimeAgo(detailPost.createdAt)}</span>
+            </div>
+
+            <div className="post-detail__info-right">
+              <button className="post-detail__action-btn">팔로우</button>
+            </div>
           </div>
+        </div>
+
+        <div className="post-detail__content">
+          {detailPost.content}
         </div>
 
 

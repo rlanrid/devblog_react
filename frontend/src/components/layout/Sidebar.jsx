@@ -14,7 +14,7 @@ const Sidebar = ({ updateQuery, isMenuOpen }) => {
             <img src={profileImg} alt="프로필 이미지" className="profile" />
           </div>
           <p className="sidebar__bio">-</p>
-          <ul className="social">
+          {/* <ul className="social">
             <li className="social__item Github">
               <a href="">
                 <img src={XImg} alt="X" className="social__img" />
@@ -40,7 +40,7 @@ const Sidebar = ({ updateQuery, isMenuOpen }) => {
                 <img src={XImg} alt="X" className="social__img" />
               </a>
             </li>
-          </ul>
+          </ul> */}
         </header>
 
         <nav className="nav" aria-label="주 메뉴">

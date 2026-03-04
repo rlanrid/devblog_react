@@ -119,6 +119,7 @@
 
 .post__info-bottom {
   display: flex;
+  align-items: center;
   justify-content: space-between;
 }
 
@@ -192,7 +193,55 @@
 
 /* 게시글 디테일 */
 
-.post__detail {
-  padding: 50px;
+.post-detail {
+  margin: 2rem auto;
   max-width: 800px;
+  min-height: 500px;
+}
+
+.post-detail__meta {
+  margin-bottom: 2rem;
+}
+
+.post-detail__title {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.post-detail__info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.post-detail__info-left {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.post-detail__info-left span:first-child {
+  font-weight: 600;
+  position: relative;
+}
+
+.post-detail__info-left span:first-child::after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  top: 50%;
+  right: -8px;
+  transform: translateY(-50%);
+  border-radius: 50px;
+  background-color: var(--bg-inverse);
+}
+
+.post-detail__info-left span:last-child {
+  color: var(--text-secondary);
+}
+
+.post-detail__content {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
 }
