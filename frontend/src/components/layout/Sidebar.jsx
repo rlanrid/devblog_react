@@ -1,59 +1,46 @@
-import { tempTags } from "../../utils/constants";
+import { HiOutlineHome, HiClock, HiChartBar } from "react-icons/hi";
+import logoImg from "../../assets/icons/logo.png";
 
-import profileImg from "../../assets/images/profile.jpg";
-import XImg from "../../assets/images/X.jpg";
-
-
-const Sidebar = ({ updateQuery, isMenuOpen }) => {
+const Sidebar = ({ isMenuOpen }) => {
   return (
     <aside className={`sidebar ${isMenuOpen ? "is-open" : ""}`}>
-      <div className="sidebar__inner">
-        <header className="sidebar__header">
-          <h1 className="sidebar__logo">Anonymous</h1>
-          <div className="sidebar__profile">
-            <img src={profileImg} alt="프로필 이미지" className="profile" />
+      <header className="sidebar__header">
+        <h1 className="sidebar__logo">
+          <div className="sidebar__logo-box">
+            D
           </div>
-          <p className="sidebar__bio">-</p>
-          {/* <ul className="social">
-            <li className="social__item Github">
-              <a href="">
-                <img src={XImg} alt="X" className="social__img" />
-              </a>
-            </li>
-            <li className="social__item Jobkorea">
-              <a href="">
-                <img src={XImg} alt="X" className="social__img" />
-              </a>
-            </li>
-            <li className="social__item Saramin">
-              <a href="">
-                <img src={XImg} alt="X" className="social__img" />
-              </a>
-            </li>
-            <li className="social__item X">
-              <a href="">
-                <img src={XImg} alt="X" className="social__img" />
-              </a>
-            </li>
-            <li className="social__item X">
-              <a href="">
-                <img src={XImg} alt="X" className="social__img" />
-              </a>
-            </li>
-          </ul> */}
-        </header>
+          <span>DevBlog</span>
+        </h1>
+      </header>
 
+      <div className="sidebar__inner">
         <nav className="nav" aria-label="주 메뉴">
-          <ul className="menu">
-            <li className="menu__item"><a href="/">Home</a></li>
-            <li className="menu__item"><a href="/">My Posts</a></li>
-            <li className="menu__item"><a href="/">Setting</a></li>
+          <ul className="sidebar__menu">
+            <li className="sidebar__menu-item">
+              <a href="/" className="sidebar__active">
+                <HiOutlineHome />
+                <span>홈</span>
+              </a>
+            </li>
+            <li className="sidebar__menu-item">
+              <a href="/">
+                <HiClock />
+                <span>활동</span>
+              </a>
+            </li>
+            <li className="sidebar__menu-item">
+              <a href="/">
+                <HiChartBar />
+                <span>통계</span>
+              </a>
+            </li>
           </ul>
         </nav>
 
+
         {/* todo: post write */}
 
-        <section className="sidebar__tags" aria-labelledby="sidebar__tags-head">
+        {/* <section className="sidebar__tags" aria-labelledby="sidebar__tags-head">
           <h2 id="sidebar__tags-head" className="sr-only">태그 목록</h2>
           <ul className="sidebar__tag-list">
             {tempTags.map((tag) => (
@@ -66,7 +53,7 @@ const Sidebar = ({ updateQuery, isMenuOpen }) => {
               </li>
             ))}
           </ul>
-        </section>
+        </section> */}
       </div>
     </aside>
   )

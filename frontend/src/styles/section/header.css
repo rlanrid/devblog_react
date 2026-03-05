@@ -1,9 +1,12 @@
 .header {
-  height: 250px;
-  background-color: var(--bg-sub);
+  height: 8vh;
+  /* background-color: var(--bg-sub); */
+  border-bottom: 1px solid var(--border-default);
 }
 
-.header__inner {
+
+
+/* .header__inner {
   position: relative;
   height: 250px;
   display: flex;
@@ -13,6 +16,35 @@
   text-align: center;
   gap: 15px;
 }
+
+.header__logo {
+  margin-bottom: 5px;
+}
+
+.header__search {
+  width: 320px;
+  display: flex;
+  gap: 6px;
+}
+
+.header__input {
+  flex: 1;
+  border: 1px solid gray;
+  padding: 10px;
+  border-radius: 3px;
+  color: var(--text-primary);
+}
+
+.header__button {
+  flex-shrink: 0;
+  background-color: var(--action-primary);
+  color: var(--text-primary);
+  border-radius: 3px;
+  padding: 10px;
+} */
+
+
+/* 햄버거 */
 
 .header__inner .hamburger {
   display: none;
@@ -73,30 +105,4 @@
   top: 0;
   transform: translateX(-50%) rotate(-45deg);
   background-color: var(--bg-base);
-}
-
-.header__logo {
-  margin-bottom: 5px;
-}
-
-.header__search {
-  width: 320px;
-  display: flex;
-  gap: 6px;
-}
-
-.header__input {
-  flex: 1;
-  border: 1px solid gray;
-  padding: 10px;
-  border-radius: 3px;
-  color: var(--text-primary);
-}
-
-.header__button {
-  flex-shrink: 0;
-  background-color: var(--action-primary);
-  color: var(--text-primary);
-  border-radius: 3px;
-  padding: 10px;
 }

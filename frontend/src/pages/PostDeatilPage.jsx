@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { formatTimeAgo } from '../utils/dataProcess';
 
 const PostDeatilPage = ({ fetchPosts }) => {
@@ -28,6 +28,8 @@ const PostDeatilPage = ({ fetchPosts }) => {
     navigate("/posts");
   };
 
+  if (!detailPost) return <div>로딩 중...</div>
+
   return (
     <>
       <div className="post-detail">
@@ -36,7 +38,7 @@ const PostDeatilPage = ({ fetchPosts }) => {
 
           <div className="post-detail__info">
             <div className="post-detail__info-left">
-              <span>{detailPost.info?.author}</span>
+              <span>{detailPost?.info?.author}</span>
               <span>{formatTimeAgo(detailPost.createdAt)}</span>
             </div>
 
@@ -44,6 +46,16 @@ const PostDeatilPage = ({ fetchPosts }) => {
               <button className="post-detail__action-btn">팔로우</button>
             </div>
           </div>
+
+          <ul className="post-detail__tags">
+            {detailPost?.tags?.map((tag) => (
+              <li key={tag}>
+                <Link to={`/posts?tag=${encodeURIComponent(tag)}`}>
+                  # {tag}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
 
         <div className="post-detail__content">

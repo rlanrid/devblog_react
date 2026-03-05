@@ -1,22 +1,20 @@
 import { useEffect, useMemo, useReducer, useState } from "react";
 
-import { initialState } from "./store/initialState";
-
 import { useTheme } from "./context/ThemeContext";
 
 import Sidebar from "./components/layout/Sidebar";
 import Header from "./components/layout/Header";
-import Main from "./pages/PostListPage";
 import Footer from "./components/layout/Footer";
 
 import { getDataProcessing, paginate } from "./utils/dataProcess";
 import { postReducer } from "./store/reducer/postReducer";
 import { Navigate, Route, Routes, useSearchParams } from "react-router-dom";
-import PostCreate from "./pages/PostCreatePage";
+
 import PostListPage from "./pages/PostListPage";
 import PostCreatePage from "./pages/PostCreatePage";
 import PostDeatilPage from "./pages/PostDeatilPage";
 import PostEditPage from "./components/post/PostEditPage";
+import BlogLayout from "./components/layout/BlogLayout";
 
 function App() {
 
@@ -131,7 +129,7 @@ function App() {
 
   return (
     <>
-      <Sidebar updateQuery={updateQuery} isMenuOpen={isMenuOpen} />
+      <Sidebar isMenuOpen={isMenuOpen} />
       {/* aside */}
 
       <div className="wrap">
@@ -167,6 +165,16 @@ function App() {
         {theme === "dark" ? "☀️" : "🌙"}
       </button>
       {/* toggle */}
+
+
+      {/* 
+      <Routes>
+        <Route path="/" element={<Navigate to="/posts" replace />} />
+
+        <Route element={<BlogLayout />}>
+          <Route path="/posts" element={<PostListPage postSort={sort} page={page} updateQuery={updateQuery} postList={postList} totalPage={totalPage} />} />
+        </Route>
+      </Routes> */}
     </>
   )
 }

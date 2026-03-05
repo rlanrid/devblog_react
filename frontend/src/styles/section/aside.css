@@ -2,74 +2,111 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 280px;
+  width: 250px;
   height: 100vh;
   transition: transform 0.3s ease;
+  border-right: 1px solid var(--border-default);
 }
 
 .sidebar__inner {
   display: flex;
   flex-direction: column;
   text-align: center;
-  color: white;
+  color: var(--text-primary);
   height: 100%;
-  padding: 30px 25px;
-  background-color: var(--bg-inverse);
+  padding: 0 2rem;
 }
 
 .sidebar__header {
   border-bottom: 1px solid var(--border-default);
   margin-bottom: 25px;
-}
-
-.sidebar__header>* {
-  margin-bottom: 25px;
+  height: 8vh;
+  display: flex;
+  align-items: center;
+  padding: 0 2rem;
 }
 
 .sidebar__logo {
-  font-size: 26px;
-  margin-bottom: 30px;
-}
-
-.sidebar__profile {
   display: flex;
-  justify-content: center;
-}
-
-.profile {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-}
-
-.social {
-  display: flex;
-  justify-content: center;
   align-items: center;
   gap: 10px;
+  font-size: 26px;
 }
 
-.social__img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: var(--action-neutral);
+.sidebar__logo-box {
+  width: 32px;
+  height: 32px;
+  color: var(--text-inverse);
+  background-color: var(--bg-inverse);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.2rem;
+  position: relative;
 }
 
-.menu {
+.sidebar__logo-box::after {
+  content: "D";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.sidebar__menu {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2px;
   margin-bottom: 25px;
 }
 
-.menu__item a {
-  display: block;
-  padding: 8px 0;
+.sidebar__menu-item a {
+  display: flex;
+  align-items: center;
+  padding: 8px 10px;
+  gap: 7px;
   cursor: pointer;
+  position: relative;
 }
 
-.menu__item a:hover {
-  background-color: var(--action-neutral-hover);
+.sidebar__menu-item a:hover {
   transition-duration: 0.2s;
 }
+
+.sidebar__menu-item a.sidebar__active {
+  color: var(--action-primary);
+  font-weight: 600;
+}
+
+.sidebar__menu-item a.sidebar__active::before {
+  transform: translateY(-50%) scaleY(1);
+  background-color: var(--action-primary);
+}
+
+.sidebar__menu-item a::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%) scaleY(0);
+  width: 4px;
+  height: 50%;
+  background-color: var(--action-primary);
+  border-radius: 0 4px 4px 0;
+  transition: transform 0.2s ease;
+}
+
+.sidebar__menu-item a:hover::before {
+  transform: translateY(-50%) scaleY(1);
+}
+
+.sidebar__menu-item a svg {
+  font-size: 1.2rem;
+}
+
 
 .sidebar__tag-list {
   display: flex;
