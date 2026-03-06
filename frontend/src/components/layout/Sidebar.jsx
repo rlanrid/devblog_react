@@ -37,9 +37,6 @@ const Sidebar = ({ isMenuOpen }) => {
           </ul>
         </nav>
 
-
-        {/* todo: post write */}
-
         {/* <section className="sidebar__tags" aria-labelledby="sidebar__tags-head">
           <h2 id="sidebar__tags-head" className="sr-only">태그 목록</h2>
           <ul className="sidebar__tag-list">
