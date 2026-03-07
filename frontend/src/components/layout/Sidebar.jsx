@@ -1,38 +1,57 @@
-import { HiOutlineHome, HiClock, HiChartBar } from "react-icons/hi";
-import logoImg from "../../assets/icons/logo.png";
+import { HiOutlineHome, HiClock, HiChartBar, HiCog, HiOutlineSun, HiOutlineMoon } from "react-icons/hi";
+import { Link } from "react-router-dom";
 
 const Sidebar = ({ isMenuOpen }) => {
   return (
     <aside className={`sidebar ${isMenuOpen ? "is-open" : ""}`}>
       <header className="sidebar__header">
-        <h1 className="sidebar__logo">
+        <Link to="/" className="sidebar__logo">
           <div className="sidebar__logo-box">
             D
           </div>
-          <span>DevBlog</span>
-        </h1>
+          <h1>DevBlog</h1>
+        </Link>
       </header>
 
       <div className="sidebar__inner">
-        <nav className="nav" aria-label="주 메뉴">
+        <nav className="sidebar__nav" aria-label="주 메뉴">
           <ul className="sidebar__menu">
             <li className="sidebar__menu-item">
-              <a href="/" className="sidebar__active">
+              <Link to="/" className="sidebar__active">
                 <HiOutlineHome />
                 <span>홈</span>
-              </a>
+              </Link>
             </li>
             <li className="sidebar__menu-item">
-              <a href="/">
+              <Link to="/">
                 <HiClock />
                 <span>활동</span>
-              </a>
+              </Link>
             </li>
             <li className="sidebar__menu-item">
-              <a href="/">
+              <Link to="/">
                 <HiChartBar />
                 <span>통계</span>
-              </a>
+              </Link>
+            </li>
+          </ul>
+
+          <ul className="sidebar__menu">
+            <li className="sidebar__menu-item">
+              <Link to="/" >
+                <HiCog />
+                <span>설정</span>
+              </Link>
+            </li>
+            <li className="sidebar__theme">
+              <button className="theme-toggle-btn active">
+                <HiOutlineSun />
+                <span>라이트</span>
+              </button>
+              <button className="theme-toggle-btn">
+                <HiOutlineMoon />
+                <span>다크</span>
+              </button>
             </li>
           </ul>
         </nav>
