@@ -1,4 +1,5 @@
 import { sortMap } from "./constants";
+import { truncate } from "./stringUtils";
 
 export const getDataProcessing = (data) => {
   let result = [...data.posts];
@@ -16,7 +17,7 @@ export const getDataProcessing = (data) => {
 
     result = result.filter(post =>
       post.title.toLowerCase().includes(keyword) ||
-      post.summary.toLowerCase().includes(keyword)
+      truncate(post.content, 100).toLowerCase().includes(keyword)
     );
   }
 

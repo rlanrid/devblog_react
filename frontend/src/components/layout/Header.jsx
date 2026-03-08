@@ -1,7 +1,12 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { HiOutlineSearch } from 'react-icons/hi';
+
+import profileImage from "../../assets/images/profile.jpg";
 
 const Header = ({ query, updateQuery, isMenuOpen, syncMenuUI }) => {
+
+  const [flag, setFlag] = useState(true);
 
   const [searchQuery, setSearchQuery] = useState(query);
 
@@ -11,7 +16,7 @@ const Header = ({ query, updateQuery, isMenuOpen, syncMenuUI }) => {
 
   return (
     <header className="header">
-      <div className="header__inner container">
+      <div className="header__inner">
         <button
           className={`hamburger ${isMenuOpen ? "is-open" : ""} `}
           aria-label="메뉴"
@@ -21,15 +26,14 @@ const Header = ({ query, updateQuery, isMenuOpen, syncMenuUI }) => {
           <span></span>
         </button>
 
-
-
-        {/* <form className="header__search" action="/" method="" onSubmit={(e) => { e.preventDefault(); }}>
+        <form className="header__search" action="/" method="get" onSubmit={(e) => { e.preventDefault(); }}>
           <label htmlFor="header__input" className="sr-only">검색어 입력</label>
+          <HiOutlineSearch />
           <input
             type="search"
             id="header__input"
             className="header__input"
-            placeholder="Search for posts..."
+            placeholder="검색어를 입력하세요..."
             name="search"
             value={searchQuery}
             onChange={(e) => {
@@ -38,7 +42,23 @@ const Header = ({ query, updateQuery, isMenuOpen, syncMenuUI }) => {
               updateQuery("query", e.target.value);
             }}
           />
-        </form> */}
+          {/* <button type="submit">검색</button> */}
+        </form>
+
+        <div className="header__right">
+          {flag ?
+            <div className="header__user">
+              <div className="header__user-info">
+                <div className="header__user-avatar">
+                  <img src={profileImage} alt="프로필 이미지" />
+                </div>
+                <span className="header__user-name">Anonymous</span>
+              </div>
+            </div>
+            :
+            <button className='header__login-btn'>로그인</button>
+          }
+        </div>
       </div>
     </header >
   )
