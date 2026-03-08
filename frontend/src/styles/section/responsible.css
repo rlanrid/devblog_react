@@ -67,12 +67,6 @@
      overflow: hidden;
    }
 
-
-   .post__thumbnail {
-     width: 90px;
-     height: 90px;
-   }
-
    .post__title {
      font-size: 20px;
    }

@@ -17,33 +17,35 @@ const Header = ({ query, updateQuery, isMenuOpen, syncMenuUI }) => {
   return (
     <header className="header">
       <div className="header__inner">
-        <button
-          className={`hamburger ${isMenuOpen ? "is-open" : ""} `}
-          aria-label="메뉴"
-          aria-expanded={isMenuOpen ? "True" : "False"}
-          onClick={syncMenuUI}
-        >
-          <span></span>
-        </button>
+        <div className="header__left">
+          <button
+            className={`hamburger ${isMenuOpen ? "is-open" : ""} `}
+            aria-label="메뉴"
+            aria-expanded={isMenuOpen ? "True" : "False"}
+            onClick={syncMenuUI}
+          >
+            <span></span>
+          </button>
 
-        <form className="header__search" action="/" method="get" onSubmit={(e) => { e.preventDefault(); }}>
-          <label htmlFor="header__input" className="sr-only">검색어 입력</label>
-          <HiOutlineSearch />
-          <input
-            type="search"
-            id="header__input"
-            className="header__input"
-            placeholder="검색어를 입력하세요..."
-            name="search"
-            value={searchQuery}
-            onChange={(e) => {
-              const value = e.target.value;
-              setSearchQuery(value);
-              updateQuery("query", e.target.value);
-            }}
-          />
-          {/* <button type="submit">검색</button> */}
-        </form>
+          <form className="header__search" action="/" method="get" onSubmit={(e) => { e.preventDefault(); }}>
+            <label htmlFor="header__input" className="sr-only">검색어 입력</label>
+            <HiOutlineSearch />
+            <input
+              type="search"
+              id="header__input"
+              className="header__input"
+              placeholder="검색어를 입력하세요..."
+              name="search"
+              value={searchQuery}
+              onChange={(e) => {
+                const value = e.target.value;
+                setSearchQuery(value);
+                updateQuery("query", e.target.value);
+              }}
+            />
+            {/* <button type="submit">검색</button> */}
+          </form>
+        </div>
 
         <div className="header__right">
           {flag ?

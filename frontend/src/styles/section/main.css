@@ -33,7 +33,14 @@
 .post__list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  justify-content: center;
   gap: 30px;
+}
+
+@media(max-width: 480px) {
+  .post__list {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
 
 .post__item {

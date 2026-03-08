@@ -1,6 +1,5 @@
 .header {
   height: 60px;
-  /* background-color: var(--bg-sub); */
   border-bottom: 1px solid var(--border-default);
   display: flex;
   width: 100%;
@@ -13,6 +12,13 @@
   position: relative;
   padding: 0 30px;
   width: 100%;
+}
+
+.header__left {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
 .header__search {
@@ -56,7 +62,7 @@
 .header__user-info {
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 10px;
 }
 
 .header__user-avatar {
@@ -82,18 +88,17 @@
 
 /* 햄버거 */
 
-.header__inner .hamburger {
+.hamburger {
   display: none;
-  position: absolute;
+  position: relative;
   width: 40px;
   height: 40px;
-  left: 25px;
-  top: 25px;
   font-size: 32px;
+  left: -8px;
   z-index: 1100;
 }
 
-.header__inner .hamburger span {
+.hamburger span {
   position: absolute;
   left: 50%;
   width: 24px;
@@ -103,7 +108,7 @@
   transition: 0.3s;
 }
 
-.header__inner .hamburger span::before {
+.hamburger span::before {
   content: '';
   position: absolute;
   top: -10px;
@@ -115,7 +120,7 @@
   transition: 0.3s;
 }
 
-.header__inner .hamburger span::after {
+.hamburger span::after {
   content: '';
   position: absolute;
   top: 10px;
@@ -127,18 +132,34 @@
   transition: 0.3s;
 }
 
-.header__inner .hamburger.is-open span {
+.hamburger.is-open {
+  left: -100px;
+}
+
+.hamburger.is-open span {
+  background-color: transparent;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hamburger.is-open span,
+.hamburger.is-open span::before,
+.hamburger.is-open span::after {
+  display: none;
+}
+
+/* .hamburger.is-open span {
   background-color: transparent;
 }
 
-.header__inner .hamburger.is-open span::before {
+.hamburger.is-open span::before {
   top: 0;
   transform: translateX(-50%) rotate(45deg);
-  background-color: var(--bg-base);
+  background-color: var(--bg-inverse);
 }
 
-.header__inner .hamburger.is-open span::after {
+.hamburger.is-open span::after {
   top: 0;
   transform: translateX(-50%) rotate(-45deg);
-  background-color: var(--bg-base);
-}
+  background-color: var(--bg-inverse);
+} */
