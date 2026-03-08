@@ -1,47 +1,8 @@
 .header {
-  height: 8vh;
+  height: 80px;
   /* background-color: var(--bg-sub); */
   border-bottom: 1px solid var(--border-default);
 }
-
-
-
-/* .header__inner {
-  position: relative;
-  height: 250px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  text-align: center;
-  gap: 15px;
-}
-
-.header__logo {
-  margin-bottom: 5px;
-}
-
-.header__search {
-  width: 320px;
-  display: flex;
-  gap: 6px;
-}
-
-.header__input {
-  flex: 1;
-  border: 1px solid gray;
-  padding: 10px;
-  border-radius: 3px;
-  color: var(--text-primary);
-}
-
-.header__button {
-  flex-shrink: 0;
-  background-color: var(--action-primary);
-  color: var(--text-primary);
-  border-radius: 3px;
-  padding: 10px;
-} */
 
 
 /* 햄버거 */

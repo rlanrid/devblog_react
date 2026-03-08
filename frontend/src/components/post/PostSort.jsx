@@ -1,5 +1,3 @@
-import React from 'react'
-
 const PostSort = ({ postSort, updateQuery }) => {
   // 임시
   const tempSorts = ["최신순", "조회순", "댓글순"];

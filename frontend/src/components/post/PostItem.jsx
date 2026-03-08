@@ -1,4 +1,3 @@
-import React from 'react'
 import { formatTimeAgo } from '../../utils/dataProcess'
 import { Link } from 'react-router-dom'
 

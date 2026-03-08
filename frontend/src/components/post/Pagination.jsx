@@ -1,5 +1,3 @@
-import React from 'react'
-
 const Pagination = ({ page, updateQuery, totalPage }) => {
   return (
     <nav className="pagination">

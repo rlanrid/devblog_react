@@ -1,4 +1,3 @@
-import React from 'react'
 import PostList from '../components/post/PostList';
 import Pagination from '../components/post/Pagination';
 import PostSort from '../components/post/PostSort';

@@ -1,11 +1,11 @@
 .post__inner {
-  padding: 50px;
+  padding: 30px 50px;
   max-width: 1800px;
 }
 
 .post__filtering {
   display: flex;
-  padding: 15px 0;
+  margin-bottom: 15px;
 }
 
 .post__filtering button {
@@ -163,7 +163,6 @@
 }
 
 .pagination {
-  margin-bottom: 50px;
   display: flex;
   justify-content: center;
 }

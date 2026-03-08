@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useReducer, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { useTheme } from "./context/ThemeContext";
 
@@ -7,8 +7,8 @@ import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 
 import { getDataProcessing, paginate } from "./utils/dataProcess";
-import { postReducer } from "./store/reducer/postReducer";
 import { Navigate, Route, Routes, useSearchParams } from "react-router-dom";
+import { useLockBodyScroll } from "./hooks/useLockBodyScroll";
 
 import PostListPage from "./pages/PostListPage";
 import PostCreatePage from "./pages/PostCreatePage";
@@ -29,45 +29,18 @@ function App() {
   // UI
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const closeMenu = useCallback(() => {
+    setIsMenuOpen(false);
+  }, []);
+
   const syncMenuUI = () => {
     setIsMenuOpen(prev => !prev);
   };
 
-  useEffect(() => {
-    // scroll bar
-    const getScrollbarWidth = () => window.innerWidth - document.documentElement.clientWidth;
-    const scrollBarWidth = getScrollbarWidth();
-
-    if (isMenuOpen) {
-      if (scrollBarWidth > 0) {
-        document.body.style.paddingRight = `${scrollBarWidth}px`;
-      }
-      document.body.classList.add("is-locked");
-    } else {
-      document.body.style.paddingRight = '';
-      document.body.classList.remove("is-locked");
-    }
-
-    // resize
-    const handleResize = () => {
-      if (window.innerWidth >= 980 && isMenuOpen) {
-        setIsMenuOpen(false);
-      }
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    // 메모리 누수 방지
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      document.body.style.paddingRight = '';
-      document.body.classList.remove("is-locked");
-    };
-  }, [isMenuOpen]);
+  useLockBodyScroll({ active: isMenuOpen, onClose: closeMenu, breakpoint: 980 });
 
   // state
-  const [state, dispatch] = useReducer(postReducer, { pageSize: 5 });
-
+  const [pageSize, setPageSize] = useState(10);
   const [posts, setPosts] = useState([]);
 
   const fetchPosts = async () => {
@@ -123,9 +96,9 @@ function App() {
     });
   }, [posts, tag, sort, query]);
 
-  const totalPage = Math.ceil(processedPosts.length / state.pageSize);
+  const totalPage = Math.ceil(processedPosts.length / pageSize);
 
-  const postList = paginate(processedPosts, { page, pageSize: state.pageSize });
+  const postList = paginate(processedPosts, { page, pageSize: pageSize });
 
   return (
     <>
@@ -156,14 +129,14 @@ function App() {
       </div>
       {/* wrap */}
 
-      <button
+      {/* <button
         id="theme__toggle"
         className="theme__toggle-btn"
         aria-label={`${theme === "dark" ? "라이트" : "다크"}모드로 전환`}
         onClick={handleThemeToggle}
       >
         {theme === "dark" ? "☀️" : "🌙"}
-      </button>
+      </button> */}
       {/* toggle */}
 
 
