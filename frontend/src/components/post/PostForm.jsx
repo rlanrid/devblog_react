@@ -1,25 +1,54 @@
-const PostForm = ({ form, handleChange, onSubmit }) => {
+import { MDXEditor, toolbarPlugin, headingsPlugin, listsPlugin, quotePlugin, markdownShortcutPlugin, UndoRedo, BoldItalicUnderlineToggles } from '@mdxeditor/editor';
+
+const PostForm = ({ form, setForm, handleFieldChange, handleCreate }) => {
+  const handleContentChange = (markdown) => {
+    setForm(prev => ({
+      ...prev,
+      content: markdown
+    }));
+  };
+
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={handleCreate}>
       <input
         name="title"
-        placeholder="제목"
+        className="post-create__title"
+        placeholder="제목을 입력하세요."
         value={form.title}
-        onChange={handleChange}
+        onChange={handleFieldChange}
       />
-      <textarea
-        name="content"
-        placeholder="내용"
-        value={form.content}
-        onChange={handleChange}
+
+      <MDXEditor
+        markdown={form.content}
+        onChange={handleContentChange}
+        placeholder="당신의 이야기를 적어보세요..."
+        className='post-create__content'
+        contentEditableClassName='post-create__editorContent'
+        plugins={[
+          headingsPlugin(),
+          listsPlugin(),
+          quotePlugin(),
+          markdownShortcutPlugin(),
+          toolbarPlugin({
+            toolbarContents: () => (
+              <>
+                <UndoRedo />
+                <BoldItalicUnderlineToggles />
+              </>
+            )
+          })
+        ]}
       />
+
       <input
-        name="tag"
+        name="tags"
+        className='post-create__tags'
         placeholder="태그"
         value={form.tags}
-        onChange={handleChange}
+        onChange={handleFieldChange}
       />
-      <button type="submit">작성</button>
+
+      <button type='submit'>작성</button>
     </form>
   )
 }

@@ -1,9 +1,11 @@
 // import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from "react-router-dom"
+import { ThemeProvider } from './context/ThemeContext.jsx'
+
 import App from './App.jsx'
 import './styles/style.css'
-import { ThemeProvider } from './context/ThemeContext.jsx'
+import '@mdxeditor/editor/style.css';
 
 createRoot(document.getElementById('root')).render(
   <ThemeProvider>

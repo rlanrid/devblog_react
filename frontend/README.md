@@ -4,6 +4,7 @@
 `npm i sass`
 `npm i react-router-dom`
 `npm i react-icons`
+`npm install --save @mdxeditor/editor`
 
 **상태 흐름**
 `UI 이벤트 -> state 변경 -> URL 동기화`

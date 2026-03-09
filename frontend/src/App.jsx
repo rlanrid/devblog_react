@@ -10,10 +10,11 @@ import { getDataProcessing, paginate } from "./utils/dataProcess";
 import { Navigate, Route, Routes, useSearchParams } from "react-router-dom";
 import { useLockBodyScroll } from "./hooks/useLockBodyScroll";
 
-import PostListPage from "./pages/PostListPage";
-import PostCreatePage from "./pages/PostCreatePage";
-import PostDeatilPage from "./pages/PostDeatilPage";
-import PostEditPage from "./components/post/PostEditPage";
+import PostListPage from "./pages/PostList/PostListPage";
+import PostCreatePage from "./pages/PostCreate/PostCreatePage";
+import PostDeatilPage from "./pages/PostDetail/PostDeatilPage";
+import PostEditPage from "./pages/PostEdit/PostEditPage";
+
 import BlogLayout from "./components/layout/BlogLayout";
 
 function App() {

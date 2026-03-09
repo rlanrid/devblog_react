@@ -1,4 +1,4 @@
-import { HiOutlineHome, HiClock, HiChartBar, HiCog, HiOutlineSun, HiOutlineMoon } from "react-icons/hi";
+import { HiOutlineHome, HiClock, HiChartBar, HiCog, HiOutlineSun, HiOutlineMoon, HiOutlinePencilAlt } from "react-icons/hi";
 import { Link } from "react-router-dom";
 
 const Sidebar = ({ isMenuOpen }) => {
@@ -20,6 +20,12 @@ const Sidebar = ({ isMenuOpen }) => {
               <Link to="/" className="sidebar__active">
                 <HiOutlineHome />
                 <span>홈</span>
+              </Link>
+            </li>
+            <li className="sidebar__menu-item">
+              <Link to="/posts/create">
+                <HiOutlinePencilAlt />
+                <span>작성</span>
               </Link>
             </li>
             <li className="sidebar__menu-item">

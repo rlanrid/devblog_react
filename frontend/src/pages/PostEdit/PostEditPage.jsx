@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { usePostForm } from '../../hooks/usePostForm';
-import PostForm from './PostForm';
+import PostForm from '../../components/post/PostForm';
 import { useEffect } from 'react';
 
 const PostEditPage = ({ fetchPosts }) => {
@@ -50,3 +50,4 @@ const PostEditPage = ({ fetchPosts }) => {
 }
 
 export default PostEditPage
+

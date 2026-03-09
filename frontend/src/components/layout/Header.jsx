@@ -6,7 +6,7 @@ import profileImage from "../../assets/images/profile.jpg";
 
 const Header = ({ query, updateQuery, isMenuOpen, syncMenuUI }) => {
 
-  const [flag, setFlag] = useState(true);
+  const [flag, setFlag] = useState(false);
 
   const [searchQuery, setSearchQuery] = useState(query);
 
@@ -16,7 +16,7 @@ const Header = ({ query, updateQuery, isMenuOpen, syncMenuUI }) => {
 
   return (
     <header className="header">
-      <div className="header__inner">
+      <div className="header__inner container">
         <div className="header__left">
           <button
             className={`hamburger ${isMenuOpen ? "is-open" : ""} `}

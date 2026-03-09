@@ -1,15 +1,16 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
-import PostForm from '../components/post/PostForm';
-import { usePostForm } from '../hooks/usePostForm';
+import PostForm from '../../components/post/PostForm';
+import { usePostForm } from '../../hooks/usePostForm';
+
+import styles from "./PostCreatePage.module.css";
 
 const PostCreatePage = ({ fetchPosts }) => {
   const navigate = useNavigate();
 
-  const { form, handleChange } = usePostForm({
+  const { form, setForm, handleFieldChange } = usePostForm({
     title: "",
     content: "",
-    tags: ["Next"],
+    tags: [],
     thumbnail: "../",
   });
 
@@ -30,12 +31,16 @@ const PostCreatePage = ({ fetchPosts }) => {
   };
 
   return (
-    <PostForm
-      form={form}
-      handleChange={handleChange}
-      onSubmit={handleCreate}
-    />
+    <div className={styles.inner}>
+      <PostForm
+        form={form}
+        setForm={setForm}
+        handleFieldChange={handleFieldChange}
+        handleCreate={handleCreate}
+      />
+    </div>
   )
 }
 
 export default PostCreatePage
+

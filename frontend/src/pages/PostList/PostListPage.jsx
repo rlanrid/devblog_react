@@ -1,12 +1,12 @@
-import PostList from '../components/post/PostList';
-import Pagination from '../components/post/Pagination';
-import PostSort from '../components/post/PostSort';
+import PostList from '../../components/post/PostList';
+import Pagination from '../../components/post/Pagination';
+import PostSort from '../../components/post/PostSort';
 
 const PostListPage = ({ postSort, page, updateQuery, postList, totalPage }) => {
 
   return (
     <>
-      <div className="post__inner">
+      <div className="post__inner container">
         <PostSort postSort={postSort} updateQuery={updateQuery} />
         <PostList postList={postList} />
       </div>
@@ -17,3 +17,4 @@ const PostListPage = ({ postSort, page, updateQuery, postList, totalPage }) => {
 }
 
 export default PostListPage
+
