@@ -284,20 +284,102 @@
 }
 
 /* post-create */
+.post-create {
+  padding: 0 30px;
+  padding-top: 30px;
+  height: calc(100vh - 60px);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.post-create__form {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: 100%;
+  flex: 1;
+}
+
 .post-create__title {
+  display: block;
   width: 100%;
   font-size: 3rem;
   font-weight: 600;
   margin-bottom: 1rem;
+  resize: none;
+  border-bottom: 1px solid var(--border-default);
+  padding-bottom: 1.2rem;
+  outline: none;
 }
 
-.post-create__tags {}
+.post-create__tagBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.post-create__tags {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.post-create__tag a {
+  display: inline-block;
+  background-color: var(--action-secondary);
+  padding: 0.4rem 1rem;
+  color: var(--action-primary);
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.post-create__tagBox input {
+  font-size: 1.2rem;
+}
 
 .post-create__content {
-  border-top: 1px solid var(--border-default);
-  padding-top: 1rem;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
 }
 
-.post-create__editorContent {
-  padding: 0;
+.post-create__content .mdxeditor-toolbar {
+  padding: 20px 0 !important;
+  overflow: hidden;
+  background-color: var(--bg-surface);
+}
+
+.post-create__content .mdxeditor-root-contenteditable {
+  overflow-y: scroll;
+}
+
+.post-create__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.post-create__bottom a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.post-create__bottom a svg {
+  font-size: 1.2rem;
+}
+
+.post-create__publish {
+  font-size: 1rem;
+  background-color: var(--action-primary);
+  padding: 7px 15px;
+  border-radius: 3px;
+  color: var(--text-inverse);
 }

@@ -2,8 +2,6 @@ import { useNavigate } from 'react-router-dom'
 import PostForm from '../../components/post/PostForm';
 import { usePostForm } from '../../hooks/usePostForm';
 
-import styles from "./PostCreatePage.module.css";
-
 const PostCreatePage = ({ fetchPosts }) => {
   const navigate = useNavigate();
 
@@ -31,7 +29,7 @@ const PostCreatePage = ({ fetchPosts }) => {
   };
 
   return (
-    <div className={styles.inner}>
+    <div className='post-create'>
       <PostForm
         form={form}
         setForm={setForm}
