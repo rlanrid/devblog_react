@@ -1,8 +1,9 @@
-import { useNavigate } from 'react-router-dom'
 import PostForm from '../../components/post/PostForm';
+import { useNavigate } from 'react-router-dom'
 import { usePostForm } from '../../hooks/usePostForm';
+import { createPost, getPosts } from '../../api/postApi';
 
-const PostCreatePage = ({ fetchPosts }) => {
+const PostCreatePage = () => {
   const navigate = useNavigate();
 
   const { form, setForm, handleFieldChange } = usePostForm({
@@ -16,15 +17,9 @@ const PostCreatePage = ({ fetchPosts }) => {
   const handleCreate = async (e) => {
     e.preventDefault();
 
-    await fetch("http://localhost:5050/api/posts", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(form),
-    });
+    await createPost();
 
-    await fetchPosts();
+    await getPosts();
 
     navigate("/posts");
   };

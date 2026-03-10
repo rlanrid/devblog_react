@@ -2,8 +2,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { usePostForm } from '../../hooks/usePostForm';
 import PostForm from '../../components/post/PostForm';
 import { useEffect } from 'react';
+import { getPost, getPosts, updatePost } from '../../api/postApi';
 
-const PostEditPage = ({ fetchPosts }) => {
+const PostEditPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -15,29 +16,34 @@ const PostEditPage = ({ fetchPosts }) => {
   });
 
   useEffect(() => {
-    fetch(`http://localhost:5050/api/posts/${id}`)
-      .then(res => res.json())
-      .then(data => setForm({
-        title: data.title,
-        content: data.content,
-        tags: data.tags || ["Vue"],
-        thumbnail: data.thumbnail || "../",
-      }));
+    const loadPost = async () => {
+      try {
+        const { data } = await getPost(id);
+        setForm({
+          title: data.title,
+          content: data.content,
+          tags: data.tags || ["Vue"],
+          thumbnail: data.thumbnail || "../",
+        });
+      } catch (error) {
+        console.error("게시글 불러오기 실패", error);
+      }
+    };
+
+    loadPost();
   }, [id]);
 
 
   const handleUpdate = async (e) => {
     e.preventDefault();
 
-    await fetch(`http://localhost:5050/api/posts/${id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
-
-    await fetchPosts();
-
-    navigate(`/posts/${id}`);
+    try {
+      await updatePost(id);
+      await getPosts();
+      navigate(`/posts/${id}`);
+    } catch (error) {
+      console.error("게시글 수정 실패", error);
+    }
   };
 
   return (

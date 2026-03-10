@@ -1,16 +1,24 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { formatTimeAgo } from '../../utils/dataProcess';
+import { deletePost, getPost, getPosts } from '../../api/postApi';
 
-const PostDeatilPage = ({ fetchPosts }) => {
+const PostDeatilPage = () => {
   const { id } = useParams();
 
   const [detailPost, setDetailPost] = useState({});
 
   useEffect(() => {
-    fetch(`http://localhost:5050/api/posts/${id}`)
-      .then(res => res.json())
-      .then(data => setDetailPost(data));
+    const loadPost = async () => {
+      try {
+        const { data } = await getPost(id);
+        setDetailPost(data);
+      } catch (error) {
+        console.error("게시글 불러오기 실패", error);
+      }
+    };
+
+    loadPost();
   }, [id]);
 
   const navigate = useNavigate();
@@ -19,11 +27,9 @@ const PostDeatilPage = ({ fetchPosts }) => {
     const isConfirm = window.confirm("정말 삭제하시겠습니까?");
     if (!isConfirm) return;
 
-    await fetch(`http://localhost:5050/api/posts/${id}`, {
-      method: "DELETE",
-    });
+    await deletePost(id);
 
-    await fetchPosts();
+    await getPosts();
 
     navigate("/posts");
   };

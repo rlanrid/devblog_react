@@ -10,10 +10,13 @@ const PostForm = ({ form, setForm, handleFieldChange, handleCreate }) => {
   const handleTagChange = (e) => {
     if (e.key === "Enter" && e.target.value.trim() !== "") {
       e.preventDefault();
-      if (!form.tags.includes(e.target.value.trim())) {
+
+      const newTag = e.target.value.toLowerCase().trim();
+
+      if (!form.tags.includes(newTag)) {
         setTagInput("");
 
-        const newTags = [...form.tags, e.target.value.toLowerCase().trim()];
+        const newTags = [...form.tags, newTag];
         setForm(prev => ({
           ...prev,
           tags: newTags,

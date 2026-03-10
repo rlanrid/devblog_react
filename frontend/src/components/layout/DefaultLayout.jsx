@@ -4,7 +4,7 @@ import Sidebar from './Sidebar'
 import { Outlet, useSearchParams } from 'react-router-dom'
 import Footer from './Footer'
 
-const BlogLayout = () => {
+const DefaultLayout = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -53,4 +53,4 @@ const BlogLayout = () => {
   )
 }
 
-export default BlogLayout
+export default DefaultLayout

@@ -1,21 +1,20 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useState } from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
 
 import { useTheme } from "./context/ThemeContext";
+import { useLockBodyScroll } from "./hooks/useLockBodyScroll";
+import { usePostQuery } from "./hooks/usePostQuery";
+import { usePosts } from "./hooks/usePosts";
 
 import Sidebar from "./components/layout/Sidebar";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
-
-import { getDataProcessing, paginate } from "./utils/dataProcess";
-import { Navigate, Route, Routes, useSearchParams } from "react-router-dom";
-import { useLockBodyScroll } from "./hooks/useLockBodyScroll";
-
 import PostListPage from "./pages/PostList/PostListPage";
 import PostCreatePage from "./pages/PostCreate/PostCreatePage";
 import PostDeatilPage from "./pages/PostDetail/PostDeatilPage";
 import PostEditPage from "./pages/PostEdit/PostEditPage";
 
-import BlogLayout from "./components/layout/BlogLayout";
+import DefaultLayout from "./components/layout/DefaultLayout";
 
 function App() {
 
@@ -27,79 +26,19 @@ function App() {
     changeTheme(nextTheme);
   };
 
-  // UI
+  // 사이드바
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const closeMenu = useCallback(() => {
-    setIsMenuOpen(false);
-  }, []);
-
-  const syncMenuUI = () => {
-    setIsMenuOpen(prev => !prev);
-  };
-
+  const closeMenu = useCallback(() => setIsMenuOpen(false), []);
+  const syncMenuUI = () => setIsMenuOpen(prev => !prev);
   useLockBodyScroll({ active: isMenuOpen, onClose: closeMenu, breakpoint: 980 });
 
-  // state
-  const [pageSize, setPageSize] = useState(10);
-  const [posts, setPosts] = useState([]);
+  // URL 쿼리
+  const { tag, sort, query, page, updateQuery } = usePostQuery();
 
-  const fetchPosts = async () => {
-    try {
-      const res = await fetch("http://localhost:5050/api/posts");
-      const data = await res.json();
-      setPosts(data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  // 포스트 데이터
+  const { postList, totalPage, loading, error } = usePosts({ tag, sort, query, page });
 
-  useEffect(() => {
-    fetchPosts();
-  }, []);
-
-  // router
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const updateQuery = (key, value) => {
-    setSearchParams(prev => {
-      const params = new URLSearchParams(prev);
-
-      if (!value) {
-        params.delete(key);
-      } else {
-        params.set(key, value);
-      }
-
-      if (key !== "page") {
-        params.get("page", 1);
-      }
-
-      return params;
-    })
-  };
-
-  const tag = searchParams.get("tag") || "";
-  const sort = searchParams.get("sort") || "최신순";
-  const query = searchParams.get("query") || "";
-  const page = Number(searchParams.get("page")) || 1;
-
-  // 스크롤 초기화
-  useEffect(() => {
-    window.scrollTo({ top: 0 });
-  }, [tag, sort, query, page]);
-
-  // 데이터 처리
-  const processedPosts = useMemo(() => {
-    return getDataProcessing({
-      posts: posts,
-      filter: { tag, sort, query },
-    });
-  }, [posts, tag, sort, query]);
-
-  const totalPage = Math.ceil(processedPosts.length / pageSize);
-
-  const postList = paginate(processedPosts, { page, pageSize: pageSize });
+  if (error) return <div>에러 발생</div>;
 
   return (
     <>
@@ -119,10 +58,10 @@ function App() {
             <Route path="/" element={<Navigate to="/posts" replace />} />
             <Route path="/posts" element={<PostListPage postSort={sort} page={page} updateQuery={updateQuery} postList={postList} totalPage={totalPage} />} />
 
-            <Route path="/posts/:id" element={<PostDeatilPage fetchPosts={fetchPosts} />} />
+            <Route path="/posts/:id" element={<PostDeatilPage />} />
 
-            <Route path="/posts/create" element={<PostCreatePage fetchPosts={fetchPosts} />} />
-            <Route path="/posts/edit/:id" element={<PostEditPage fetchPosts={fetchPosts} />} />
+            <Route path="/posts/create" element={<PostCreatePage />} />
+            <Route path="/posts/edit/:id" element={<PostEditPage />} />
           </Routes>
         </main>
 

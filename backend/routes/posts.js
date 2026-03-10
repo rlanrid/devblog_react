@@ -4,7 +4,7 @@ const router = express.Router();
 
 const Post = require("../models/Post");
 
-// GET
+// 게시글 전체 받아오기기
 router.get("/", async (req, res) => {
   try {
     const posts = await Post.find().sort({ createdAt: -1 });
@@ -16,6 +16,7 @@ router.get("/", async (req, res) => {
   }
 });
 
+// 단일 게시글 받아오기기
 router.get("/:id", async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
@@ -31,7 +32,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// POST
+// 게시글 작성성
 router.post("/", async (req, res) => {
   try {
     const { title, content, tags, thumbnail } = req.body;
@@ -52,7 +53,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-// PUT
+// 게시글 수정
 router.put("/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -81,7 +82,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-// DELETE
+// 게시글 삭제제
 router.delete("/:id", async (req, res) => {
   try {
     const result = await Post.deleteOne({ _id: req.params.id });
