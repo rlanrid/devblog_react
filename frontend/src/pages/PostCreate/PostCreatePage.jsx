@@ -9,6 +9,7 @@ const PostCreatePage = ({ fetchPosts }) => {
     title: "",
     content: "",
     tags: [],
+    tagsInput: "",
     thumbnail: "../",
   });
 

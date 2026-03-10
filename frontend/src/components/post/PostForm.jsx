@@ -5,7 +5,25 @@ import { Link } from 'react-router-dom';
 
 const PostForm = ({ form, setForm, handleFieldChange, handleCreate }) => {
 
-  const [tags, setTags] = useState([]);
+  const [tagInput, setTagInput] = useState("");
+
+  const handleTagChange = (e) => {
+    if (e.key === "Enter" && e.target.value.trim() !== "") {
+      e.preventDefault();
+      if (!form.tags.includes(e.target.value.trim())) {
+        setTagInput("");
+
+        const newTags = [...form.tags, e.target.value.toLowerCase().trim()];
+        setForm(prev => ({
+          ...prev,
+          tags: newTags,
+        }));
+
+      } else {
+        setTagInput("");
+      }
+    }
+  };
 
   const handleContentChange = (markdown) => {
     setForm(prev => ({
@@ -40,7 +58,7 @@ const PostForm = ({ form, setForm, handleFieldChange, handleCreate }) => {
 
       <div className="post-create__tagBox">
         <ul className="post-create__tags">
-          {tags.map((tag) => (
+          {form.tags.map((tag) => (
             <li key={tag} className="post-create__tag">
               <Link to={`/posts/tag=${tag}`}>
                 # {tag}
@@ -52,8 +70,9 @@ const PostForm = ({ form, setForm, handleFieldChange, handleCreate }) => {
         <input
           name="tags"
           placeholder="태그를 입력한 뒤 Enter 키를 누르세요."
-          value={form.tags}
-          onChange={handleFieldChange}
+          value={tagInput}
+          onChange={(e) => setTagInput(e.target.value)}
+          onKeyDown={handleTagChange}
         />
       </div>
 

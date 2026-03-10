@@ -266,7 +266,8 @@
 .post-detail__tags {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
+  flex-wrap: wrap;
+  gap: 1rem;
   margin-top: 1rem;
 }
 
