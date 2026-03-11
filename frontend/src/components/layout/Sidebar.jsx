@@ -1,7 +1,17 @@
 import { HiOutlineHome, HiClock, HiChartBar, HiCog, HiOutlineSun, HiOutlineMoon, HiOutlinePencilAlt } from "react-icons/hi";
 import { Link } from "react-router-dom";
+import { useTheme } from "../../context/ThemeContext";
 
 const Sidebar = ({ isMenuOpen }) => {
+  // Theme
+  const { theme, changeTheme } = useTheme();
+
+  const handleThemeToggle = () => {
+    const nextTheme = theme === "light" ? "dark" : "light";
+    changeTheme(nextTheme);
+  };
+
+
   return (
     <aside className={`sidebar ${isMenuOpen ? "is-open" : ""}`}>
       <header className="sidebar__header">

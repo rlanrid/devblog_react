@@ -3,12 +3,32 @@ import { useState } from 'react';
 import { HiOutlineSearch } from 'react-icons/hi';
 
 import profileImage from "../../assets/images/profile.jpg";
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Header = ({ query, updateQuery, isMenuOpen, syncMenuUI }) => {
-
   const [flag, setFlag] = useState(false);
 
+  // 검색
   const [searchQuery, setSearchQuery] = useState(query);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const isPostListPage = location.pathname === "/posts";
+
+  const handleSearch = (e) => {
+    const value = e.target.value;
+    setSearchQuery(value);
+
+    if (isPostListPage) {
+      updateQuery("query", value);
+    }
+  };
+
+  const handleSearchWithKeydown = (e) => {
+    if (e.key === "Enter" && !isPostListPage) {
+      navigate(`/posts?query=${e.target.value}`);
+    }
+  };
 
   useEffect(() => {
     setSearchQuery(query);
@@ -37,11 +57,8 @@ const Header = ({ query, updateQuery, isMenuOpen, syncMenuUI }) => {
               placeholder="검색어를 입력하세요..."
               name="search"
               value={searchQuery}
-              onChange={(e) => {
-                const value = e.target.value;
-                setSearchQuery(value);
-                updateQuery("query", e.target.value);
-              }}
+              onChange={handleSearch}
+              onKeyDown={handleSearchWithKeydown}
             />
             {/* <button type="submit">검색</button> */}
           </form>
