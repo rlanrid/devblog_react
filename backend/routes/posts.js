@@ -4,7 +4,7 @@ const router = express.Router();
 
 const Post = require("../models/Post");
 
-// 게시글 전체 받아오기기
+// 게시글 전체 받아오기
 router.get("/", async (req, res) => {
   try {
     const posts = await Post.find().sort({ createdAt: -1 });
@@ -16,7 +16,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// 단일 게시글 받아오기기
+// 단일 게시글 받아오기
 router.get("/:id", async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
@@ -82,7 +82,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-// 게시글 삭제제
+// 게시글 삭제
 router.delete("/:id", async (req, res) => {
   try {
     const result = await Post.deleteOne({ _id: req.params.id });
@@ -95,6 +95,26 @@ router.delete("/:id", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Failed to delete post" });
+  }
+});
+
+// 조회수
+router.patch("/:id/view", async (req, res) => {
+  try {
+    const post = await Post.findByIdAndUpdate(
+      req.params.id,
+      { $inc: { "info.view": 1 } },
+      { returnDocument: "after" }
+    );
+
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    res.status(200).json(post);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Failed to update view" });
   }
 });
 

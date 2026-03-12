@@ -1,24 +1,39 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { formatTimeAgo } from '../../utils/dataProcess';
-import { deletePost, getPost } from '../../api/postApi';
+import { deletePost, getPost, incrementView } from '../../api/postApi';
 
 const PostDeatilPage = ({ fetchPosts }) => {
   const { id } = useParams();
 
   const [detailPost, setDetailPost] = useState({});
 
-  useEffect(() => {
-    const loadPost = async () => {
-      try {
-        const { data } = await getPost(id);
-        setDetailPost(data);
-      } catch (error) {
-        console.error("게시글 불러오기 실패", error);
-      }
-    };
+  const loadPost = async () => {
+    try {
+      const { data } = await getPost(id);
+      setDetailPost(data);
+    } catch (error) {
+      console.error("게시글 불러오기 실패", error);
+    }
+  };
 
+  const handleUpdateView = async () => {
+    try {
+      const watched = sessionStorage.getItem(`viewed_${id}`);
+
+      if (!watched) {
+        await incrementView(id);
+        sessionStorage.setItem(`viewed_${id}`, true);
+        await fetchPosts();
+      }
+    } catch (error) {
+      console.error("조회수 업데이트 실패", error);
+    }
+  };
+
+  useEffect(() => {
     loadPost();
+    handleUpdateView();
   }, [id]);
 
   const navigate = useNavigate();
@@ -36,8 +51,6 @@ const PostDeatilPage = ({ fetchPosts }) => {
     } finally {
       navigate("/posts");
     }
-
-
   };
 
   if (!detailPost) return <div>로딩 중...</div>
@@ -74,14 +87,9 @@ const PostDeatilPage = ({ fetchPosts }) => {
           {detailPost.content}
         </div>
 
-
-        {/* <div>제목:{detailPost.title}</div>
-        <div>내용:{detailPost.content}</div>
-        <div>태그:{detailPost.tags}</div>
-        <div>이미지:{detailPost.thumbnail} </div>
-
-        <button onClick={handleDelete}>삭제</button> */}
-
+        <div className="post-detail__delete" >
+          <button onClick={handleDelete}>삭제</button>
+        </div>
       </div>
     </>
   )

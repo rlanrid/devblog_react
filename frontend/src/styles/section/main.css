@@ -282,6 +282,27 @@
 .post-detail__content {
   font-size: 1.125rem;
   line-height: 1.75rem;
+  margin-bottom: 3rem;
+}
+
+.post-detail__delete {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
+.post-detail__delete button {
+  font-size: inherit;
+  color: var(--color-red);
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid var(--color-red);
+  transition: all 0.3s;
+}
+
+.post-detail__delete button:hover {
+  color: var(--text-inverse);
+  background-color: var(--color-red);
 }
 
 /* post-create */
