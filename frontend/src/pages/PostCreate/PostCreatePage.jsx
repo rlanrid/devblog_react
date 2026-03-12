@@ -1,9 +1,9 @@
 import PostForm from '../../components/post/PostForm';
 import { useNavigate } from 'react-router-dom'
 import { usePostForm } from '../../hooks/usePostForm';
-import { createPost, getPosts } from '../../api/postApi';
+import { createPost } from '../../api/postApi';
 
-const PostCreatePage = () => {
+const PostCreatePage = ({ fetchPosts }) => {
   const navigate = useNavigate();
 
   const { form, setForm, handleFieldChange } = usePostForm({
@@ -17,11 +17,16 @@ const PostCreatePage = () => {
   const handleCreate = async (e) => {
     e.preventDefault();
 
-    await createPost();
+    try {
+      await createPost(form);
 
-    await getPosts();
+      await fetchPosts();
+    } catch (error) {
+      console.error("게시글 작성 실패", error);
+    } finally {
+      navigate("/posts");
+    }
 
-    navigate("/posts");
   };
 
   return (

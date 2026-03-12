@@ -2,9 +2,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { usePostForm } from '../../hooks/usePostForm';
 import PostForm from '../../components/post/PostForm';
 import { useEffect } from 'react';
-import { getPost, getPosts, updatePost } from '../../api/postApi';
+import { getPost, updatePost } from '../../api/postApi';
 
-const PostEditPage = () => {
+const PostEditPage = ({ fetchPosts }) => {
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -39,10 +39,11 @@ const PostEditPage = () => {
 
     try {
       await updatePost(id);
-      await getPosts();
-      navigate(`/posts/${id}`);
+      await fetchPosts();
     } catch (error) {
       console.error("게시글 수정 실패", error);
+    } finally {
+      navigate(`/posts/${id}`);
     }
   };
 

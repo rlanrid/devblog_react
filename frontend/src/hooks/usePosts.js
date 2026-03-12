@@ -8,19 +8,19 @@ export const usePosts = ({ tag, sort, query, page, pageSize = 10 }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      setLoading(true);
-      try {
-        const { data } = await getPosts();
-        setPosts(data);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchPosts = async () => {
+    setLoading(true);
+    try {
+      const { data } = await getPosts();
+      setPosts(data);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchPosts();
   }, []);
 
@@ -35,5 +35,5 @@ export const usePosts = ({ tag, sort, query, page, pageSize = 10 }) => {
   const totalPage = Math.ceil(processedPosts.length / pageSize);
   const postList = paginate(processedPosts, { page, pageSize: pageSize });
 
-  return { postList, totalPage, loading, error };
+  return { postList, totalPage, loading, error, fetchPosts };
 };

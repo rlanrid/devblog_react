@@ -3,10 +3,6 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { usePostQuery } from "./hooks/usePostQuery";
 import { usePosts } from "./hooks/usePosts";
 
-import Sidebar from "./components/layout/Sidebar";
-import Header from "./components/layout/Header";
-import Footer from "./components/layout/Footer";
-
 import PostListPage from "./pages/PostList/PostListPage";
 import PostCreatePage from "./pages/PostCreate/PostCreatePage";
 import PostDeatilPage from "./pages/PostDetail/PostDeatilPage";
@@ -20,7 +16,7 @@ function App() {
   const { tag, sort, query, page, updateQuery } = usePostQuery();
 
   // 포스트 데이터
-  const { postList, totalPage, loading, error } = usePosts({ tag, sort, query, page });
+  const { postList, totalPage, loading, error, fetchPosts } = usePosts({ tag, sort, query, page });
 
   if (error) return <div>에러 발생</div>;
 
@@ -38,9 +34,9 @@ function App() {
             loading={loading}
           />}
         />
-        <Route path="/posts/:id" element={<PostDeatilPage />} />
-        <Route path="/posts/create" element={<PostCreatePage />} />
-        <Route path="/posts/edit/:id" element={<PostEditPage />} />
+        <Route path="/posts/:id" element={<PostDeatilPage fetchPosts={fetchPosts} />} />
+        <Route path="/posts/create" element={<PostCreatePage fetchPosts={fetchPosts} />} />
+        <Route path="/posts/edit/:id" element={<PostEditPage fetchPosts={fetchPosts} />} />
       </Route>
 
       <Route element={<AuthLayout />}>

@@ -32,7 +32,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// 게시글 작성성
+// 게시글 작성
 router.post("/", async (req, res) => {
   try {
     const { title, content, tags, thumbnail } = req.body;

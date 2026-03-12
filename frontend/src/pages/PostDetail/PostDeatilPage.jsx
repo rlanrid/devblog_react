@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { formatTimeAgo } from '../../utils/dataProcess';
-import { deletePost, getPost, getPosts } from '../../api/postApi';
+import { deletePost, getPost } from '../../api/postApi';
 
-const PostDeatilPage = () => {
+const PostDeatilPage = ({ fetchPosts }) => {
   const { id } = useParams();
 
   const [detailPost, setDetailPost] = useState({});
@@ -27,11 +27,17 @@ const PostDeatilPage = () => {
     const isConfirm = window.confirm("정말 삭제하시겠습니까?");
     if (!isConfirm) return;
 
-    await deletePost(id);
+    try {
+      await deletePost(id);
 
-    await getPosts();
+      await fetchPosts();
+    } catch (error) {
+      console.error("게시글 삭제 실패", error);
+    } finally {
+      navigate("/posts");
+    }
 
-    navigate("/posts");
+
   };
 
   if (!detailPost) return <div>로딩 중...</div>
