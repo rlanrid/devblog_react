@@ -16,27 +16,18 @@ const postSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    info: {
-      author: {
-        type: String,
-        default: "Anonymous",
-        index: true,
-      },
-      view: {
-        type: Number,
-        default: 0,
-      },
-      comments: {
-        type: Number,
-        default: 0,
-      },
-      likes: {
-        type: Number,
-        default: 0,
-      },
+    author: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+      index: true,
     },
-    summary: {
-      type: String,
+    info: {
+      views: {
+        type: Number,
+        default: 0,
+      },
+      likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
     },
     tags: {
       type: [String],
@@ -49,8 +40,12 @@ const postSchema = new mongoose.Schema(
   }
 );
 
-postSchema.index({ createdAt: -1 });
+// 좋아요 숫자 가상 필드
+postSchema.virtual("likeCount").get(function () {
+  return this.info.likes.length;
+});
 
+postSchema.index({ createdAt: -1 });
 postSchema.index({ title: "text", content: "text" });
 
 module.exports = mongoose.model("Post", postSchema);

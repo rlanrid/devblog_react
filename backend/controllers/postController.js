@@ -1,11 +1,8 @@
-const express = require("express");
 const mongoose = require("mongoose");
-const router = express.Router();
-
 const Post = require("../models/Post");
 
-// 게시글 전체 받아오기
-router.get("/", async (req, res) => {
+// 게시글 전체 조회
+exports.getPosts = async (req, res) => {
   try {
     const posts = await Post.find().sort({ createdAt: -1 });
 
@@ -14,10 +11,10 @@ router.get("/", async (req, res) => {
     console.log(error);
     res.status(500).json({ message: "Failed to fetch posts" });
   }
-});
+};
 
-// 단일 게시글 받아오기
-router.get("/:id", async (req, res) => {
+// 단일 게시글 조회
+exports.getPost = async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
 
@@ -30,10 +27,10 @@ router.get("/:id", async (req, res) => {
     console.log(error);
     res.status(500).json({ message: "Failed to fetch post" });
   }
-});
+};
 
 // 게시글 작성
-router.post("/", async (req, res) => {
+exports.createPost = async (req, res) => {
   try {
     const { title, content, tags, thumbnail } = req.body;
 
@@ -51,10 +48,10 @@ router.post("/", async (req, res) => {
     console.log(error);
     res.status(500).json({ message: "Failed to create post" });
   }
-});
+};
 
 // 게시글 수정
-router.put("/:id", async (req, res) => {
+exports.updatePost = async (req, res) => {
   try {
     const { id } = req.params;
     const { title, content, tags, thumbnail } = req.body;
@@ -80,10 +77,10 @@ router.put("/:id", async (req, res) => {
     console.log(error);
     res.status(500).json({ message: "Failed to update post" });
   }
-});
+};
 
 // 게시글 삭제
-router.delete("/:id", async (req, res) => {
+exports.deletePost = async (req, res) => {
   try {
     const result = await Post.deleteOne({ _id: req.params.id });
 
@@ -91,19 +88,19 @@ router.delete("/:id", async (req, res) => {
       return res.status(404).json({ message: "삭제할 게시글이 없습니다." });
     }
 
-    res.status(200).json({ message: "Success to delete post" });
+    res.status(204).json({ message: "Success to delete post" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Failed to delete post" });
   }
-});
+};
 
-// 조회수
-router.patch("/:id/view", async (req, res) => {
+// 조회수 증가
+exports.updateViews = async (req, res) => {
   try {
     const post = await Post.findByIdAndUpdate(
       req.params.id,
-      { $inc: { "info.view": 1 } },
+      { $inc: { "info.views": 1 } },
       { returnDocument: "after" }
     );
 
@@ -116,6 +113,4 @@ router.patch("/:id/view", async (req, res) => {
     console.error(error);
     res.status(500).json({ message: "Failed to update view" });
   }
-});
-
-module.exports = router;
+};

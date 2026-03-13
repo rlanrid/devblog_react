@@ -47,7 +47,7 @@ const Header = ({ query, updateQuery, isMenuOpen, syncMenuUI }) => {
             <span></span>
           </button>
 
-          <form className="header__search" action="/" method="get" onSubmit={(e) => { e.preventDefault(); }}>
+          <form className="header__search" autoComplete='off' action="/" method="get" onSubmit={(e) => { e.preventDefault(); }}>
             <label htmlFor="header__input" className="sr-only">검색어 입력</label>
             <HiOutlineSearch />
             <input

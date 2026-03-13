@@ -29,7 +29,7 @@ const PostItem = ({ post }) => {
           <div className="post__info-top">
             <span className="post__info-item">{formatTimeAgo(post.createdAt)}</span>
             <span className="dot"></span>
-            <span className="post__info-item">{post.info.view} 조회수</span>
+            <span className="post__info-item">{post.info.views} 조회수</span>
             <span className="dot"></span>
             <span className="post__info-item">{post.info.comments} 댓글</span>
           </div>

@@ -18,6 +18,7 @@ const BlogLayout = ({ query, updateQuery }) => {
     <>
       <Sidebar updateQuery={updateQuery} isMenuOpen={isMenuOpen} />
       <div className="wrap">
+        {isMenuOpen && <div className='overlay is-open' onClick={syncMenuUI} aria-hidden={!isMenuOpen}></div>}
         <Header
           query={query}
           updateQuery={updateQuery}
