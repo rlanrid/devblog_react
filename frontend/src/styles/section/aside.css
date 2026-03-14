@@ -161,6 +161,7 @@
 }
 
 .logout-btn {
+  color: var(--text-primary);
   font-size: inherit;
 }
 

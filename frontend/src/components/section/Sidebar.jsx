@@ -1,13 +1,11 @@
 import { HiOutlineHome, HiClock, HiChartBar, HiCog, HiOutlineSun, HiOutlineMoon, HiOutlinePencilAlt, HiOutlineLogout } from "react-icons/hi";
-import { Link, useParams } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
 import { useAuth } from "../../hooks/useAuth";
 
 const Sidebar = ({ isMenuOpen }) => {
   const { theme, changeTheme } = useTheme();
   const { handleLogout, isLoggedIn } = useAuth();
-
-  const params = useParams();
 
   return (
     <aside className={`sidebar ${isMenuOpen ? "is-open" : ""}`}>
@@ -24,37 +22,37 @@ const Sidebar = ({ isMenuOpen }) => {
         <nav className="sidebar__nav" aria-label="주 메뉴">
           <ul className="sidebar__menu">
             <li className="sidebar__menu-item">
-              <Link to="/" className="sidebar__active">
+              <NavLink to="/posts" className={({ isActive }) => (isActive ? "sidebar__active" : "")} end>
                 <HiOutlineHome />
                 <span>홈</span>
-              </Link>
+              </NavLink>
             </li>
             <li className="sidebar__menu-item">
-              <Link to="/posts/create">
+              <NavLink to="/posts/create" className={({ isActive }) => (isActive ? "sidebar__active" : "")} end>
                 <HiOutlinePencilAlt />
                 <span>작성</span>
-              </Link>
+              </NavLink>
             </li>
             <li className="sidebar__menu-item">
-              <Link to="/">
+              <NavLink to="/user/activity" className={({ isActive }) => (isActive ? "sidebar__active" : "")} end>
                 <HiClock />
                 <span>활동</span>
-              </Link>
+              </NavLink>
             </li>
             <li className="sidebar__menu-item">
-              <Link to="/">
+              <NavLink to="/user/statistics" className={({ isActive }) => (isActive ? "sidebar__active" : "")} end>
                 <HiChartBar />
                 <span>통계</span>
-              </Link>
+              </NavLink>
             </li>
           </ul>
 
           <ul className="sidebar__menu">
             <li className="sidebar__menu-item">
-              <Link to="/" >
+              <NavLink to="/user/setting" className={({ isActive }) => (isActive ? "sidebar__active" : "")} end>
                 <HiCog />
                 <span>설정</span>
-              </Link>
+              </NavLink>
             </li>
             {isLoggedIn() &&
               <li className="sidebar__menu-item">
