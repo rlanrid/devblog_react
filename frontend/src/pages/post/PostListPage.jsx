@@ -1,6 +1,6 @@
-import PostList from '../components/post/PostList';
-import Pagination from '../components/post/Pagination';
-import PostSort from '../components/post/PostSort';
+import PostList from '../../components/post/PostList';
+import Pagination from '../../components/post/Pagination';
+import PostSort from '../../components/post/PostSort';
 
 const PostListPage = ({ postSort, page, updateQuery, postList, totalPage }) => {
 

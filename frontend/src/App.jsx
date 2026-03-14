@@ -3,17 +3,19 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { usePostQuery } from "./hooks/usePostQuery";
 import { usePosts } from "./hooks/usePosts";
 
-import PostListPage from "./pages/PostListPage";
-import PostCreatePage from "./pages/PostCreatePage";
-import PostDeatilPage from "./pages/PostDeatilPage";
-import PostEditPage from "./pages/PostEditPage";
-
 import BlogLayout from "./components/layout/BlogLayout";
 import AuthLayout from "./components/layout/AuthLayout";
-import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
+
 import PrivateRoute from "./components/common/PrivateRoute";
 import PublicOnlyRoute from "./components/common/PublicOnlyRoute";
+
+import PostListPage from "./pages/post/PostListPage";
+import PostCreatePage from "./pages/post/PostCreatePage";
+import PostDeatilPage from "./pages/post/PostDeatilPage";
+import PostEditPage from "./pages/post/PostEditPage";
+
+import LoginPage from "./pages/auth/LoginPage";
+import RegisterPage from "./pages/auth/RegisterPage";
 
 function App() {
   // URL 쿼리

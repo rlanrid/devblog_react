@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import profileImg from '../../assets/images/JS.png'
 
 const PostItem = ({ post }) => {
+  console.log(post)
 
   return (
     <article className="post__item">
@@ -34,7 +35,7 @@ const PostItem = ({ post }) => {
             <span className="post__info-item">{post.info.comments} 댓글</span>
           </div>
           <div className="post__info-bottom">
-            <span>{post.info.author}</span>
+            <span>{post?.author?.username}</span>
             <span>❤️ 0</span>
           </div>
         </div>

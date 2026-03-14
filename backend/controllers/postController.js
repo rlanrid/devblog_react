@@ -4,7 +4,7 @@ const Post = require("../models/Post");
 // 게시글 전체 조회
 exports.getPosts = async (req, res) => {
   try {
-    const posts = await Post.find().sort({ createdAt: -1 });
+    const posts = await Post.find().populate("author").sort({ createdAt: -1 });
 
     res.status(200).json(posts);
   } catch (error) {
@@ -16,7 +16,7 @@ exports.getPosts = async (req, res) => {
 // 단일 게시글 조회
 exports.getPost = async (req, res) => {
   try {
-    const post = await Post.findById(req.params.id);
+    const post = await Post.findById(req.params.id).populate("author");
 
     if (!post) {
       return res.status(404).json({ message: "Post not found" });
@@ -37,12 +37,12 @@ exports.createPost = async (req, res) => {
     const newPost = new Post({
       title,
       content,
+      author: req.user._id,
       tags,
       thumbnail,
     });
 
     const savedPost = await newPost.save();
-
     res.status(201).json(savedPost);
   } catch (error) {
     console.log(error);

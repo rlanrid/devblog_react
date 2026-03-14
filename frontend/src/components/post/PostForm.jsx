@@ -1,4 +1,4 @@
-import { MDXEditor, toolbarPlugin, headingsPlugin, listsPlugin, quotePlugin, markdownShortcutPlugin, UndoRedo, BoldItalicUnderlineToggles, InsertImage, imagePlugin } from '@mdxeditor/editor';
+import { MDXEditor, toolbarPlugin, headingsPlugin, listsPlugin, quotePlugin, markdownShortcutPlugin, UndoRedo, BoldItalicUnderlineToggles, InsertImage, imagePlugin, thematicBreakPlugin } from '@mdxeditor/editor';
 import { useState } from 'react';
 import { HiArrowNarrowLeft } from "react-icons/hi";
 import { Link } from 'react-router-dom';
@@ -90,6 +90,7 @@ const PostForm = ({ form, setForm, handleFieldChange, handleCreate }) => {
           listsPlugin(),
           quotePlugin(),
           markdownShortcutPlugin(),
+          thematicBreakPlugin(),
           toolbarPlugin({
             toolbarContents: () => (
               <>
