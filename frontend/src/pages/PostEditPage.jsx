@@ -1,8 +1,9 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { usePostForm } from '../../hooks/usePostForm';
-import PostForm from '../../components/post/PostForm';
+import { usePostForm } from '../hooks/usePostForm';
 import { useEffect } from 'react';
-import { getPost, updatePost } from '../../api/postApi';
+import { getPost, updatePost } from '../api/postApi';
+
+import PostForm from '../components/post/PostForm';
 
 const PostEditPage = ({ fetchPosts }) => {
   const { id } = useParams();

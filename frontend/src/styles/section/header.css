@@ -46,15 +46,10 @@
 
 .header__login-btn {
   border-radius: 5px;
-  color: var(--action-primary);
-  border: 1px solid var(--action-primary);
+  color: var(--color-white);
+  background-color: var(--action-primary);
   cursor: pointer;
   transition: background-color 0.3s ease;
-}
-
-.header__login-btn:hover {
-  color: var(--action-secondary);
-  background-color: var(--action-primary-hover);
 }
 
 .header__user-info {
@@ -145,19 +140,3 @@
 .hamburger.is-open span::after {
   display: none;
 }
-
-/* .hamburger.is-open span {
-  background-color: transparent;
-}
-
-.hamburger.is-open span::before {
-  top: 0;
-  transform: translateX(-50%) rotate(45deg);
-  background-color: var(--bg-inverse);
-}
-
-.hamburger.is-open span::after {
-  top: 0;
-  transform: translateX(-50%) rotate(-45deg);
-  background-color: var(--bg-inverse);
-} */

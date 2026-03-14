@@ -1,16 +1,13 @@
-import { HiOutlineHome, HiClock, HiChartBar, HiCog, HiOutlineSun, HiOutlineMoon, HiOutlinePencilAlt } from "react-icons/hi";
-import { Link } from "react-router-dom";
+import { HiOutlineHome, HiClock, HiChartBar, HiCog, HiOutlineSun, HiOutlineMoon, HiOutlinePencilAlt, HiOutlineLogout } from "react-icons/hi";
+import { Link, useParams } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
+import { useAuth } from "../../hooks/useAuth";
 
 const Sidebar = ({ isMenuOpen }) => {
-  // Theme
   const { theme, changeTheme } = useTheme();
+  const { handleLogout, isLoggedIn } = useAuth();
 
-  const handleThemeToggle = () => {
-    const nextTheme = theme === "light" ? "dark" : "light";
-    changeTheme(nextTheme);
-  };
-
+  const params = useParams();
 
   return (
     <aside className={`sidebar ${isMenuOpen ? "is-open" : ""}`}>
@@ -59,33 +56,35 @@ const Sidebar = ({ isMenuOpen }) => {
                 <span>설정</span>
               </Link>
             </li>
+            {isLoggedIn() &&
+              <li className="sidebar__menu-item">
+                <button onClick={handleLogout} className="logout-btn">
+                  <HiOutlineLogout />
+                  <span>로그아웃</span>
+                </button>
+              </li>
+            }
             <li className="sidebar__theme">
-              <button className="theme-toggle-btn active">
+              <button
+                className={`theme-toggle-btn ${theme === "light" ? "active" : ""}`}
+                onClick={() => changeTheme("light")}
+                aria-label="라이트모드"
+              >
                 <HiOutlineSun />
                 <span>라이트</span>
               </button>
-              <button className="theme-toggle-btn">
+
+              <button
+                className={`theme-toggle-btn ${theme === "dark" ? "active" : ""}`}
+                onClick={() => changeTheme("dark")}
+                aria-label="다크모드"
+              >
                 <HiOutlineMoon />
                 <span>다크</span>
               </button>
             </li>
           </ul>
         </nav>
-
-        {/* <section className="sidebar__tags" aria-labelledby="sidebar__tags-head">
-          <h2 id="sidebar__tags-head" className="sr-only">태그 목록</h2>
-          <ul className="sidebar__tag-list">
-            {tempTags.map((tag) => (
-              <li key={tag} className="sidebar__tag-item">
-                <button data-tag={tag} onClick={() => {
-                  updateQuery("tag", tag);
-                }}>
-                  #{tag}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </section> */}
       </div>
     </aside>
   )

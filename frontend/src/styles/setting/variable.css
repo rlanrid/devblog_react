@@ -52,14 +52,28 @@
 
 :root[data-theme="dark"] {
   /* 배경 */
-  --bg-base: #121212;
-  --bg-sub: var(--color-gray-900);
-  --bg-surface: #1e1e1e;
+  --bg-base: var(--color-black);
+  --bg-sub: var(--color-gray-800);
+  --bg-surface: var(--color-gray-900);
+  --bg-inverse: var(--color-gray-100);
 
   /* 텍스트 */
+  --text-primary: var(--color-gray-100);
+  --text-secondary: var(--color-gray-400);
+  --text-inverse: var(--color-gray-900);
+  --text-disabled: var(--color-gray-600);
 
   /* 보더 */
+  --border-default: var(--color-gray-700);
+  --border-strong: var(--color-gray-400);
 
   /* 액션 */
+  --action-primary: var(--color-brand-500);
+  --action-primary-hover: var(--color-brand-600);
 
+  --action-secondary: var(--color-gray-500);
+  --action-secondary-hover: var(--color-gray-400);
+
+  --action-neutral: var(--color-gray-400);
+  --action-neutral-hover: var(--color-gray-300);
 }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { formatTimeAgo } from '../../utils/dataProcess';
-import { deletePost, getPost, incrementView } from '../../api/postApi';
+import { formatTimeAgo } from '../utils/dataProcess';
+import { deletePost, getPost, incrementView } from '../api/postApi';
 
 const PostDeatilPage = ({ fetchPosts }) => {
   const { id } = useParams();

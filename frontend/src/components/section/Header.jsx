@@ -4,9 +4,10 @@ import { HiOutlineSearch } from 'react-icons/hi';
 
 import profileImage from "../../assets/images/profile.jpg";
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../hooks/useAuth';
 
 const Header = ({ query, updateQuery, isMenuOpen, syncMenuUI }) => {
-  const [flag, setFlag] = useState(false);
+  const { isLoggedIn, user } = useAuth();
 
   // 검색
   const [searchQuery, setSearchQuery] = useState(query);
@@ -65,13 +66,13 @@ const Header = ({ query, updateQuery, isMenuOpen, syncMenuUI }) => {
         </div>
 
         <div className="header__right">
-          {flag ?
+          {isLoggedIn() ?
             <div className="header__user">
               <div className="header__user-info">
                 <div className="header__user-avatar">
                   <img src={profileImage} alt="프로필 이미지" />
                 </div>
-                <span className="header__user-name">Anonymous</span>
+                <span className="header__user-name">{user.username}</span>
               </div>
             </div>
             :

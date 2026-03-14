@@ -1,7 +1,7 @@
-import PostForm from '../../components/post/PostForm';
+import PostForm from '../components/post/PostForm';
 import { useNavigate } from 'react-router-dom'
-import { usePostForm } from '../../hooks/usePostForm';
-import { createPost } from '../../api/postApi';
+import { usePostForm } from '../hooks/usePostForm';
+import { createPost } from '../api/postApi';
 
 const PostCreatePage = ({ fetchPosts }) => {
   const navigate = useNavigate();

@@ -13,6 +13,7 @@ const generateToken = (userId) => {
 // 회원가입
 exports.register = async (req, res) => {
   const { username, email, password } = req.body;
+
   try {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -27,6 +28,7 @@ exports.register = async (req, res) => {
       user: { id: user._id, username: user.username, email: user.email },
     });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ message: "서버 오류", error: error.message });
   }
 };
@@ -40,7 +42,7 @@ exports.login = async (req, res) => {
       return res.status(401).json({ message: "가입된 정보가 없습니다." });
     }
 
-    const isMatch = await User.comparePassword(password);
+    const isMatch = await user.comparePassword(password);
     if (isMatch) {
       return res.status(401).json({ message: "비밀번호가 일치하지 않습니다." });
     }
@@ -52,6 +54,7 @@ exports.login = async (req, res) => {
       user: { id: user._id, username: user.username, email: user.email },
     });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ message: "서버 오류", error: error.message });
   }
 };
@@ -61,6 +64,7 @@ exports.getMe = async (req, res) => {
   try {
     res.json({ user: req.user });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ message: "서버 오류" });
   }
 };

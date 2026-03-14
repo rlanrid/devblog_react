@@ -3,13 +3,17 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { usePostQuery } from "./hooks/usePostQuery";
 import { usePosts } from "./hooks/usePosts";
 
-import PostListPage from "./pages/PostList/PostListPage";
-import PostCreatePage from "./pages/PostCreate/PostCreatePage";
-import PostDeatilPage from "./pages/PostDetail/PostDeatilPage";
-import PostEditPage from "./pages/PostEdit/PostEditPage";
+import PostListPage from "./pages/PostListPage";
+import PostCreatePage from "./pages/PostCreatePage";
+import PostDeatilPage from "./pages/PostDeatilPage";
+import PostEditPage from "./pages/PostEditPage";
 
 import BlogLayout from "./components/layout/BlogLayout";
 import AuthLayout from "./components/layout/AuthLayout";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import PrivateRoute from "./components/common/PrivateRoute";
+import PublicOnlyRoute from "./components/common/PublicOnlyRoute";
 
 function App() {
   // URL 쿼리
@@ -35,12 +39,18 @@ function App() {
           />}
         />
         <Route path="/posts/:id" element={<PostDeatilPage fetchPosts={fetchPosts} />} />
-        <Route path="/posts/create" element={<PostCreatePage fetchPosts={fetchPosts} />} />
-        <Route path="/posts/edit/:id" element={<PostEditPage fetchPosts={fetchPosts} />} />
+
+        <Route element={<PrivateRoute />}>
+          <Route path="/posts/create" element={<PostCreatePage fetchPosts={fetchPosts} />} />
+          <Route path="/posts/edit/:id" element={<PostEditPage fetchPosts={fetchPosts} />} />
+        </Route>
       </Route>
 
       <Route element={<AuthLayout />}>
-
+        <Route element={<PublicOnlyRoute />}>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+        </Route>
       </Route>
 
     </Routes>

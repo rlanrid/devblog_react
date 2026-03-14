@@ -82,16 +82,20 @@ exports.updatePost = async (req, res) => {
 // 게시글 삭제
 exports.deletePost = async (req, res) => {
   try {
-    const result = await Post.deleteOne({ _id: req.params.id });
+    const post = await Post.findById(req.params.id);
 
-    if (result.deletedCount === 0) {
-      return res.status(404).json({ message: "삭제할 게시글이 없습니다." });
+    if (!post) return res.status(404).json({ message: "게시글을 찾을 수 없습니다." });
+
+    if (post.author.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ message: "권한이 없습니다." });
     }
 
-    res.status(204).json({ message: "Success to delete post" });
+    await post.deleteOne();
+
+    res.status(204).json();
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Failed to delete post" });
+    res.status(500).json({ message: "게시글 삭제 실패" });
   }
 };
 

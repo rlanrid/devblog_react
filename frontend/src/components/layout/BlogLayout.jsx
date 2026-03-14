@@ -3,9 +3,9 @@ import { Outlet } from 'react-router-dom'
 
 import { useLockBodyScroll } from '../../hooks/useLockBodyScroll'
 
-import Header from './Header'
-import Sidebar from './Sidebar'
-import Footer from './Footer'
+import Header from '../section/Header'
+import Sidebar from '../section/Sidebar'
+import Footer from '../section/Footer'
 
 const BlogLayout = ({ query, updateQuery }) => {
   // 사이드바

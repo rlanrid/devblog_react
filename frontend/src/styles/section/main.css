@@ -250,7 +250,6 @@
 
 .post-detail__info-right button {
   border-radius: 20px;
-  background-color: var(--bg-base);
   padding: 0.4rem 1.2rem;
   border: 1px solid var(--action-primary);
   color: var(--action-primary);
@@ -259,7 +258,7 @@
 }
 
 .post-detail__info-right button:hover {
-  color: var(--action-secondary);
+  color: var(--color-white);
   background-color: var(--action-primary-hover);
 }
 
