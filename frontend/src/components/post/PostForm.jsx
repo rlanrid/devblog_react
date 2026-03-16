@@ -109,7 +109,7 @@ const PostForm = ({ form, setForm, handleFieldChange, handleCreate }) => {
           <HiArrowNarrowLeft />
           <span>나가기</span>
         </Link>
-        <button type='submit' className='post-create__publish'>작성</button>
+        <button type='submit' className='post-create__publish' disabled={!form.title || !form.content}>작성</button>
       </div>
     </form>
   )

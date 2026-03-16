@@ -6,7 +6,9 @@
 `npm i react-icons`
 `npm i --save @mdxeditor/editor`
 `npm i axios` 
-`npm i zustand` 
+`npm i zustand`
+`npm i react-markdown`
+`npm i rehype-raw remark-breaks`
 
 **상태 흐름**
 `UI 이벤트 -> state 변경 -> URL 동기화`

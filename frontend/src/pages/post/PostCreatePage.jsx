@@ -28,7 +28,6 @@ const PostCreatePage = ({ fetchPosts }) => {
     } finally {
       navigate("/posts");
     }
-
   };
 
   return (

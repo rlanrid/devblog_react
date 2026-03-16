@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom'
 import profileImg from '../../assets/images/JS.png'
 
 const PostItem = ({ post }) => {
-  console.log(post)
-
   return (
     <article className="post__item">
       <div className="post__thumbnail">

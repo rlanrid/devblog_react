@@ -284,6 +284,11 @@
   margin-bottom: 3rem;
 }
 
+.post-detail__content p {
+  /* margin-bottom: 1rem; */
+  min-height: 1em;
+}
+
 .post-detail__delete {
   display: flex;
   align-items: center;
@@ -306,8 +311,7 @@
 
 /* post-create */
 .post-create {
-  padding: 0 30px;
-  padding-top: 30px;
+  padding: 30px;
   height: calc(100vh - 60px);
   display: flex;
   flex-direction: column;
