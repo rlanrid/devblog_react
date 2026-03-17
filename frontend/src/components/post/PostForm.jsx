@@ -8,24 +8,41 @@ const PostForm = ({ form, setForm, handleFieldChange, handleCreate }) => {
 
   const [tagInput, setTagInput] = useState("");
 
-  const handleTagChange = (e) => {
-    if (e.key === "Enter" && e.target.value.trim() !== "") {
+  const handleAddTag = (value) => {
+    const newTag = value.toLowerCase().trim();
+
+    if (newTag !== "" && !form.tags.includes(newTag)) {
+      setTagInput("");
+
+      const newTags = [...form.tags, newTag];
+
+      setForm(prev => ({
+        ...prev,
+        tags: newTags,
+      }));
+
+    } else {
+      setTagInput("");
+    }
+  };
+
+  const handleRemoveTag = (removeTag) => {
+    setForm(prev => ({
+      ...prev,
+      tags: prev.tags.filter(tag => tag !== removeTag),
+    }));
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
       e.preventDefault();
+      handleAddTag(e.target.value)
+    }
+  };
 
-      const newTag = e.target.value.toLowerCase().trim();
-
-      if (!form.tags.includes(newTag)) {
-        setTagInput("");
-
-        const newTags = [...form.tags, newTag];
-        setForm(prev => ({
-          ...prev,
-          tags: newTags,
-        }));
-
-      } else {
-        setTagInput("");
-      }
+  const handleTagBlur = (e) => {
+    if (e.target.value !== "") {
+      handleAddTag(e.target.value);
     }
   };
 
@@ -48,9 +65,9 @@ const PostForm = ({ form, setForm, handleFieldChange, handleCreate }) => {
         <ul className="post-create__tags">
           {form.tags.map((tag) => (
             <li key={tag} className="post-create__tag">
-              <Link to={`/posts/tag=${tag}`}>
+              <button type="button" onClick={() => handleRemoveTag(tag)}>
                 # {tag}
-              </Link>
+              </button>
             </li>
           ))}
         </ul>
@@ -60,7 +77,8 @@ const PostForm = ({ form, setForm, handleFieldChange, handleCreate }) => {
           placeholder="태그를 입력한 뒤 Enter 키를 누르세요."
           value={tagInput}
           onChange={(e) => setTagInput(e.target.value)}
-          onKeyDown={handleTagChange}
+          onKeyDown={handleKeyDown}
+          onBlur={handleTagBlur}
         />
       </div>
 

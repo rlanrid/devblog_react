@@ -438,10 +438,11 @@
   flex-wrap: wrap;
 }
 
-.post-create__tag a {
+.post-create__tag button {
   display: inline-block;
   background-color: var(--action-secondary);
   padding: 0.4rem 1rem;
+  font-size: 1rem;
   color: var(--action-primary);
   border-radius: 20px;
   cursor: pointer;
