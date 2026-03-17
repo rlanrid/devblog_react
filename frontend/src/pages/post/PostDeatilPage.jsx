@@ -4,8 +4,6 @@ import { formatTimeAgo } from '../../utils/dataProcess';
 import { deletePost, getPost, incrementView } from '../../api/postApi';
 
 import ReactMarkdown from "react-markdown";
-import remarkBreaks from "remark-breaks";
-import remarkGfm from 'remark-Gfm';
 
 const PostDeatilPage = ({ fetchPosts }) => {
   const { id } = useParams();
@@ -88,7 +86,7 @@ const PostDeatilPage = ({ fetchPosts }) => {
         </div>
 
         <div className="post-detail__content">
-          <ReactMarkdown remarkPlugins={[remarkGfm, remarkBreaks]}>
+          <ReactMarkdown>
             {detailPost.content}
           </ReactMarkdown>
         </div>

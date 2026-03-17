@@ -1,7 +1,8 @@
-import { MDXEditor, toolbarPlugin, headingsPlugin, listsPlugin, quotePlugin, markdownShortcutPlugin, UndoRedo, BoldItalicUnderlineToggles, InsertImage, imagePlugin, thematicBreakPlugin } from '@mdxeditor/editor';
 import { useState } from 'react';
 import { HiArrowNarrowLeft } from "react-icons/hi";
 import { Link } from 'react-router-dom';
+
+import MDEditor from "@uiw/react-md-editor";
 
 const PostForm = ({ form, setForm, handleFieldChange, handleCreate }) => {
 
@@ -28,25 +29,9 @@ const PostForm = ({ form, setForm, handleFieldChange, handleCreate }) => {
     }
   };
 
-  const handleContentChange = (markdown) => {
-    setForm(prev => ({
-      ...prev,
-      content: markdown
-    }));
+  const handleContentChange = (value) => {
+    setForm(prev => ({ ...prev, content: value || "" }));
   };
-
-  // async function imageUploadHandler(image) {
-  //   const formData = new FormData()
-  //   formData.append('image', image)
-  //   // send the file to your server and return
-  //   // the URL of the uploaded image in the response
-  //   const response = await fetch('/uploads/new', {
-  //     method: 'POST',
-  //     body: formData
-  //   })
-  //   const json = (await response.json());
-  //   return json.url
-  // }
 
   return (
     <form onSubmit={handleCreate} className='post-create__form'>
@@ -79,29 +64,11 @@ const PostForm = ({ form, setForm, handleFieldChange, handleCreate }) => {
         />
       </div>
 
-      <MDXEditor
-        markdown={form.content}
-        onChange={handleContentChange}
-        placeholder="당신의 이야기를 적어보세요..."
+      <MDEditor
+        value={form.content}
+        onChange={(value) => handleContentChange(value)}
+        preview='edit'
         className='post-create__content'
-        contentEditableClassName='post-create__editorContent'
-        plugins={[
-          headingsPlugin(),
-          listsPlugin(),
-          quotePlugin(),
-          markdownShortcutPlugin(),
-          thematicBreakPlugin(),
-          toolbarPlugin({
-            toolbarContents: () => (
-              <>
-                <UndoRedo />
-                <BoldItalicUnderlineToggles />
-                <InsertImage />
-              </>
-            )
-          }),
-          // imagePlugin({ imageUploadHandler }),
-        ]}
       />
 
       <div className="post-create__bottom">

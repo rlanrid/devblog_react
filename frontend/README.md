@@ -7,8 +7,7 @@
 `npm i --save @mdxeditor/editor`
 `npm i axios` 
 `npm i zustand`
-`npm i react-markdown`
-`npm i rehype-raw remark-breaks`
+`npm i @uiw/react-md-editor`
 
 **상태 흐름**
 `UI 이벤트 -> state 변경 -> URL 동기화`
