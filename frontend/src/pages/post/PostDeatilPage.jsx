@@ -8,7 +8,7 @@ import ReactMarkdown from "react-markdown";
 const PostDeatilPage = ({ fetchPosts }) => {
   const { id } = useParams();
 
-  const [detailPost, setDetailPost] = useState({});
+  const [detailPost, setDetailPost] = useState(null);
 
   const loadPost = async () => {
     try {
@@ -66,7 +66,7 @@ const PostDeatilPage = ({ fetchPosts }) => {
           <div className="post-detail__info">
             <div className="post-detail__info-left">
               <span>{detailPost?.author?.username}</span>
-              <span>{formatTimeAgo(detailPost.createdAt)}</span>
+              <span>{formatTimeAgo(detailPost?.createdAt)}</span>
             </div>
 
             <div className="post-detail__info-right">
