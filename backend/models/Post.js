@@ -4,7 +4,11 @@ const postSchema = new mongoose.Schema(
   {
     thumbnail: {
       type: String,
-      required: true,
+      default: "https://res.cloudinary.com/devealb44/image/upload/v1774010276/DevBlog/hm2oab4mmakfjrm2soon.png",
+    },
+    thumbnailPublicId: {
+      type: String,
+      default: "",
     },
     title: {
       type: String,

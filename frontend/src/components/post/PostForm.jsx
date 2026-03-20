@@ -3,10 +3,12 @@ import { HiArrowNarrowLeft } from "react-icons/hi";
 import { Link } from 'react-router-dom';
 
 import MDEditor from "@uiw/react-md-editor";
+import { uploadImage } from '../../api/uploadApi';
 
 const PostForm = ({ form, setForm, handleFieldChange, handleCreate }) => {
 
   const [tagInput, setTagInput] = useState("");
+  const [uploading, setUploading] = useState(false);
 
   const handleAddTag = (value) => {
     const newTag = value.toLowerCase().trim();
@@ -44,6 +46,36 @@ const PostForm = ({ form, setForm, handleFieldChange, handleCreate }) => {
     if (e.target.value !== "") {
       handleAddTag(e.target.value);
     }
+  };
+
+  const handleThumbnailChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const previewUrl = URL.createObjectURL(file);
+    setForm(prev => ({ ...prev, thumbnail: previewUrl }));
+
+    setUploading(true);
+    try {
+      const { data } = await uploadImage(file);
+      setForm(prev => ({
+        ...prev,
+        thumbnail: data.url,
+        thumbnailPublicId: data.public_id,
+      }));
+    } catch (error) {
+      console.error("썸네일 업로드 실패", error);
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const handleThumbnailRemove = () => {
+    setForm(prev => ({
+      ...prev,
+      thumbnail: "",
+      thumbnailPublicId: "",
+    }));
   };
 
   const handleContentChange = (value) => {
@@ -88,6 +120,22 @@ const PostForm = ({ form, setForm, handleFieldChange, handleCreate }) => {
         preview='edit'
         className='post-create__content'
       />
+
+      <div className="post-create__thumbnail">
+        {form.thumbnail === "" ? (
+          <div className="post-create__thumbnail-preview">
+            <img src={form.thumbnail} alt="썸네일 미리보기" />
+            <button type='button' onClick={handleThumbnailRemove}>
+              썸네일 삭제
+            </button>
+          </div>
+        ) : (
+          <label className='post-create__thumbnail-label'>
+            {uploading ? "업로드중..." : "썸네일 추가"}
+            <input type="text" accept='image/*' onChange={handleThumbnailChange} />
+          </label>
+        )}
+      </div>
 
       <div className="post-create__bottom">
         <Link to='/'>

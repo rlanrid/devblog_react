@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const Post = require("../models/Post");
 
+const { deleteImage } = require("./uploadController");
+
 // 게시글 전체 조회
 exports.getPosts = async (req, res) => {
   try {
@@ -90,8 +92,11 @@ exports.deletePost = async (req, res) => {
       return res.status(403).json({ message: "권한이 없습니다." });
     }
 
-    await post.deleteOne();
+    if (post.thumbnailPublicId) {
+      await deleteImage(post.thumbnailPublicId);
+    }
 
+    await post.deleteOne();
     res.status(204).json();
   } catch (error) {
     console.error(error);

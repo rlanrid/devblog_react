@@ -41,6 +41,8 @@ app.listen(PORT, () => {
 // 라우터
 const postRoutes = require("./routes/postRoutes");
 const authRoutes = require("./routes/authRoutes");
+const uploadRoutes = require("./routes/uploadRoutes");
 
 app.use("/api/posts", postRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/upload", uploadRoutes);
