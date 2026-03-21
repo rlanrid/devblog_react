@@ -8,3 +8,5 @@ export const uploadImage = (file) => {
     headers: { "Content-Type": "multipart/form-data" },
   });
 };
+
+export const deleteImage = (publicId) => axiosInstance.delete(`/upload/${publicId}`);

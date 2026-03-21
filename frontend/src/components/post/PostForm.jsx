@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { HiArrowNarrowLeft } from "react-icons/hi";
+import { HiArrowNarrowLeft, HiOutlinePlusCircle, HiOutlineMinusCircle } from "react-icons/hi";
 import { Link } from 'react-router-dom';
 
 import MDEditor from "@uiw/react-md-editor";
@@ -9,6 +9,8 @@ const PostForm = ({ form, setForm, handleFieldChange, handleCreate }) => {
 
   const [tagInput, setTagInput] = useState("");
   const [uploading, setUploading] = useState(false);
+
+  console.log(form)
 
   const handleAddTag = (value) => {
     const newTag = value.toLowerCase().trim();
@@ -57,6 +59,10 @@ const PostForm = ({ form, setForm, handleFieldChange, handleCreate }) => {
 
     setUploading(true);
     try {
+      if (form.thumbnailPublicId) {
+        await deleteImage(form.thumbnailPublicId);
+      }
+
       const { data } = await uploadImage(file);
       setForm(prev => ({
         ...prev,
@@ -123,17 +129,25 @@ const PostForm = ({ form, setForm, handleFieldChange, handleCreate }) => {
 
       <div className="post-create__thumbnail">
         {form.thumbnail === "" ? (
+          <label className='post-create__thumbnail-label'>
+            {uploading ? "업로드중..." : (
+              <>
+                <HiOutlinePlusCircle />
+                <span>썸네일 추가</span>
+              </>
+            )}
+            <input type="file" accept='image/*' onChange={handleThumbnailChange} />
+          </label>
+        ) : (
           <div className="post-create__thumbnail-preview">
             <img src={form.thumbnail} alt="썸네일 미리보기" />
-            <button type='button' onClick={handleThumbnailRemove}>
-              썸네일 삭제
-            </button>
+            <div>
+              <HiOutlineMinusCircle />
+              <button type='button' onClick={handleThumbnailRemove}>
+                썸네일 삭제
+              </button>
+            </div>
           </div>
-        ) : (
-          <label className='post-create__thumbnail-label'>
-            {uploading ? "업로드중..." : "썸네일 추가"}
-            <input type="text" accept='image/*' onChange={handleThumbnailChange} />
-          </label>
         )}
       </div>
 

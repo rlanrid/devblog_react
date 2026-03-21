@@ -13,7 +13,7 @@ const PostCreatePage = ({ fetchPosts }) => {
     content: "",
     author: user,
     tags: [],
-    thumbnail: "../",
+    thumbnail: "",
   });
 
   const handleCreate = async (e) => {

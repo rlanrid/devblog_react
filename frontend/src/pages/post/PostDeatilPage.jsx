@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { formatTimeAgo } from '../../utils/dataProcess';
 import { deletePost, getPost, incrementView } from '../../api/postApi';
+import { getMe } from '../../api/authApi';
 
 import ReactMarkdown from "react-markdown";
 

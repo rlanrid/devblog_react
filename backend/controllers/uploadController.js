@@ -16,9 +16,9 @@ exports.uploadImage = async (req, res) => {
   }
 };
 
-exports.deleteImage = async (public_id) => {
+exports.deleteImage = async (req, res) => {
   try {
-    await cloudinary.uploader.destroy(public_id);
+    await cloudinary.uploader.destroy(req.params.publicId);
   } catch (error) {
     console.error("이미지 삭제 실패", error);
   }

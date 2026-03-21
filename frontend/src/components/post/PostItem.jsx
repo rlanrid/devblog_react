@@ -1,17 +1,13 @@
 import { formatTimeAgo } from '../../utils/dataProcess'
 import { Link } from 'react-router-dom'
 
-import profileImg from '../../assets/images/JS.png'
-
 const PostItem = ({ post }) => {
   return (
     <article className="post__item">
       <div className="post__thumbnail">
         <Link to={`/posts/${post._id}`}>
-          <img src={profileImg} alt="" />
+          <img src={post?.thumbnail} alt="게시글 썸네일" />
         </Link>
-
-        {/* <img src={profileImg} alt="" /> */}
       </div>
       <div className="post__content">
         <h2 className="post__title">

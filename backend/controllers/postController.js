@@ -41,7 +41,7 @@ exports.createPost = async (req, res) => {
       content,
       author: req.user._id,
       tags,
-      thumbnail,
+      thumbnail: thumbnail || process.env.DEFAULT_THUMBNAIL,
     });
 
     const savedPost = await newPost.save();
