@@ -34,7 +34,6 @@ const PostEditPage = ({ fetchPosts }) => {
     loadPost();
   }, [id]);
 
-
   const handleUpdate = async (e) => {
     e.preventDefault();
 

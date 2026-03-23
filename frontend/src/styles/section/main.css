@@ -382,6 +382,10 @@
   border: 1px solid var(--border-default);
 }
 
+.post-create__content .w-md-editor-text {
+  min-height: 100% !important;
+}
+
 .post-create__content .w-md-editor-toolbar {
   background-color: var(--bg-surface);
   border-bottom: 1px solid var(--border-default) !important;
@@ -389,10 +393,6 @@
 
 .post-create__content .w-md-editor-toolbar svg {
   color: var(--text-primary);
-}
-
-.post-create__content .w-md-editor-text {
-  height: 100%;
 }
 
 .post-create__content .w-md-editor-preview {

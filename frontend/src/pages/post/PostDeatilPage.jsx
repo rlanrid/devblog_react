@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom';
+
 import { formatTimeAgo } from '../../utils/dataProcess';
+
 import { deletePost, getPost, incrementView } from '../../api/postApi';
-import { getMe } from '../../api/authApi';
+import { useAuth } from '../../hooks/useAuth';
 
 import ReactMarkdown from "react-markdown";
 
 const PostDeatilPage = ({ fetchPosts }) => {
+  const { user } = useAuth();
   const { id } = useParams();
 
   const [detailPost, setDetailPost] = useState(null);
@@ -92,9 +95,13 @@ const PostDeatilPage = ({ fetchPosts }) => {
           </ReactMarkdown>
         </div>
 
-        <div className="post-detail__delete" >
-          <button onClick={handleDelete}>삭제</button>
-        </div>
+        {detailPost?.author?._id === user.id ? (
+          <div className="post-detail__delete" >
+            <button onClick={handleDelete}>삭제</button>
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
     </>
   )
