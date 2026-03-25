@@ -311,11 +311,11 @@
 /* post-create */
 .post-create {
   padding: 30px;
-  height: calc(100vh - 60px);
   display: flex;
   flex-direction: column;
   min-height: 0;
   overflow: hidden;
+  flex: 1;
 }
 
 .post-create__form {
@@ -374,6 +374,7 @@
 .post-create__content {
   flex: 1;
   min-height: 0;
+  max-height: 500px;
   display: flex;
   flex-direction: column;
   background-color: var(--bg-surface);
@@ -382,8 +383,17 @@
   border: 1px solid var(--border-default);
 }
 
+.post-create__content .w-md-editor-content {
+  display: flex;
+  flex: 1;
+}
+
 .post-create__content .w-md-editor-text {
   min-height: 100% !important;
+}
+
+.post-create__content .w-md-editor-input {
+  height: auto !important;
 }
 
 .post-create__content .w-md-editor-toolbar {

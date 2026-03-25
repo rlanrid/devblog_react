@@ -125,6 +125,7 @@ const PostForm = ({ form, setForm, handleFieldChange, handleCreate }) => {
         onChange={(value) => handleContentChange(value)}
         preview='edit'
         className='post-create__content'
+        height="100%"
       />
 
       <div className="post-create__thumbnail">
