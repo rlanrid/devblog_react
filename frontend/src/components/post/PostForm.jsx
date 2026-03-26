@@ -1,16 +1,16 @@
 import { useState } from 'react';
 import { HiArrowNarrowLeft, HiOutlinePlusCircle, HiOutlineMinusCircle } from "react-icons/hi";
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import MDEditor from "@uiw/react-md-editor";
 import { uploadImage } from '../../api/uploadApi';
 
-const PostForm = ({ form, setForm, handleFieldChange, handleCreate }) => {
+const PostForm = ({ form, setForm, handleFieldChange, handleSubmit }) => {
 
   const [tagInput, setTagInput] = useState("");
   const [uploading, setUploading] = useState(false);
 
-  console.log(form)
+  const location = useLocation();
 
   const handleAddTag = (value) => {
     const newTag = value.toLowerCase().trim();
@@ -89,7 +89,7 @@ const PostForm = ({ form, setForm, handleFieldChange, handleCreate }) => {
   };
 
   return (
-    <form onSubmit={handleCreate} className='post-create__form'>
+    <form onSubmit={handleSubmit} className='post-create__form'>
       <textarea
         name="title"
         className="post-create__title"
@@ -157,7 +157,9 @@ const PostForm = ({ form, setForm, handleFieldChange, handleCreate }) => {
           <HiArrowNarrowLeft />
           <span>나가기</span>
         </Link>
-        <button type='submit' className='post-create__publish' disabled={!form.title || !form.content}>작성</button>
+        <button type='submit' className='post-create__publish' disabled={!form.title || !form.content}>
+          {location.pathname === "/posts/create" ? "작성" : "수정"}
+        </button>
       </div>
     </form>
   )

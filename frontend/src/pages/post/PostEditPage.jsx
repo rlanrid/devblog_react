@@ -9,7 +9,7 @@ const PostEditPage = ({ fetchPosts }) => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { form, setForm, handleChange } = usePostForm({
+  const { form, setForm, handleFieldChange } = usePostForm({
     title: "",
     content: "",
     tags: ["Next"],
@@ -38,7 +38,7 @@ const PostEditPage = ({ fetchPosts }) => {
     e.preventDefault();
 
     try {
-      await updatePost(id);
+      await updatePost(id, form);
       await fetchPosts();
     } catch (error) {
       console.error("게시글 수정 실패", error);
@@ -51,8 +51,9 @@ const PostEditPage = ({ fetchPosts }) => {
     <div className="post-create">
       <PostForm
         form={form}
-        handleChange={handleChange}
-        onSubmit={handleUpdate}
+        setForm={setForm}
+        handleFieldChange={handleFieldChange}
+        handleSubmit={handleUpdate}
       />
     </div>
   )

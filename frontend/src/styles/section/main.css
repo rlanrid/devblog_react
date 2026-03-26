@@ -172,6 +172,7 @@
 .pagination {
   display: flex;
   justify-content: center;
+  margin-bottom: 30px;
 }
 
 .pagination ul {
@@ -373,8 +374,8 @@
 
 .post-create__content {
   flex: 1;
-  min-height: 0;
-  max-height: 500px;
+  min-height: 500px;
+  max-height: 700px;
   display: flex;
   flex-direction: column;
   background-color: var(--bg-surface);

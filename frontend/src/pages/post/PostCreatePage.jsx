@@ -36,7 +36,7 @@ const PostCreatePage = ({ fetchPosts }) => {
         form={form}
         setForm={setForm}
         handleFieldChange={handleFieldChange}
-        handleCreate={handleCreate}
+        handleSubmit={handleCreate}
       />
     </div>
   )
