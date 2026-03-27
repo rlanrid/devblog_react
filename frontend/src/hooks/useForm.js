@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export const usePostForm = (initialState) => {
+export const useForm = (initialState) => {
   const [form, setForm] = useState(initialState);
 
   const handleFieldChange = (e) => {

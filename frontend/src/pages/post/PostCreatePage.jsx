@@ -1,6 +1,6 @@
 import PostForm from '../../components/post/PostForm';
 import { useNavigate } from 'react-router-dom'
-import { usePostForm } from '../../hooks/usePostForm';
+import { useForm } from '../../hooks/useForm';
 import { createPost } from '../../api/postApi';
 import { useAuth } from '../../hooks/useAuth';
 
@@ -8,7 +8,7 @@ const PostCreatePage = ({ fetchPosts }) => {
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  const { form, setForm, handleFieldChange } = usePostForm({
+  const { form, setForm, handleFieldChange } = useForm({
     title: "",
     content: "",
     author: user,

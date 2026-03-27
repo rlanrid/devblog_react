@@ -6,7 +6,7 @@ const PostItem = ({ post }) => {
     <article className="post__item">
       <div className="post__thumbnail">
         <Link to={`/posts/${post._id}`}>
-          <img src={post?.thumbnail} alt="게시글 썸네일" />
+          <img src={post?.thumbnail ? post?.thumbnail : null} alt="게시글 썸네일" />
         </Link>
       </div>
       <div className="post__content">

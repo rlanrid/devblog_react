@@ -16,6 +16,7 @@ import PostEditPage from "./pages/post/PostEditPage";
 
 import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
+import UserSettingPage from "./pages/user/UserSettingPage";
 
 function App() {
   // URL 쿼리
@@ -45,6 +46,7 @@ function App() {
         <Route element={<PrivateRoute />}>
           <Route path="/posts/create" element={<PostCreatePage fetchPosts={fetchPosts} />} />
           <Route path="/posts/edit/:id" element={<PostEditPage fetchPosts={fetchPosts} />} />
+          <Route path="/user/setting" element={<UserSettingPage />} />
         </Route>
       </Route>
 

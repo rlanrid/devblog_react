@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { usePostForm } from '../../hooks/usePostForm';
+import { useForm } from '../../hooks/useForm';
 import { useEffect } from 'react';
 import { getPost, updatePost } from '../../api/postApi';
 
@@ -9,11 +9,11 @@ const PostEditPage = ({ fetchPosts }) => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { form, setForm, handleFieldChange } = usePostForm({
+  const { form, setForm, handleFieldChange } = useForm({
     title: "",
     content: "",
-    tags: ["Next"],
-    thumbnail: "../",
+    tags: [],
+    thumbnail: null,
   });
 
   const loadPost = async () => {
@@ -23,7 +23,7 @@ const PostEditPage = ({ fetchPosts }) => {
         title: data.title,
         content: data.content,
         tags: data.tags || ["Vue"],
-        thumbnail: data.thumbnail || "../",
+        thumbnail: data.thumbnail || null,
       });
     } catch (error) {
       console.error("게시글 불러오기 실패", error);
