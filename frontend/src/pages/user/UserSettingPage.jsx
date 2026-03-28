@@ -29,14 +29,14 @@ const UserSettingPage = () => {
         {/* <h2 className="user__user-info">개인정보</h2> */}
         <form onSubmit={handleSubmit} className="user__form">
           <div className="auth__box">
-            <label htmlFor="username">이메일</label>
+            <label htmlFor="username">닉네임</label>
             <input
               id="username"
               type="username"
               name="username"
               value={form.username}
               onChange={handleFieldChange}
-              placeholder="이메일을 입력하세요."
+              placeholder="닉네임을 입력하세요."
               required
             />
           </div>
@@ -53,26 +53,26 @@ const UserSettingPage = () => {
             />
           </div>
           <div className="auth__box">
-            <label htmlFor="email">이메일</label>
+            <label htmlFor="bio">소개</label>
             <input
-              id="email"
-              type="email"
-              name="email"
-              value={form.email}
+              id="bio"
+              type="bio"
+              name="bio"
+              value={form.bio}
               onChange={handleFieldChange}
-              placeholder="이메일을 입력하세요."
+              placeholder="소개를 작성해주세요."
               required
             />
           </div>
           <div className="auth__box">
-            <label htmlFor="email">이메일</label>
+            <label htmlFor="password">비밀번호</label>
             <input
-              id="email"
-              type="email"
-              name="email"
-              value={form.email}
+              id="password"
+              type="password"
+              name="password"
+              value="*********"
               onChange={handleFieldChange}
-              placeholder="이메일을 입력하세요."
+              placeholder="비밀번호를 입력하세요."
               required
             />
           </div>
