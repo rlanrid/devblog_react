@@ -1,27 +1,51 @@
-import profileImg from "../../assets/images/profile.jpg";
+import { useEffect, useState } from "react";
+
 import { useForm } from "../../hooks/useForm";
+import { useAuth } from "../../hooks/useAuth";
+
+import { getMe } from "../../api/authApi";
 
 const UserSettingPage = () => {
 
+  const { user } = useAuth();
+
+  const [isEditing, setIsEditing] = useState(false);
   const { form, setForm, handleFieldChange } = useForm({
     username: "",
     email: "",
-    password: "",
     profileImage: "",
     bio: "",
   });
+
+  const loadUser = async () => {
+    try {
+      const { data } = await getMe();
+      setForm({
+        username: data.user.username,
+        email: data.user.email,
+        profileImage: data.user.profileImage || null,
+        bio: data.user.bio,
+      });
+    } catch (error) {
+      console.error("유저 정보 불러오기 실패", error);
+    }
+  };
+
+  useEffect(() => {
+    loadUser();
+  }, []);
 
   const handleSubmit = () => { };
 
   return (
     <div className="user__inner container">
       <header className="user__header">
-        <div className="user__profile"><img src={profileImg} alt="" /></div>
+        <div className="user__profile"><img src={form.profileImage || null} alt="프로필" /></div>
         <div className="user__username">
-          <span>test</span>
+          <span>{form.username}</span>
         </div>
         <div className="user__email">
-          <span>test</span>
+          <span>{form.email}</span>
         </div>
       </header>
 
@@ -37,6 +61,7 @@ const UserSettingPage = () => {
               value={form.username}
               onChange={handleFieldChange}
               placeholder="닉네임을 입력하세요."
+              disabled={!isEditing}
               required
             />
           </div>
@@ -49,18 +74,20 @@ const UserSettingPage = () => {
               value={form.email}
               onChange={handleFieldChange}
               placeholder="이메일을 입력하세요."
+              disabled={!isEditing}
               required
             />
           </div>
           <div className="auth__box">
             <label htmlFor="bio">소개</label>
-            <input
+            <textarea
               id="bio"
               type="bio"
               name="bio"
               value={form.bio}
               onChange={handleFieldChange}
               placeholder="소개를 작성해주세요."
+              disabled={!isEditing}
               required
             />
           </div>
@@ -73,6 +100,7 @@ const UserSettingPage = () => {
               value="*********"
               onChange={handleFieldChange}
               placeholder="비밀번호를 입력하세요."
+              disabled={!isEditing}
               required
             />
           </div>

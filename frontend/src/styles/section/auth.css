@@ -61,6 +61,16 @@
   border-radius: 10px;
 }
 
+.auth__box textarea {
+  color: var(--text-primary);
+  padding: 0.5rem 1rem;
+  width: 100%;
+  border: 1px solid var(--border-default);
+  border-radius: 10px;
+  resize: none;
+  height: 34px;
+}
+
 .auth__inner p {
   display: flex;
   align-items: center;
