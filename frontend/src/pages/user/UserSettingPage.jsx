@@ -46,7 +46,8 @@ const UserSettingPage = () => {
 
       setIsEditing(false);
     } catch (error) {
-      setError(err.response?.data?.message || "수정에 실패했습니다.");
+      console.log("error")
+      setError(error.response?.data?.message || "수정에 실패했습니다.");
     }
   };
 
@@ -56,6 +57,8 @@ const UserSettingPage = () => {
       email: user.email,
       bio: user.bio || `안녕하세요, ${user.username}입니다!`,
       profileImage: user.profileImage,
+      password: "",
+      currentPassword: "",
     });
     setIsEditing(false);
   };
@@ -139,6 +142,10 @@ const UserSettingPage = () => {
             )}
           </div>
 
+          <div className="user__error-box">
+            {error && <p className="error-msg">{error || "비밀번호가 일치하지 않습니다."}</p>}
+          </div>
+
           <div className="user__button-box">
             {!isEditing ? (
               <button type="button" onClick={() => setIsEditing(true)} className="user__edit-btn">
@@ -146,7 +153,6 @@ const UserSettingPage = () => {
               </button>
             ) : (
               <>
-                {error && <p className="error-msg">{error || "비밀번호가 일치하지 않습니다."}</p>}
                 <button type="button" onClick={handleCancle} className="user__edit-btn">
                   취소
                 </button>

@@ -78,6 +78,13 @@ exports.getMe = async (req, res) => {
 // 내 정보 업데이트
 exports.updateMe = async (req, res) => {
   try {
+    const { email } = req.body;
+
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: "이미 사용중인 이메일입니다." });
+    }
+
     const updatedUser = await User.findByIdAndUpdate(
       req.user._id,
       { $set: req.body },

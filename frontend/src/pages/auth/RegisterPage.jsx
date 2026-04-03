@@ -36,6 +36,7 @@ const RegisterPage = () => {
     try {
       const { confirmPassword, ...submitData } = form;
       await handleRegister(submitData);
+      navigate("/posts")
     } catch (error) {
       console.log(error);
       setError(error.response?.data?.message || "회원가입에 실패했습니다.");

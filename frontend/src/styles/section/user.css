@@ -93,3 +93,11 @@
   grid-area: auth__password-confirm;
   margin-bottom: 1.5rem;
 }
+
+.user__error-box {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  margin-bottom: 1rem;
+}

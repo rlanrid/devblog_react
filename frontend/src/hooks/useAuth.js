@@ -12,8 +12,6 @@ export const useAuth = () => {
       login(data.user, data.token);
     } catch (error) {
       throw error;
-    } finally {
-      navigate("/posts");
     }
   };
 
