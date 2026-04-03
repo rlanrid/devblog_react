@@ -51,7 +51,13 @@ exports.login = async (req, res) => {
 
     res.json({
       token,
-      user: { id: user._id, username: user.username, email: user.email },
+      user: {
+        id: user._id,
+        username: user.username,
+        email: user.email,
+        profileImage: user.profileImage,
+        bio: user.bio,
+      }
     });
   } catch (error) {
     console.log(error);
@@ -65,6 +71,39 @@ exports.getMe = async (req, res) => {
     res.json({ user: req.user });
   } catch (error) {
     console.log(error);
+    res.status(500).json({ message: "서버 오류" });
+  }
+};
+
+// 내 정보 업데이트
+exports.updateMe = async (req, res) => {
+  try {
+    const updatedUser = await User.findByIdAndUpdate(
+      req.user._id,
+      { $set: req.body },
+      { returnDocument: 'after', runValidators: true }
+    ).select("-password");
+
+    res.json({ user: updatedUser });
+  } catch (error) {
+    res.status(500).json({ message: "서버 오류" });
+  }
+};
+
+exports.updatePassword = async (req, res) => {
+  try {
+    const { currentPassword, newPassword } = req.body;
+
+    const user = await User.findById(req.user._id).select("password");
+
+    const isMatch = await user.comparePassword(currentPassword);
+    if (!isMatch) {
+      return res.status(401).json({ message: "현재 비밀번호가 틀렸습니다." });
+    }
+
+    user.password = newPassword;
+    await user.save();
+  } catch (error) {
     res.status(500).json({ message: "서버 오류" });
   }
 };

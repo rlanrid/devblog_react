@@ -7,15 +7,23 @@ export const useAuth = () => {
   const navigate = useNavigate();
 
   const handleRegister = async (formData) => {
-    const { data } = await registerApi(formData);
-    login(data.user, data.token);
-    navigate("/posts");
+    try {
+      const { data } = await registerApi(formData);
+      login(data.user, data.token);
+    } catch (error) {
+      throw error;
+    } finally {
+      navigate("/posts");
+    }
   };
 
   const handleLogin = async (formData) => {
-    const { data } = await loginApi(formData);
-    login(data.user, data.token);
-    navigate("/posts");
+    try {
+      const { data } = await loginApi(formData);
+      login(data.user, data.token);
+    } catch (error) {
+      throw error;
+    }
   };
 
   const handleLogout = () => {

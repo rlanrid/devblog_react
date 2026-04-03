@@ -5,6 +5,8 @@ const axiosInstance = axios.create({
   baseURL: "http://localhost:5050/api",
 });
 
+const public__paths = ["/login", "/register", "/password"];
+
 // 요청 인터셉터 - 모든 요청 전에 토큰 자동 첨부
 axiosInstance.interceptors.request.use((config) => {
   const token = useAuthStore.getState().token;
@@ -20,7 +22,9 @@ axiosInstance.interceptors.request.use((config) => {
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
+    const isPublicPath = public__paths.some(path => error.config.url.includes(path));
+
+    if (error.response?.status === 401 && !isPublicPath) {
       useAuthStore.getState().logout();
       window.location.href = "/login";
     }

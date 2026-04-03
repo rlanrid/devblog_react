@@ -11,6 +11,7 @@ export const useAuthStore = create(
       // actions
       login: (user, token) => set({ user, token }),
       logout: () => set({ user: null, token: null }),
+      updateUser: (updatedUser) => set({ user: updatedUser }),
 
       // 로그인 여부 확인
       isLoggedIn: () => !!get().token,

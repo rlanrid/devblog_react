@@ -1,4 +1,4 @@
-import { HiOutlineHome, HiClock, HiChartBar, HiCog, HiOutlineSun, HiOutlineMoon, HiOutlinePencilAlt, HiOutlineLogout } from "react-icons/hi";
+import { HiOutlineHome, HiClock, HiChartBar, HiCog, HiOutlineSun, HiOutlineMoon, HiOutlinePencilAlt, HiOutlineLogout, HiOutlineQuestionMarkCircle } from "react-icons/hi";
 import { Link, NavLink } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
 import { useAuth } from "../../hooks/useAuth";
@@ -45,13 +45,19 @@ const Sidebar = ({ isMenuOpen }) => {
                 <span>통계</span>
               </NavLink>
             </li>
-          </ul>
-
-          <ul className="sidebar__menu">
             <li className="sidebar__menu-item">
               <NavLink to="/user/setting" className={({ isActive }) => (isActive ? "sidebar__active" : "")} end>
                 <HiCog />
                 <span>설정</span>
+              </NavLink>
+            </li>
+          </ul>
+
+          <ul className="sidebar__menu">
+            <li className="sidebar__menu-item">
+              <NavLink to="/help" className={({ isActive }) => (isActive ? "sidebar__active" : "")} end>
+                <HiOutlineQuestionMarkCircle />
+                <span>도움말</span>
               </NavLink>
             </li>
             {isLoggedIn() &&

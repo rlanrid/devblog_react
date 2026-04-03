@@ -45,6 +45,9 @@
 }
 
 .header__login-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 5px;
   color: var(--color-white);
   background-color: var(--action-primary);

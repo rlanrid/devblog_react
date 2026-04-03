@@ -35,7 +35,61 @@
 }
 
 .user__form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.user__form-box {
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  grid-template-areas:
+    "auth__username auth__email"
+    "auth__bio auth__password"
+    ". auth__password-confirm";
   gap: 1.5rem;
+}
+
+.user__form input:disabled,
+.user__form textarea:disabled {
+  backdrop-filter: brightness(0.9);
+}
+
+.user__button-box {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 1rem;
+}
+
+.user__edit-btn {
+  font-size: 1rem;
+  background-color: var(--action-primary);
+  padding: 7px 13px;
+  border-radius: 3px;
+  color: var(--text-inverse);
+  text-align: right;
+}
+
+.auth__username {
+  grid-area: auth__username;
+}
+
+.auth__email {
+  grid-area: auth__email;
+}
+
+.auth__bio {
+  grid-area: auth__bio;
+}
+
+.auth__password {
+  grid-area: auth__password;
+}
+
+.auth__password-confirm {
+  grid-area: auth__password-confirm;
+  margin-bottom: 1.5rem;
 }

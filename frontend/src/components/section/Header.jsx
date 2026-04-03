@@ -2,9 +2,10 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { HiOutlineSearch } from 'react-icons/hi';
 
-import profileImage from "../../assets/images/profile.jpg";
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
+
+import profile from "../../assets/icons/profile.png";
 
 const Header = ({ query, updateQuery, isMenuOpen, syncMenuUI }) => {
   const { isLoggedIn, user } = useAuth();
@@ -70,13 +71,13 @@ const Header = ({ query, updateQuery, isMenuOpen, syncMenuUI }) => {
             <div className="header__user">
               <div className="header__user-info">
                 <div className="header__user-avatar">
-                  <img src={profileImage} alt="프로필 이미지" />
+                  <img src={user.profileImage || profile} alt="프로필 이미지" />
                 </div>
                 <span className="header__user-name">{user.username}</span>
               </div>
             </div>
             :
-            <button className='header__login-btn'>로그인</button>
+            <Link to="/login" className='header__login-btn'>로그인</Link>
           }
         </div>
       </div>

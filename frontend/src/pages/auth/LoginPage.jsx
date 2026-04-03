@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const { handleLogin } = useAuth();
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,6 +22,7 @@ const LoginPage = () => {
 
     try {
       await handleLogin(form);
+      navigate("/posts")
     } catch (error) {
       setError(error.response?.data?.message || "로그인에 실패했습니다.");
     } finally {
