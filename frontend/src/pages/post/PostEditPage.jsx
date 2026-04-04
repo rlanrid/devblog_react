@@ -1,11 +1,15 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { useForm } from '../../hooks/useForm';
 import { useEffect } from 'react';
+
+import { useForm } from '../../hooks/useForm';
+import { useAuth } from '../../hooks/useAuth';
+
 import { getPost, updatePost } from '../../api/postApi';
 
 import PostForm from '../../components/post/PostForm';
 
 const PostEditPage = ({ fetchPosts }) => {
+  const { user } = useAuth();
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -19,6 +23,12 @@ const PostEditPage = ({ fetchPosts }) => {
   const loadPost = async () => {
     try {
       const { data } = await getPost(id);
+
+      if (data.author._id !== user._id) {
+        alert("작성자만 수정 가능합니다.");
+        return navigate("/posts");
+      }
+
       setForm({
         title: data.title,
         content: data.content,
