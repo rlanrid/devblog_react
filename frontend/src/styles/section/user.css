@@ -17,12 +17,35 @@
 .user__profile {
   width: 100px;
   height: 100px;
+  position: relative;
 }
 
 .user__profile img {
   width: 100%;
   height: 100%;
   border-radius: 50%;
+}
+
+.user__profile-label {
+  position: absolute;
+  right: -5px;
+  bottom: -5px;
+}
+
+.user__profile-label>* {
+  cursor: pointer;
+}
+
+.user__profile-label svg {
+  font-size: 1.2rem;
+}
+
+.user__profile-label input {
+  display: none;
+}
+
+.user__profile-label button svg {
+  color: var(--color-red);
 }
 
 .user__username {
