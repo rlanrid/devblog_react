@@ -41,7 +41,7 @@ function App() {
             loading={loading}
           />}
         />
-        <Route path="/posts/:id" element={<PostDeatilPage fetchPosts={fetchPosts} />} />
+        <Route path="/posts/:postId" element={<PostDeatilPage fetchPosts={fetchPosts} />} />
 
         <Route element={<PrivateRoute />}>
           <Route path="/posts/create" element={<PostCreatePage fetchPosts={fetchPosts} />} />

@@ -11,7 +11,7 @@ const PostCreatePage = ({ fetchPosts }) => {
   const { form, setForm, handleFieldChange } = useForm({
     title: "",
     content: "",
-    author: user,
+    author: user || "Anonymous",
     tags: [],
     thumbnail: "",
   });

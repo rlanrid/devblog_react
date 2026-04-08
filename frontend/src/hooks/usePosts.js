@@ -13,8 +13,9 @@ export const usePosts = ({ tag, sort, query, page, pageSize = 10 }) => {
     try {
       const { data } = await getPosts();
       setPosts(data);
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
+      setError(error);
     } finally {
       setLoading(false);
     }
