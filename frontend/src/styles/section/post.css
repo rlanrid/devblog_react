@@ -201,8 +201,12 @@
 /* 게시글 디테일 */
 
 .post-detail {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3rem;
   margin: 2rem 0;
-  max-width: 800px;
+  max-width: 1200px;
   min-height: 500px;
 }
 

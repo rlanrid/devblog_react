@@ -1,7 +1,10 @@
 import { useState } from "react";
+import { HiOutlineTrash } from "react-icons/hi";
 
 import { createComment, deleteComment } from "../../api/commentApi";
 import { useAuth } from "../../hooks/useAuth";
+import { formatTimeAgo } from "../../utils/dataProcess";
+
 
 import CommentForm from "./CommentForm"
 
@@ -27,16 +30,16 @@ const CommentList = ({ setComments, comments, postId }) => {
 
   const handleDelete = async (commentId) => {
     const isConfirm = window.confirm("정말 삭제하시겠습니까?");
-    if (isConfirm) return;
+    if (!isConfirm) return;
 
     try {
-      await deleteComment(postId,)
+      await deleteComment(postId, commentId);
+
+      setComments((prev) => prev.filter((comment) => comment._id !== commentId));
     } catch (error) {
       console.error("댓글 삭제 실패", error);
     }
   };
-
-
 
   return (
     <div className="post-detail__comment">
@@ -56,16 +59,18 @@ const CommentList = ({ setComments, comments, postId }) => {
             <div className="comment__info">
               <div className="comment__info-top">
                 <div className="comment__author">{comment.author.username}</div>
-                <div className="comment__date">1일전</div>
+                <div className="comment__date">{formatTimeAgo(comment?.createdAt)}</div>
+                {user._id === comment?.author?._id && (
+                  <button onClick={() => handleDelete(comment._id)} className="comment__delete-btn">
+                    <HiOutlineTrash />
+                  </button>
+                )}
               </div>
 
               <div className="comment__info-bottom">
                 <div className="comment__content">{comment.content}</div>
               </div>
             </div>
-            {user._id === comment?.author?._id && (
-              <button onClick={() => handleDelete(comment._id)}>삭제</button>
-            )}
           </div>
         ))}
       </div>

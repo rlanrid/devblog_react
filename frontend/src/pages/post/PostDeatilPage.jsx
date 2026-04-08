@@ -102,7 +102,7 @@ const PostDeatilPage = ({ fetchPosts }) => {
             </ReactMarkdown>
           </div>
 
-          {detailPost?.author?._id === user.id ? (
+          {detailPost?.author?._id === user._id ? (
             <div className="post-detail__delete" >
               <button onClick={handleDelete}>삭제</button>
             </div>

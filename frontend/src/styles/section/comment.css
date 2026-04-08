@@ -3,6 +3,7 @@
   justify-content: center;
   flex-direction: column;
   gap: 2rem;
+  margin-bottom: 2rem;
 }
 
 .comment__form {
@@ -78,6 +79,10 @@
   font-size: 14px;
 }
 
+.comment__info-top>* {
+  flex-shrink: 0;
+}
+
 .comment__author {
   color: var(--text-primary);
   font-weight: 600;
@@ -85,4 +90,17 @@
 
 .comment__date {
   color: var(--text-secondary);
+}
+
+.comment__delete-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.comment__delete-btn svg {
+  width: 100%;
+  height: 100%;
+  font-size: 14px;
+  color: var(--color-red);
 }

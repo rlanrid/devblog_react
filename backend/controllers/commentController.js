@@ -56,5 +56,6 @@ exports.deleteComment = async (req, res) => {
     res.status(200).json({ message: "댓글 삭제 완료" });
   } catch (error) {
     res.status(500).json({ message: "서버 오류" });
+    console.error(error)
   }
 };

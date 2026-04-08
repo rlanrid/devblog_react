@@ -19,7 +19,7 @@ const commentSchema = new mongoose.Schema(
       maxlength: 500,
     },
   },
-  { timestapms: true }
+  { timestamps: true }
 );
 
 module.exports = mongoose.model("Comment", commentSchema);
