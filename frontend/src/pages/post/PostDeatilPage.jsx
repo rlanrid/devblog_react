@@ -1,17 +1,19 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import { HiHeart } from 'react-icons/hi';
+
+import ReactMarkdown from "react-markdown";
 
 import { formatTimeAgo } from '../../utils/dataProcess';
 
-import { deletePost, getPost, incrementView } from '../../api/postApi';
-import { useAuth } from '../../hooks/useAuth';
-
-import ReactMarkdown from "react-markdown";
+import { deletePost, getPost, incrementLike, incrementView } from '../../api/postApi';
 import { getComments } from '../../api/commentApi';
+import { useAuthStore } from '../../store/authStore';
+
 import CommentList from '../../components/comment/CommentList';
 
 const PostDeatilPage = ({ fetchPosts }) => {
-  const { user } = useAuth();
+  const { user, isLoggedIn } = useAuthStore();
   const { postId } = useParams();
 
   const [detailPost, setDetailPost] = useState(null);
@@ -50,6 +52,22 @@ const PostDeatilPage = ({ fetchPosts }) => {
 
   const navigate = useNavigate();
 
+  const handleUpdateLike = async () => {
+    if (!isLoggedIn()) return alert("로그인 후 이용 가능합니다.");
+
+    try {
+      const { data } = await incrementLike(postId);
+
+      setDetailPost(prev => ({
+        ...prev,
+        info: data.info,
+        likeCount: data.likeCount,
+      }));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const handleDelete = async () => {
     const isConfirm = window.confirm("정말 삭제하시겠습니까?");
     if (!isConfirm) return;
@@ -65,6 +83,8 @@ const PostDeatilPage = ({ fetchPosts }) => {
     }
   };
 
+  const isLiking = detailPost?.info?.likes?.includes(user?.id);
+
   if (!detailPost) return <div>로딩 중...</div>
 
   return (
@@ -73,7 +93,6 @@ const PostDeatilPage = ({ fetchPosts }) => {
         <div className="post-detail__item">
           <div className="post-detail__meta">
             <h1 className="post-detail__title">{detailPost?.title}</h1>
-
             <div className="post-detail__info">
               <div className="post-detail__info-left">
                 <span>{detailPost?.author?.username}</span>
@@ -81,7 +100,14 @@ const PostDeatilPage = ({ fetchPosts }) => {
               </div>
 
               <div className="post-detail__info-right">
-                <button className="post-detail__action-btn">팔로우</button>
+                <button
+                  type='button'
+                  onClick={handleUpdateLike}
+                  className={`post-detail__action-btn ${isLiking ? "active" : ""}`}
+                >
+                  <HiHeart />
+                  <span> {detailPost?.likeCount}</span>
+                </button>
               </div>
             </div>
 
@@ -102,7 +128,7 @@ const PostDeatilPage = ({ fetchPosts }) => {
             </ReactMarkdown>
           </div>
 
-          {detailPost?.author?._id === user._id ? (
+          {detailPost?.author?._id === user?._id ? (
             <div className="post-detail__delete" >
               <button onClick={handleDelete}>삭제</button>
             </div>

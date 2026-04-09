@@ -24,7 +24,7 @@ const PostEditPage = ({ fetchPosts }) => {
     try {
       const { data } = await getPost(id);
 
-      if (data.author._id !== user._id) {
+      if (data.author._id !== user.id) {
         alert("작성자만 수정 가능합니다.");
         return navigate("/posts");
       }

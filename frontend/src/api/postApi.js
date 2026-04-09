@@ -7,3 +7,4 @@ export const updatePost = (id, data) => axiosInstance.put(`/posts/${id}`, data);
 export const deletePost = (id) => axiosInstance.delete(`/posts/${id}`);
 
 export const incrementView = (id) => axiosInstance.patch(`/posts/${id}/view`);
+export const incrementLike = (id) => axiosInstance.patch(`/posts/${id}/like`);

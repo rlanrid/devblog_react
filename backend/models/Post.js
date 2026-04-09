@@ -31,7 +31,10 @@ const postSchema = new mongoose.Schema(
         type: Number,
         default: 0,
       },
-      likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+      likes: {
+        type: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+        default: [],
+      }
     },
     tags: {
       type: [String],
@@ -50,8 +53,10 @@ const postSchema = new mongoose.Schema(
 
 // 좋아요 숫자 가상 필드
 postSchema.virtual("likeCount").get(function () {
-  return this.info.likes.length;
+  return this.info?.likes ? this.info.likes.length : 0;
 });
+postSchema.set("toJSON", { virtuals: true });
+postSchema.set("toObject", { virtuals: true });
 
 postSchema.index({ createdAt: -1 });
 postSchema.index({ title: "text", content: "text" });

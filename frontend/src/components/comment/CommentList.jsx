@@ -60,8 +60,8 @@ const CommentList = ({ setComments, comments, postId }) => {
               <div className="comment__info-top">
                 <div className="comment__author">{comment.author.username}</div>
                 <div className="comment__date">{formatTimeAgo(comment?.createdAt)}</div>
-                {user._id === comment?.author?._id && (
-                  <button onClick={() => handleDelete(comment._id)} className="comment__delete-btn">
+                {user?._id === comment?.author?._id && (
+                  <button onClick={() => handleDelete(comment?._id)} className="comment__delete-btn">
                     <HiOutlineTrash />
                   </button>
                 )}

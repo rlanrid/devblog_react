@@ -1,8 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { getDataProcessing, paginate } from "../utils/dataProcess";
 import { getPosts } from "../api/postApi";
+import { useAuth } from "./useAuth";
 
 export const usePosts = ({ tag, sort, query, page, pageSize = 10 }) => {
+  // 유저
+  const { user, isLoggedIn } = useAuth();
+
   // post 패치
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);

@@ -58,8 +58,6 @@ exports.updatePost = async (req, res) => {
     const { id } = req.params;
     const { title, content, tags, thumbnail } = req.body;
 
-    console.log(id)
-
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({ message: "Invaild ID" });
     }
@@ -121,5 +119,32 @@ exports.updateViews = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Failed to update view" });
+  }
+};
+
+// 게시글 좋아요
+exports.updateLikes = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const userId = req.user._id;
+
+    const post = await Post.findById(id);
+
+    if (!post) {
+      return res.status(404).json({ message: "게시글을 찾을 수 없습니다." });
+    }
+
+    const isLiked = post.info.likes.some(like => like.toString() === userId.toString());
+
+    const updateQuery = isLiked
+      ? { $pull: { "info.likes": userId } }
+      : { $push: { "info.likes": userId } }
+
+    const updateLike = await Post.findByIdAndUpdate(id, updateQuery, { returnDocument: "after" });
+
+    res.status(200).json(updateLike);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "서버 오류" });
   }
 };

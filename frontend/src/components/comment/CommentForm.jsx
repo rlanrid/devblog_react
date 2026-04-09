@@ -1,11 +1,13 @@
 import { HiCursorClick } from "react-icons/hi";
 
+import profile from "../../assets/icons/profile.png";
+
 const CommentForm = ({ handleSubmit, content, setContent, user }) => {
 
   return (
     <form onSubmit={handleSubmit} className="comment__form">
       <div className="comment__profile">
-        <img src={user.profileImage} alt="유저 프로필" />
+        <img src={user?.profileImage || profile} alt="유저 프로필" />
       </div>
 
       <textarea
