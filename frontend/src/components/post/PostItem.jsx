@@ -1,12 +1,21 @@
 import { formatTimeAgo } from '../../utils/dataProcess'
 import { Link } from 'react-router-dom'
 
+import noPostImage from "../../assets/images/NoImage.png";
+
 const PostItem = ({ post }) => {
   return (
     <article className="post__item">
       <div className="post__thumbnail">
         <Link to={`/posts/${post._id}`}>
-          <img src={post?.thumbnail ? post?.thumbnail : null} alt="게시글 썸네일" />
+          <img
+            src={post?.thumbnail ? post?.thumbnail : noPostImage}
+            alt="게시글 썸네일"
+            onError={(e) => {
+              e.target.src = noPostImage
+              e.target.onError = null;
+            }}
+          />
         </Link>
       </div>
       <div className="post__content">
