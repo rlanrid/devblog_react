@@ -11,6 +11,7 @@ import { getComments } from '../../api/commentApi';
 import { useAuthStore } from '../../store/authStore';
 
 import CommentList from '../../components/comment/CommentList';
+import Loading from '../../components/common/Loading';
 
 const PostDeatilPage = ({ fetchPosts }) => {
   const { user, isLoggedIn } = useAuthStore();
@@ -85,7 +86,7 @@ const PostDeatilPage = ({ fetchPosts }) => {
 
   const isLiking = detailPost?.info?.likes?.includes(user?.id);
 
-  if (!detailPost) return <div>로딩 중...</div>
+  if (detailPost) return <Loading />
 
   return (
     <>
@@ -124,7 +125,7 @@ const PostDeatilPage = ({ fetchPosts }) => {
 
           <div className="post-detail__content">
             <ReactMarkdown>
-              {detailPost.content}
+              {detailPost?.content}
             </ReactMarkdown>
           </div>
 
