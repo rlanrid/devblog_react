@@ -86,7 +86,7 @@ const PostDeatilPage = ({ fetchPosts }) => {
 
   const isLiking = detailPost?.info?.likes?.includes(user?.id);
 
-  if (detailPost) return <Loading />
+  if (!detailPost) return <Loading />
 
   return (
     <>
@@ -98,6 +98,7 @@ const PostDeatilPage = ({ fetchPosts }) => {
               <div className="post-detail__info-left">
                 <span>{detailPost?.author?.username}</span>
                 <span>{formatTimeAgo(detailPost?.createdAt)}</span>
+                <span>{detailPost?.isUpdated && "(수정됨)"}</span>
               </div>
 
               <div className="post-detail__info-right">
@@ -129,9 +130,14 @@ const PostDeatilPage = ({ fetchPosts }) => {
             </ReactMarkdown>
           </div>
 
-          {detailPost?.author?._id === user?._id ? (
-            <div className="post-detail__delete" >
-              <button onClick={handleDelete}>삭제</button>
+          {detailPost?.author?._id === user?.id ? (
+            <div className='post-detail__bottom'>
+              <div className="post-detail__edit" >
+                <Link to={`/posts/edit/${postId}`}>수정</Link>
+              </div>
+              <div className="post-detail__delete" >
+                <button onClick={handleDelete}>삭제</button>
+              </div>
             </div>
           ) : (
             <></>

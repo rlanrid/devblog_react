@@ -58,6 +58,11 @@ postSchema.virtual("likeCount").get(function () {
 postSchema.set("toJSON", { virtuals: true });
 postSchema.set("toObject", { virtuals: true });
 
+// 수정 여부 가상 필드
+postSchema.virtual("isUpdated").get(function () {
+  return this.updatedAt > this.createdAt;
+});
+
 postSchema.index({ createdAt: -1 });
 postSchema.index({ title: "text", content: "text" });
 
