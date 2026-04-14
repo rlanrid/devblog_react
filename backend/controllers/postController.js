@@ -6,9 +6,20 @@ const { deleteImage } = require("./uploadController");
 // 게시글 전체 조회
 exports.getPosts = async (req, res) => {
   try {
-    const posts = await Post.find().populate("author").sort({ createdAt: -1 });
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
 
-    res.status(200).json(posts);
+    const posts = await Post.find()
+      .populate("author")
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
+
+    const totalPosts = await Post.countDocuments();
+    const hasMore = skip + posts.length < totalPosts;
+
+    res.status(200).json({ posts, hasMore });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Failed to fetch posts" });
@@ -62,15 +73,21 @@ exports.updatePost = async (req, res) => {
       return res.status(400).json({ message: "Invaild ID" });
     }
 
+    const post = await Post.findById(id);
+
+    if (!post) {
+      return res.status(404).json({ message: "게시글을 찾을 수 없습니다." });
+    }
+
+    if (post.author.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ message: "권한이 없습니다." });
+    }
+
     const updatePost = await Post.findByIdAndUpdate(
       id,
       { title, content, tags, thumbnail },
       { returnDocument: "after", runValidators: true },
     );
-
-    if (!updatePost) {
-      return res.status(404).json({ message: "Post not found" });
-    }
 
     res.status(200).json(updatePost);
   } catch (error) {
