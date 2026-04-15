@@ -6,17 +6,44 @@ const { deleteImage } = require("./uploadController");
 // 게시글 전체 조회
 exports.getPosts = async (req, res) => {
   try {
-    const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 10;
-    const skip = (page - 1) * limit;
+    let { page, limit, tag, sort, query } = req.query;
 
-    const posts = await Post.find()
+    page = parseInt(page);
+    limit = parseInt(limit);
+
+    const skip = (page - 1) * limit;
+    const filterOption = {};
+
+    if (tag) {
+      filterOption.tags = tag;
+    }
+
+    if (query) {
+      filterOption.$or = [
+        { title: { $regex: query, $options: "i" } },
+        { content: { $regex: query, $options: "i" } },
+      ];
+    }
+
+    let sortOption = { createdAt: -1 };
+
+    if (sort === "인기순") {
+      sortOption = { "info.views": -1 };
+    }
+
+    // if (sort === "likes") {
+    //   sortOption = { "likeCount": -1 };
+    // }
+
+    // 조회
+    const posts = await Post.find(filterOption)
       .populate("author")
-      .sort({ createdAt: -1 })
+      .sort(sortOption)
       .skip(skip)
       .limit(limit);
 
-    const totalPosts = await Post.countDocuments();
+    const totalPosts = await Post.countDocuments(filterOption);
+
     const hasMore = skip + posts.length < totalPosts;
 
     res.status(200).json({ posts, hasMore });

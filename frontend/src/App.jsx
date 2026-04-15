@@ -23,7 +23,7 @@ function App() {
   const { tag, sort, query, page, updateQuery } = usePostQuery();
 
   // 포스트 데이터
-  const { postList, totalPage, loading, error, fetchPosts } = usePosts({ tag, sort, query, page });
+  const { posts, fetchPosts, loading, error } = usePosts({ tag, sort, query, page });
 
   if (error) return <div>에러 발생</div>;
 
@@ -34,10 +34,9 @@ function App() {
       <Route element={<BlogLayout query={query} updateQuery={updateQuery} />}>
         <Route path="/posts" element={
           <PostListPage
-            postSort={sort} page={page}
+            postSort={sort}
             updateQuery={updateQuery}
-            postList={postList}
-            totalPage={totalPage}
+            postList={posts}
             loading={loading}
           />}
         />
