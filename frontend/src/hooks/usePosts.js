@@ -11,7 +11,7 @@ export const usePosts = ({ tag, sort, query, page, pageSize = 12 }) => {
   const [hasMore, setHasMore] = useState(true);
 
   // 데이터 패치
-  const fetchPosts = useCallback(async () => {
+  const fetchPosts = async () => {
     if (loading || !hasMore) return;
 
     setLoading(true);
@@ -33,16 +33,18 @@ export const usePosts = ({ tag, sort, query, page, pageSize = 12 }) => {
     } finally {
       setLoading(false);
     }
-  }, [page, tag, sort, query, hasMore, loading]);
+  };
 
   useEffect(() => {
-    setPosts([]);
-    setHasMore(true);
+    if (page === 1) {
+      setPosts([]);
+      setHasMore(true);
+    }
   }, [tag, sort, query]);
 
   useEffect(() => {
     fetchPosts();
-  }, [fetchPosts]);
+  }, [page, tag, sort, query]);
 
   return { posts, hasMore, loading, error, fetchPosts };
 };

@@ -13,7 +13,9 @@ const PostListPage = () => {
 
   // 포스트 데이터
   const [page, setPage] = useState(1);
-  // const { posts, loading, hasMore } = usePosts({ tag, sort, query, page });
+  const { posts, loading, hasMore } = usePosts({ tag, sort, query, page });
+
+  console.log("현재 페이지:", page);
 
   // 무한 스크롤
   const observer = useRef();

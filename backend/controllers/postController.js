@@ -27,7 +27,7 @@ exports.getPosts = async (req, res) => {
 
     let sortOption = { createdAt: -1 };
 
-    if (sort === "인기순") {
+    if (sort === "조회순") {
       sortOption = { "info.views": -1 };
     }
 
