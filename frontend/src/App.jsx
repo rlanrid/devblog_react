@@ -33,12 +33,7 @@ function App() {
 
       <Route element={<BlogLayout query={query} updateQuery={updateQuery} />}>
         <Route path="/posts" element={
-          <PostListPage
-            postSort={sort}
-            updateQuery={updateQuery}
-            postList={posts}
-            loading={loading}
-          />}
+          <PostListPage />}
         />
         <Route path="/posts/:postId" element={<PostDeatilPage fetchPosts={fetchPosts} />} />
 

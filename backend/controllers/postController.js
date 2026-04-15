@@ -8,8 +8,8 @@ exports.getPosts = async (req, res) => {
   try {
     let { page, limit, tag, sort, query } = req.query;
 
-    page = parseInt(page);
-    limit = parseInt(limit);
+    page = parseInt(page) || 1;
+    limit = parseInt(limit) || 12;
 
     const skip = (page - 1) * limit;
     const filterOption = {};
@@ -45,6 +45,10 @@ exports.getPosts = async (req, res) => {
     const totalPosts = await Post.countDocuments(filterOption);
 
     const hasMore = skip + posts.length < totalPosts;
+
+    let postLength = posts.length
+
+    console.log({ page, limit, skip, hasMore, postLength })
 
     res.status(200).json({ posts, hasMore });
   } catch (error) {

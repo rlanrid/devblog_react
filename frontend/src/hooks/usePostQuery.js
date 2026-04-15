@@ -8,7 +8,6 @@ export const usePostQuery = () => {
   const tag = searchParams.get("tag") || "";
   const sort = searchParams.get("sort") || "최신순";
   const query = searchParams.get("query") || "";
-  const page = Number(searchParams.get("page")) || 1;
 
   const updateQuery = (key, value) => {
     setSearchParams(prev => {
@@ -20,10 +19,6 @@ export const usePostQuery = () => {
         params.set(key, value);
       }
 
-      if (key !== "page") {
-        params.delete("page");
-      }
-
       return params;
     });
   };
@@ -31,7 +26,7 @@ export const usePostQuery = () => {
   // 스크롤 초기화
   useEffect(() => {
     window.scrollTo({ top: 0 });
-  }, [tag, sort, query, page]);
+  }, [tag, sort, query]);
 
-  return { tag, sort, query, page, updateQuery };
+  return { tag, sort, query, updateQuery };
 };
