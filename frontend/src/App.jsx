@@ -23,7 +23,7 @@ function App() {
   const { tag, sort, query, page, updateQuery } = usePostQuery();
 
   // 포스트 데이터
-  const { posts, fetchPosts, loading, error } = usePosts({ tag, sort, query, page });
+  const { fetchPosts, error } = usePosts({ tag, sort, query, page });
 
   if (error) return <div>에러 발생</div>;
 

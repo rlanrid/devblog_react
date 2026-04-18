@@ -36,10 +36,8 @@ export const usePosts = ({ tag, sort, query, page, pageSize = 12 }) => {
   };
 
   useEffect(() => {
-    if (page === 1) {
-      setPosts([]);
-      setHasMore(true);
-    }
+    setPosts([]);
+    setHasMore(true);
   }, [tag, sort, query]);
 
   useEffect(() => {

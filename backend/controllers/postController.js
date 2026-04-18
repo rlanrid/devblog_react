@@ -6,13 +6,14 @@ const { deleteImage } = require("./uploadController");
 // 게시글 전체 조회
 exports.getPosts = async (req, res) => {
   try {
-    let { page, limit, tag, sort, query } = req.query;
-
-    page = parseInt(page) || 1;
-    limit = parseInt(limit) || 12;
-
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 12;
     const skip = (page - 1) * limit;
-    const filterOption = {};
+
+    let { tag, sort, query } = req.query;
+
+    let filterOption = {};
+    let sortOption = { createdAt: -1 };
 
     if (tag) {
       filterOption.tags = tag;
@@ -24,8 +25,6 @@ exports.getPosts = async (req, res) => {
         { content: { $regex: query, $options: "i" } },
       ];
     }
-
-    let sortOption = { createdAt: -1 };
 
     if (sort === "조회순") {
       sortOption = { "info.views": -1 };
