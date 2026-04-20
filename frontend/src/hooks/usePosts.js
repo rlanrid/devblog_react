@@ -1,6 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { getPosts } from "../api/postApi";
-import { useCallback } from "react";
 
 export const usePosts = ({ tag, sort, query, page, pageSize = 12 }) => {
 
@@ -9,6 +8,12 @@ export const usePosts = ({ tag, sort, query, page, pageSize = 12 }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [hasMore, setHasMore] = useState(true);
+
+  // 파라미터 변경 시 초기화
+  useEffect(() => {
+    setPosts([]);
+    setHasMore(true);
+  }, [tag, sort, query]);
 
   // 데이터 패치
   const fetchPosts = async () => {
@@ -34,11 +39,6 @@ export const usePosts = ({ tag, sort, query, page, pageSize = 12 }) => {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    setPosts([]);
-    setHasMore(true);
-  }, [tag, sort, query]);
 
   useEffect(() => {
     fetchPosts();

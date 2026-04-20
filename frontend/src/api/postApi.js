@@ -1,6 +1,6 @@
 import axiosInstance from "./axiosInstance";
 
-export const getPosts = (data) => axiosInstance.get("/posts", { params: data });
+export const getPosts = ({ signal, ...params }) => axiosInstance.get("/posts", { params, signal });
 export const getPost = (id) => axiosInstance.get(`/posts/${id}`);
 export const createPost = (data) => axiosInstance.post("/posts", data);
 export const updatePost = (id, data) => axiosInstance.put(`/posts/${id}`, data);
