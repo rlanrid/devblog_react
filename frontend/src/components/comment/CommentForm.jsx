@@ -1,6 +1,6 @@
 import { HiCursorClick } from "react-icons/hi";
 
-import profile from "../../assets/icons/profile.png";
+import profile from "../../assets/icons/NoProfile.png";
 
 const CommentForm = ({ handleSubmit, content, setContent, user }) => {
 

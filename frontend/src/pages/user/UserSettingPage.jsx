@@ -8,7 +8,7 @@ import { deleteImage, uploadImage } from "../../api/uploadApi";
 
 import { HiOutlineMinusCircle, HiOutlineUpload } from "react-icons/hi";
 
-import profile from "../../assets/icons/profile.png";
+import profile from "../../assets/icons/NoProfile.png";
 
 const UserSettingPage = () => {
   const { user, updateUser } = useAuthStore();

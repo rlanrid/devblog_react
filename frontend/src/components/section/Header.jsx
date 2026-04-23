@@ -5,7 +5,7 @@ import { HiOutlineSearch } from 'react-icons/hi';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 
-import profile from "../../assets/icons/profile.png";
+import profile from "../../assets/icons/NoProfile.png";
 
 const Header = ({ query, updateQuery, isMenuOpen, syncMenuUI }) => {
   const { isLoggedIn, user } = useAuth();
