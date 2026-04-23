@@ -2,7 +2,7 @@ import axios from "axios";
 import { useAuthStore } from "../store/authStore";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:5050/api",
+  baseURL: "https://devblog-react-xv6c.onrender.com/api",
 });
 
 const public__paths = ["/login", "/register", "/password"];
