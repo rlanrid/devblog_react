@@ -25,7 +25,7 @@ function App() {
   // 포스트 데이터
   const { fetchPosts, error } = usePosts({ tag, sort, query, page });
 
-  if (error) return <div>에러 발생</div>;
+  if (error) return <div>에러 발생: {error}</div>;
 
   return (
     <Routes>
