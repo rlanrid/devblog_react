@@ -2,7 +2,7 @@ import axios from "axios";
 import { useAuthStore } from "../store/authStore";
 
 const axiosInstance = axios.create({
-  baseURL: "https://devblog-react-xv6c.onrender.com/api",
+  baseURL: import.meta.env.VITE_API_URL,
 });
 
 const public__paths = ["/login", "/register", "/password"];
