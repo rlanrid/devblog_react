@@ -5,7 +5,7 @@ import { HiOutlineSearch } from 'react-icons/hi';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 
-import profile from "../../assets/icons/NoProfile.png";
+import NoProfile from "../../assets/icons/NoProfile.png";
 
 const Header = ({ query, updateQuery, isMenuOpen, syncMenuUI }) => {
   const { isLoggedIn, user } = useAuth();
@@ -71,7 +71,7 @@ const Header = ({ query, updateQuery, isMenuOpen, syncMenuUI }) => {
             <div className="header__user">
               <div className="header__user-info">
                 <div className="header__user-avatar">
-                  <img src={user.profileImage || profile} alt="프로필 이미지" />
+                  <img src={user.profileImage || NoProfile} alt="프로필 이미지" />
                 </div>
                 <span className="header__user-name">{user.username}</span>
               </div>

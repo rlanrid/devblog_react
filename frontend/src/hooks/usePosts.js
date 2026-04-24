@@ -30,9 +30,15 @@ export const usePosts = ({ tag, sort, query, page, pageSize = 12 }) => {
         query,
       });
 
-      setPosts((prev) => page === 1 ? data.posts : [...prev, ...data.posts]);
+      if (data) {
+        console.log(data)
+      }
 
-      setHasMore(data.hasMore);
+      const newPosts = data?.posts || [];
+
+      setPosts((prev) => page === 1 ? newPosts : [...prev, ...newPosts]);
+
+      setHasMore(data?.hasMore);
     } catch (error) {
       setError(error);
     } finally {

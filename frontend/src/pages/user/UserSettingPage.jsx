@@ -8,7 +8,7 @@ import { deleteImage, uploadImage } from "../../api/uploadApi";
 
 import { HiOutlineMinusCircle, HiOutlineUpload } from "react-icons/hi";
 
-import profile from "../../assets/icons/NoProfile.png";
+import NoProfile from "../../assets/icons/NoProfile.png";
 
 const UserSettingPage = () => {
   const { user, updateUser } = useAuthStore();
@@ -107,7 +107,7 @@ const UserSettingPage = () => {
       <form onSubmit={handleSubmit}>
         <header className="user__header">
           <div className="user__profile">
-            <img src={form.profileImage || profile} alt="프로필" />
+            <img src={form.profileImage || NoProfile} alt="프로필" />
             {isEditing && (
               <label className="user__profile-label">
                 {form.profileImage == "" ? (
