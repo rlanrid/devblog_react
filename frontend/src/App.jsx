@@ -30,6 +30,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Navigate to="/posts" replace />} />
+      <Route path="/*" element={<Navigate to="/posts" replace />} />
 
       <Route element={<BlogLayout query={query} updateQuery={updateQuery} />}>
         <Route path="/posts" element={
