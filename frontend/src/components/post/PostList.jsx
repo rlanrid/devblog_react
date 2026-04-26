@@ -1,20 +1,28 @@
-import { useCallback } from 'react'
 import PostItem from './PostItem'
+import Loading from '../common/Loading';
 
-const PostList = ({ postList, lastRef }) => {
+const PostList = ({ postList, loading, lastRef }) => {
+  const isEmpty = !postList || postList.length === 0;
+
+  if (loading && isEmpty) return <Loading />;
+
   return (
     <>
-      {postList && postList.length > 0 ?
-        <div className="post__list">
-          {
-            postList.map((post, index) => {
-              if (postList.length === index + 1) {
-                return <PostItem ref={lastRef} key={post._id} post={post} />
-              }
-              return <PostItem key={post._id} post={post} />
-            })
-          }
-        </div> :
+      {!isEmpty ?
+        <>
+          <div className="post__list">
+            {
+              postList.map((post) => {
+                return <PostItem key={post._id} post={post} />
+              })
+            }
+          </div>
+
+          <div ref={lastRef} style={{ height: 1 }} />
+
+          {loading && <Loading />}
+        </>
+        :
         <p className='post__none'>게시글이 없습니다.</p>
       }
     </>

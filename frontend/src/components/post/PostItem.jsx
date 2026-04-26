@@ -1,12 +1,11 @@
 import { formatTimeAgo } from '../../utils/dataProcess'
 import { Link } from 'react-router-dom'
 
-import { forwardRef } from 'react';
 import noPostImage from "../../assets/images/NoImage.png";
 
-const PostItem = forwardRef(({ post }, ref) => {
+const PostItem = ({ post }) => {
   return (
-    <article className="post__item" ref={ref}>
+    <article className="post__item">
       <div className="post__thumbnail">
         <Link to={`/posts/${post._id}`}>
           <img
@@ -36,7 +35,7 @@ const PostItem = forwardRef(({ post }, ref) => {
             <span className="dot"></span>
             <span className="post__info-item">{post.info.views} 조회수</span>
             <span className="dot"></span>
-            <span className="post__info-item">{post.info.comments} 댓글</span>
+            <span className="post__info-item">{post.commentCount} 댓글</span>
           </div>
           <div className="post__info-bottom">
             <span>{post?.author?.username}</span>
@@ -46,6 +45,6 @@ const PostItem = forwardRef(({ post }, ref) => {
       </div>
     </article>
   )
-})
+}
 
 export default PostItem

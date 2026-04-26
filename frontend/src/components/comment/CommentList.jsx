@@ -5,8 +5,9 @@ import { createComment, deleteComment } from "../../api/commentApi";
 import { useAuth } from "../../hooks/useAuth";
 import { formatTimeAgo } from "../../utils/dataProcess";
 
-
 import CommentForm from "./CommentForm"
+
+import NoProfile from "../../assets/icons/NoProfile.png";
 
 const CommentList = ({ setComments, comments, postId }) => {
   const { user } = useAuth();
@@ -54,7 +55,7 @@ const CommentList = ({ setComments, comments, postId }) => {
         {comments.map((comment) => (
           <div className="comment__item" key={comment._id}>
             <div className="comment__profile">
-              <img src={comment.author.profileImage} alt="유저 프로필" />
+              <img src={comment.author.profileImage || NoProfile} alt="유저 프로필" />
             </div>
             <div className="comment__info">
               <div className="comment__info-top">

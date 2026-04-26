@@ -17,30 +17,37 @@ const PostListPage = () => {
 
   // 무한 스크롤
   const observer = useRef();
+  const pagingLockRef = useRef(false);
 
   const lastRef = useCallback((node) => {
-    if (loading) return;
 
     if (observer.current) observer.current.disconnect();
 
     observer.current = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting && hasMore) {
-        setPage(prev => prev + 1);
-      }
-    });
+      if (!entries[0]?.isIntersecting) return;
+      if (!hasMore) return;
+      if (pagingLockRef.current) return;
+
+      pagingLockRef.current = true;
+      setPage(prev => prev + 1);
+    }, { root: null, rootMargin: '200px 0px', threshold: 0 });
 
     if (node) observer.current.observe(node);
-  }, [loading, hasMore]);
+  }, [hasMore]);
 
   useEffect(() => {
     setPage(1);
   }, [tag, sort, query]);
 
+  useEffect(() => {
+    if (!loading) pagingLockRef.current = false;
+  }, [loading]);
+
   return (
     <>
       <div className="post__inner container">
         <PostSort postSort={sort} updateQuery={updateQuery} />
-        <PostList postList={posts} lastRef={lastRef} />
+        <PostList postList={posts} loading={loading} lastRef={lastRef} />
       </div>
     </>
   )
