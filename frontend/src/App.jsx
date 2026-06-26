@@ -18,9 +18,9 @@ import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
 import UserSettingPage from "./pages/user/UserSettingPage";
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
 function App() {
   // URL 쿼리
