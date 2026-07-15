@@ -1,7 +1,19 @@
 import { useEffect, useState } from "react";
 import { getPosts } from "../api/postApi";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 export const usePosts = ({ tag, sort, query, page, pageSize = 12 }) => {
+
+  const {
+    data,
+    isPending,
+    isFetchingNextpage,
+  } = useInfiniteQuery({
+    queryKey: ["posts", { tag, srot, query }],
+    queryFn: async () => {
+
+    },
+  })
 
   // post 패치
   const [posts, setPosts] = useState([]);
