@@ -9,9 +9,23 @@ export const usePosts = ({ tag, sort, query, page, pageSize = 12 }) => {
     isPending,
     isFetchingNextpage,
   } = useInfiniteQuery({
-    queryKey: ["posts", { tag, srot, query }],
+    queryKey: ["posts", { tag, sort, query }],
     queryFn: async () => {
+      const { data } = await getPosts({
+        page,
+        limit: pageSize,
+        tag,
+        sort,
+        query,
+      });
 
+      return data;
+    },
+
+    initialPageParam: 1,
+
+    getNextPageParam: (lastPage, allPages) => {
+      return lastPage.hasMore ? allPages.length + 1 : undefined;
     },
   })
 
