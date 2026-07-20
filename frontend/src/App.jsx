@@ -18,10 +18,6 @@ import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
 import UserSettingPage from "./pages/user/UserSettingPage";
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-
-const queryClient = new QueryClient();
-
 function App() {
   // URL 쿼리
   const { tag, sort, query, page, updateQuery } = usePostQuery();
@@ -32,33 +28,31 @@ function App() {
   if (error) return <div>에러 발생: {error}</div>;
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <Routes>
-        <Route path="/" element={<Navigate to="/posts" replace />} />
-        <Route path="/*" element={<Navigate to="/posts" replace />} />
+    <Routes>
+      <Route path="/" element={<Navigate to="/posts" replace />} />
+      <Route path="/*" element={<Navigate to="/posts" replace />} />
 
-        <Route element={<BlogLayout query={query} updateQuery={updateQuery} />}>
-          <Route path="/posts" element={
-            <PostListPage />}
-          />
-          <Route path="/posts/:postId" element={<PostDeatilPage fetchPosts={fetchPosts} />} />
+      <Route element={<BlogLayout query={query} updateQuery={updateQuery} />}>
+        <Route path="/posts" element={
+          <PostListPage />}
+        />
+        <Route path="/posts/:postId" element={<PostDeatilPage fetchPosts={fetchPosts} />} />
 
-          <Route element={<PrivateRoute />}>
-            <Route path="/posts/create" element={<PostCreatePage fetchPosts={fetchPosts} />} />
-            <Route path="/posts/edit/:id" element={<PostEditPage fetchPosts={fetchPosts} />} />
-            <Route path="/user/setting" element={<UserSettingPage />} />
-          </Route>
+        <Route element={<PrivateRoute />}>
+          <Route path="/posts/create" element={<PostCreatePage fetchPosts={fetchPosts} />} />
+          <Route path="/posts/edit/:id" element={<PostEditPage fetchPosts={fetchPosts} />} />
+          <Route path="/user/setting" element={<UserSettingPage />} />
         </Route>
+      </Route>
 
-        <Route element={<AuthLayout />}>
-          <Route element={<PublicOnlyRoute />}>
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-          </Route>
+      <Route element={<AuthLayout />}>
+        <Route element={<PublicOnlyRoute />}>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
         </Route>
+      </Route>
 
-      </Routes>
-    </QueryClientProvider>
+    </Routes>
   )
 }
 

@@ -7,10 +7,16 @@ import App from './App.jsx'
 import './styles/style.css'
 import '@mdxeditor/editor/style.css';
 
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+const queryClient = new QueryClient();
+
 createRoot(document.getElementById('root')).render(
-  <ThemeProvider>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </ThemeProvider>
+  <QueryClientProvider client={queryClient}>
+    <ThemeProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </ThemeProvider>
+  </QueryClientProvider>
 )

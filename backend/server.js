@@ -9,11 +9,15 @@ const app = express();
 // CORS
 app.use(
   cors({
-    // origin: "http://localhost:5173",
-    origin: process.env.API_URL,
+    origin: "http://localhost:5173",
+    // origin: process.env.API_URL,
     credentials: true,
   })
 );
+
+// DNS
+const dns = require("dns");
+dns.setServers(["8.8.8.8", "8.8.4.4"]);
 
 // JSON 파싱
 app.use(express.json());
