@@ -7,16 +7,20 @@ export const usePosts = ({ tag, sort, query, page, pageSize = 12 }) => {
   const {
     data,
     isPending,
-    isFetchingNextpage,
+    isFetchingNextPage,
+    error,
+    fetchNextPage,
+    hasNextPage,
   } = useInfiniteQuery({
     queryKey: ["posts", { tag, sort, query }],
-    queryFn: async () => {
+    queryFn: async ({ pageParam, signal }) => {
       const { data } = await getPosts({
-        page,
+        page: pageParam,
         limit: pageSize,
         tag,
         sort,
         query,
+        signal
       });
 
       return data;
@@ -33,7 +37,7 @@ export const usePosts = ({ tag, sort, query, page, pageSize = 12 }) => {
 
   return {
     posts,
-    loading: isPending || isFetchingNextpage,
+    loading: isPending || isFetchingNextPage,
     error,
     hasMore: hasNextPage,
     fetchNextPage,

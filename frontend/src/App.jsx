@@ -19,13 +19,13 @@ import RegisterPage from "./pages/auth/RegisterPage";
 import UserSettingPage from "./pages/user/UserSettingPage";
 
 function App() {
-  // URL 쿼리
-  const { tag, sort, query, page, updateQuery } = usePostQuery();
 
-  // 포스트 데이터
-  const { fetchPosts, error } = usePosts({ tag, sort, query, page });
+  const { query, updateQuery } = usePostQuery();
 
-  if (error) return <div>에러 발생: {error}</div>;
+  // Legacy //
+  // const { tag, sort, query, page, updateQuery } = usePostQuery();
+  // const { fetchPosts, error } = usePosts({ tag, sort, query, page });
+  // if (error) return <div>에러 발생: {error}</div>;=
 
   return (
     <Routes>
@@ -36,11 +36,11 @@ function App() {
         <Route path="/posts" element={
           <PostListPage />}
         />
-        <Route path="/posts/:postId" element={<PostDeatilPage fetchPosts={fetchPosts} />} />
+        <Route path="/posts/:postId" element={<PostDeatilPage />} />
 
         <Route element={<PrivateRoute />}>
-          <Route path="/posts/create" element={<PostCreatePage fetchPosts={fetchPosts} />} />
-          <Route path="/posts/edit/:id" element={<PostEditPage fetchPosts={fetchPosts} />} />
+          <Route path="/posts/create" element={<PostCreatePage />} />
+          <Route path="/posts/edit/:id" element={<PostEditPage />} />
           <Route path="/user/setting" element={<UserSettingPage />} />
         </Route>
       </Route>

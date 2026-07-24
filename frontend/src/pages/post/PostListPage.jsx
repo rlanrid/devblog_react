@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 import { usePostQuery } from '../../hooks/usePostQuery';
 
@@ -12,15 +12,19 @@ const PostListPage = () => {
   const { tag, sort, query, updateQuery } = usePostQuery();
 
   // 포스트 데이터
-  const [page, setPage] = useState(1);
-  const { posts, loading, hasMore } = usePosts({ tag, sort, query, page });
+  const {
+    posts,
+    loading,
+    error,
+    hasMore,
+    fetchNextPage,
+  } = usePosts({ tag, sort, query });
 
   // 무한 스크롤
   const observer = useRef();
   const pagingLockRef = useRef(false);
 
   const lastRef = useCallback((node) => {
-
     if (observer.current) observer.current.disconnect();
 
     observer.current = new IntersectionObserver((entries) => {
@@ -29,19 +33,19 @@ const PostListPage = () => {
       if (pagingLockRef.current) return;
 
       pagingLockRef.current = true;
-      setPage(prev => prev + 1);
+      fetchNextPage();
     }, { root: null, rootMargin: '200px 0px', threshold: 0 });
 
     if (node) observer.current.observe(node);
-  }, [hasMore]);
-
-  useEffect(() => {
-    setPage(1);
-  }, [tag, sort, query]);
+  }, [fetchNextPage, hasMore]);
 
   useEffect(() => {
     if (!loading) pagingLockRef.current = false;
   }, [loading]);
+
+  if (error) {
+    return <div>에러 발생: {error.message}</div>;
+  }
 
   return (
     <>
