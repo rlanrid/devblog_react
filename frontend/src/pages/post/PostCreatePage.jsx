@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useForm } from '../../hooks/useForm';
 import { createPost } from '../../api/postApi';
 import { useAuth } from '../../hooks/useAuth';
+import { useCreatePost } from '../../hooks/usePosts';
 
 const PostCreatePage = ({ fetchPosts }) => {
   const { user } = useAuth();
@@ -16,18 +17,26 @@ const PostCreatePage = ({ fetchPosts }) => {
     thumbnail: "",
   });
 
+  const createPostMutation = useCreatePost();
+
   const handleCreate = async (e) => {
     e.preventDefault();
 
-    try {
-      await createPost(form);
+    createPostMutation.mutate(form, {
+      onSuccess: () => {
+        navigate("/posts");
+      },
+    })
 
-      await fetchPosts();
-    } catch (error) {
-      console.error("게시글 작성 실패", error);
-    } finally {
-      navigate("/posts");
-    }
+    // try {
+    //   await createPost(form);
+
+    //   await fetchPosts();
+    // } catch (error) {
+    //   console.error("게시글 작성 실패", error);
+    // } finally {
+    //   navigate("/posts");
+    // }
   };
 
   return (
