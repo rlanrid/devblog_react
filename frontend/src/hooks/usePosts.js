@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { createPost, getPosts } from "../api/postApi";
+import { createPost, getPosts, updatePost, deletePost } from "../api/postApi";
 import { useInfiniteQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const usePosts = ({ tag, sort, query, page, pageSize = 12 }) => {
@@ -54,6 +54,28 @@ export const useCreatePost = () => {
   });
 };
 
+export const useUpdatePost = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ id, form }) => updatePost(id, form),
+    onSuccess: (_, post) => {
+      queryClient.invalidateQueries({ queryKey: ["posts"] });
+      queryClient.invalidateQueries({ queryKey: ["post", post.id] });
+    },
+  });
+};
+
+export const useDeletePost = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: deletePost,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["posts"] });
+    },
+  });
+};
 
 // Legacy code //
 
