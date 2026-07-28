@@ -4,7 +4,8 @@ import { useEffect } from 'react';
 import { useForm } from '../../hooks/useForm';
 import { useAuth } from '../../hooks/useAuth';
 
-import { getPost, updatePost } from '../../api/postApi';
+import { getPost } from '../../api/postApi';
+import { useUpdatePost } from '../../hooks/usePosts';
 
 import PostForm from '../../components/post/PostForm';
 
@@ -12,6 +13,8 @@ const PostEditPage = ({ fetchPosts }) => {
   const { user } = useAuth();
   const { id } = useParams();
   const navigate = useNavigate();
+
+  const updatePostMutaion = useUpdatePost();
 
   const { form, setForm, handleFieldChange } = useForm({
     title: "",
@@ -47,14 +50,17 @@ const PostEditPage = ({ fetchPosts }) => {
   const handleUpdate = async (e) => {
     e.preventDefault();
 
-    try {
-      await updatePost(id, form);
-      await fetchPosts();
-    } catch (error) {
-      console.error("게시글 수정 실패", error);
-    } finally {
-      navigate(`/posts/${id}`);
-    }
+    updatePostMutaion.mutate(
+      { id, form },
+      {
+        onSuccess: () => {
+          navigate(`/posts/${id}`);
+        },
+        onError: (error) => {
+          console.error("게시글 수정 실패", error);
+        },
+      }
+    );
   };
 
   return (
@@ -64,6 +70,7 @@ const PostEditPage = ({ fetchPosts }) => {
         setForm={setForm}
         handleFieldChange={handleFieldChange}
         handleSubmit={handleUpdate}
+      // submitting={updatePostMutation.isPending}
       />
     </div>
   )

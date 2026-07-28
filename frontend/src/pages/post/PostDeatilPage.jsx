@@ -6,12 +6,13 @@ import ReactMarkdown from "react-markdown";
 
 import { formatTimeAgo } from '../../utils/dataProcess';
 
-import { deletePost, getPost, incrementLike, incrementView } from '../../api/postApi';
+import { getPost, incrementLike, incrementView } from '../../api/postApi';
 import { getComments } from '../../api/commentApi';
 import { useAuthStore } from '../../store/authStore';
 
 import CommentList from '../../components/comment/CommentList';
 import Loading from '../../components/common/Loading';
+import { useDeletePost } from '../../hooks/usePosts';
 
 const PostDeatilPage = ({ fetchPosts }) => {
   const { user, isLoggedIn } = useAuthStore();
@@ -19,6 +20,8 @@ const PostDeatilPage = ({ fetchPosts }) => {
 
   const [detailPost, setDetailPost] = useState(null);
   const [comments, setComments] = useState([]);
+
+  const deletePostMutation = useDeletePost();
 
   const loadPost = async () => {
     try {
@@ -73,15 +76,14 @@ const PostDeatilPage = ({ fetchPosts }) => {
     const isConfirm = window.confirm("정말 삭제하시겠습니까?");
     if (!isConfirm) return;
 
-    try {
-      await deletePost(postId);
-
-      await fetchPosts();
-    } catch (error) {
-      console.error("게시글 삭제 실패", error);
-    } finally {
-      navigate("/posts");
-    }
+    deletePostMutation.mutate(postId, {
+      onSuccess: () => {
+        navigate("/posts");
+      },
+      onError: (error) => {
+        console.error("게시글 삭제 실패", error);
+      },
+    });
   };
 
   const isLiking = detailPost?.info?.likes?.includes(user?.id);
@@ -136,7 +138,9 @@ const PostDeatilPage = ({ fetchPosts }) => {
                 <Link to={`/posts/edit/${postId}`}>수정</Link>
               </div>
               <div className="post-detail__delete" >
-                <button onClick={handleDelete}>삭제</button>
+                <button onClick={handleDelete} disabled={deletePostMutation.isPending}>
+                  {deletePostMutation.isPending ? "삭제중..." : "삭제"}
+                </button>
               </div>
             </div>
           ) : (
