@@ -1,27 +1,47 @@
 import { useState } from "react";
-import { getComments } from "../api/commentApi";
+import { createComment, deleteComment, getComments } from "../api/commentApi";
 import { useEffect } from "react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-export const useComments = () => {
-  // comment 패치
-  const [comments, setComments] = useState([]);
-  const [loading, setLoading] = useState(false);
+export const useComments = (postId) => {
+  const {
+    data,
+    isPending,
+    error,
+  } = useQuery({
+    queryKey: ["comments", postId],
+    queryFn: async () => {
+      const { data } = await getComments(postId);
+      return data;
+    },
+    enabled: !!postId,
+  });
 
-  const fetchComments = async () => {
-    setLoading(true);
-    try {
-      const { data } = await getComments();
-      setComments(data);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchComments();
-  }, []);
-
-  return { comments, loading, fetchComments };
+  return {
+    comments: data || [],
+    loading: isPending,
+    error,
+  }
 };
+
+export const useCreateComment = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ postId, data }) => createComment(postId, data),
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: ["comments", variables.postId] });
+    }
+  })
+};
+
+export const useDeleteComment = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ postId, commentId }) => deleteComment(postId, commentId),
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: ["comments", variables.postId] })
+    }
+  })
+}

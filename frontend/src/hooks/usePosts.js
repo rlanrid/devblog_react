@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { createPost, getPosts, updatePost, deletePost } from "../api/postApi";
-import { useInfiniteQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { getComments } from "../api/commentApi";
 
 export const usePosts = ({ tag, sort, query, page, pageSize = 12 }) => {
   const {

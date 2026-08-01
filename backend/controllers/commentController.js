@@ -33,6 +33,7 @@ exports.createComment = async (req, res) => {
     res.status(201).json(populated);
   } catch (error) {
     res.status(500).json({ message: "서버 오류" });
+    console.error(error);
   }
 };
 

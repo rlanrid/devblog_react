@@ -19,7 +19,6 @@ const PostDeatilPage = ({ fetchPosts }) => {
   const { postId } = useParams();
 
   const [detailPost, setDetailPost] = useState(null);
-  const [comments, setComments] = useState([]);
 
   const deletePostMutation = useDeletePost();
 
@@ -27,31 +26,28 @@ const PostDeatilPage = ({ fetchPosts }) => {
     try {
       const { data: postData } = await getPost(postId);
       setDetailPost(postData);
-
-      const { data: commentList } = await getComments(postId);
-      setComments(commentList);
     } catch (error) {
       console.error("게시글 불러오기 실패", error);
     }
   };
 
-  const handleUpdateView = async () => {
-    try {
-      const watched = sessionStorage.getItem(`viewed_${postId}`);
+  // const handleUpdateView = async () => {
+  //   try {
+  //     const watched = sessionStorage.getItem(`viewed_${postId}`);
 
-      if (!watched) {
-        await incrementView(postId);
-        sessionStorage.setItem(`viewed_${postId}`, true);
-        await fetchPosts();
-      }
-    } catch (error) {
-      console.error("조회수 업데이트 실패", error);
-    }
-  };
+  //     if (!watched) {
+  //       await incrementView(postId);
+  //       sessionStorage.setItem(`viewed_${postId}`, true);
+  //       await fetchPosts();
+  //     }
+  //   } catch (error) {
+  //     console.error("조회수 업데이트 실패", error);
+  //   }
+  // };
 
   useEffect(() => {
     loadPost();
-    handleUpdateView();
+    // handleUpdateView();
   }, [postId]);
 
   const navigate = useNavigate();
@@ -148,7 +144,7 @@ const PostDeatilPage = ({ fetchPosts }) => {
           )}
         </div>
 
-        <CommentList setComments={setComments} comments={comments} postId={postId} />
+        <CommentList postId={postId} />
       </div>
     </>
   )

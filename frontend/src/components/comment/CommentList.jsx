@@ -5,41 +5,51 @@ import { createComment, deleteComment } from "../../api/commentApi";
 import { useAuth } from "../../hooks/useAuth";
 import { formatTimeAgo } from "../../utils/dataProcess";
 
+import { useComments, useCreateComment, useDeleteComment } from "../../hooks/useComments";
+
 import CommentForm from "./CommentForm"
 
 import NoProfile from "../../assets/icons/NoProfile.png";
 
-const CommentList = ({ setComments, comments, postId }) => {
+const CommentList = ({ postId }) => {
   const { user } = useAuth();
 
   const [content, setContent] = useState("");
+
+  const { comments, isPending, error } = useComments(postId);
+
+  const createCommentMutation = useCreateComment();
+  const deleteCommentMutation = useDeleteComment();
 
   const handleCreate = async (e) => {
     e.preventDefault();
     if (!content.trim()) return;
 
-    try {
-      const { data } = await createComment(postId, { content });
-
-      setComments(prev => [data, ...prev]);
-
-      setContent("");
-    } catch (error) {
-      console.error("댓글 작성 실패", error);
-    }
+    createCommentMutation.mutate(
+      { postId, data: { content } },
+      {
+        onSuccess: () => {
+          setContent("");
+        },
+        onError: (error) => {
+          console.error("댓글 작성 실패", error);
+        },
+      }
+    );
   };
 
   const handleDelete = async (commentId) => {
     const isConfirm = window.confirm("정말 삭제하시겠습니까?");
     if (!isConfirm) return;
 
-    try {
-      await deleteComment(postId, commentId);
-
-      setComments((prev) => prev.filter((comment) => comment._id !== commentId));
-    } catch (error) {
-      console.error("댓글 삭제 실패", error);
-    }
+    deleteCommentMutation.mutate(
+      { postId, commentId },
+      {
+        onError: (error) => {
+          console.error("댓글 삭제 실패", error);
+        }
+      }
+    );
   };
 
   return (

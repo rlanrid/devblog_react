@@ -47,8 +47,6 @@ exports.getPosts = async (req, res) => {
 
     let postLength = posts.length
 
-    console.log({ page, limit, skip, hasMore, postLength })
-
     res.status(200).json({ posts, hasMore });
   } catch (error) {
     console.log(error);
