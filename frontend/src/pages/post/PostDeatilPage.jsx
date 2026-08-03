@@ -31,23 +31,23 @@ const PostDeatilPage = ({ fetchPosts }) => {
     }
   };
 
-  // const handleUpdateView = async () => {
-  //   try {
-  //     const watched = sessionStorage.getItem(`viewed_${postId}`);
+  const handleUpdateView = async () => {
+    try {
+      const watched = sessionStorage.getItem(`viewed_${postId}`);
 
-  //     if (!watched) {
-  //       await incrementView(postId);
-  //       sessionStorage.setItem(`viewed_${postId}`, true);
-  //       await fetchPosts();
-  //     }
-  //   } catch (error) {
-  //     console.error("조회수 업데이트 실패", error);
-  //   }
-  // };
+      if (!watched) {
+        await incrementView(postId);
+        sessionStorage.setItem(`viewed_${postId}`, true);
+        // await fetchPosts();
+      }
+    } catch (error) {
+      console.error("조회수 업데이트 실패", error);
+    }
+  };
 
   useEffect(() => {
     loadPost();
-    // handleUpdateView();
+    handleUpdateView();
   }, [postId]);
 
   const navigate = useNavigate();

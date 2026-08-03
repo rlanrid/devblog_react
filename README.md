@@ -101,8 +101,8 @@ Axios 인스턴스를 중앙에서 관리하며, 요청 인터셉터로 JWT 토�
 
 ## 5. 개선 사항(예정)
 
-### 5.1. React-query 이관
-현재 useEffect와 axios를 결합하여 데이터를 호출하는 것을 TanStack Query로 이관하여 기존 문제점(props drilling, 상태 관리 등)들을 해결할 것 입니다.
+### 5.1. React-query 이관 (완료)
+현재 useEffect와 axios를 결합하여 데이터를 호출하는 것을 TanStack Query로 이관하여 기존 문제점(props drilling, 상태 관리 등)들을 해결했습니다.
 
 ### 5.2. 좋아요 기능 완성
 현재 좋아요 API는 구현되어 있으나, 프론트엔드 UI에 연동이 안되었고 좋아요 기반 필터링도 미구현 상태입니다.
