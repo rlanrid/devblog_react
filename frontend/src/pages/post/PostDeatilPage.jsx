@@ -12,24 +12,17 @@ import { useAuthStore } from '../../store/authStore';
 
 import CommentList from '../../components/comment/CommentList';
 import Loading from '../../components/common/Loading';
-import { useDeletePost } from '../../hooks/usePosts';
+import { useDeletePost, useLikePost, usePost } from '../../hooks/usePosts';
 
 const PostDeatilPage = ({ fetchPosts }) => {
   const { user, isLoggedIn } = useAuthStore();
   const { postId } = useParams();
+  const navigate = useNavigate();
 
-  const [detailPost, setDetailPost] = useState(null);
+  const { post: detailPost, loading, error } = usePost(postId);
 
+  const likePostMutation = useLikePost();
   const deletePostMutation = useDeletePost();
-
-  const loadPost = async () => {
-    try {
-      const { data: postData } = await getPost(postId);
-      setDetailPost(postData);
-    } catch (error) {
-      console.error("게시글 불러오기 실패", error);
-    }
-  };
 
   const handleUpdateView = async () => {
     try {
@@ -46,26 +39,17 @@ const PostDeatilPage = ({ fetchPosts }) => {
   };
 
   useEffect(() => {
-    loadPost();
     handleUpdateView();
   }, [postId]);
-
-  const navigate = useNavigate();
 
   const handleUpdateLike = async () => {
     if (!isLoggedIn()) return alert("로그인 후 이용 가능합니다.");
 
-    try {
-      const { data } = await incrementLike(postId);
-
-      setDetailPost(prev => ({
-        ...prev,
-        info: data.info,
-        likeCount: data.likeCount,
-      }));
-    } catch (error) {
-      console.error(error);
-    }
+    likePostMutation.mutate(postId, {
+      onError: (error) => {
+        console.error("좋아요 처리 실패", error);
+      },
+    });
   };
 
   const handleDelete = async () => {

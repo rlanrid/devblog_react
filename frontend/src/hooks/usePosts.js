@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { createPost, getPosts, updatePost, deletePost } from "../api/postApi";
+import { getPost, createPost, getPosts, updatePost, deletePost, incrementLike } from "../api/postApi";
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getComments } from "../api/commentApi";
 
@@ -44,6 +44,27 @@ export const usePosts = ({ tag, sort, query, page, pageSize = 12 }) => {
   }
 };
 
+export const usePost = (postId) => {
+  const {
+    data,
+    isPending,
+    error,
+  } = useQuery({
+    queryKey: ["post", postId],
+    queryFn: async () => {
+      const { data } = await getPost(postId);
+      return data;
+    },
+    enabled: !!postId,
+  });
+
+  return {
+    post: data,
+    loading: isPending,
+    error,
+  };
+};
+
 export const useCreatePost = () => {
   const queryClient = useQueryClient();
 
@@ -73,6 +94,19 @@ export const useDeletePost = () => {
   return useMutation({
     mutationFn: deletePost,
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["posts"] });
+    },
+  });
+};
+
+export const useLikePost = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (postId) => incrementLike(postId),
+
+    onSuccess: (_, postId) => {
+      queryClient.invalidateQueries({ queryKey: ["post", postId] });
       queryClient.invalidateQueries({ queryKey: ["posts"] });
     },
   });

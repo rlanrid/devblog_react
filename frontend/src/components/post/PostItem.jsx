@@ -39,7 +39,7 @@ const PostItem = ({ post }) => {
           </div>
           <div className="post__info-bottom">
             <span>{post?.author?.username}</span>
-            <span>❤️ 0</span>
+            <span>❤️ {post?.likeCount}</span>
           </div>
         </div>
       </div>
