@@ -3,6 +3,8 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { usePostQuery } from "./hooks/usePostQuery";
 import { usePosts } from "./hooks/usePosts";
 
+import { Toaster } from "react-hot-toast";
+
 import BlogLayout from "./components/layout/BlogLayout";
 import AuthLayout from "./components/layout/AuthLayout";
 
