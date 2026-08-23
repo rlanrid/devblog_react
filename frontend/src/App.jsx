@@ -31,6 +31,7 @@ function App() {
 
   return (
     <Routes>
+      <Toaster position="top-right" reverseOrder={false} />
       <Route path="/" element={<Navigate to="/posts" replace />} />
       <Route path="/*" element={<Navigate to="/posts" replace />} />
 
