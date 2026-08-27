@@ -13,6 +13,7 @@ import { useAuthStore } from '../../store/authStore';
 import CommentList from '../../components/comment/CommentList';
 import Loading from '../../components/common/Loading';
 import { useDeletePost, useLikePost, usePost } from '../../hooks/usePosts';
+import toast from 'react-hot-toast';
 
 const PostDeatilPage = ({ fetchPosts }) => {
   const { user, isLoggedIn } = useAuthStore();
@@ -45,7 +46,18 @@ const PostDeatilPage = ({ fetchPosts }) => {
   const handleUpdateLike = async () => {
     if (!isLoggedIn()) return alert("로그인 후 이용 가능합니다.");
 
+    if (likePostMutation.isPending) return;
+
+    const wasLiking = isLiking;
+
     likePostMutation.mutate(postId, {
+      onSuccess: () => {
+        if (wasLiking) {
+          toast("좋아요를 취소했습니다.", { icon: "💔" });
+        } else {
+          toast("좋아요를 눌렀습니다.", { icon: "❤️" });
+        }
+      },
       onError: (error) => {
         console.error("좋아요 처리 실패", error);
       },
@@ -59,6 +71,7 @@ const PostDeatilPage = ({ fetchPosts }) => {
     deletePostMutation.mutate(postId, {
       onSuccess: () => {
         navigate("/posts");
+        toast.success("게시글이 삭제되었습니다.");
       },
       onError: (error) => {
         console.error("게시글 삭제 실패", error);

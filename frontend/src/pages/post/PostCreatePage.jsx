@@ -4,6 +4,7 @@ import { useForm } from '../../hooks/useForm';
 import { createPost } from '../../api/postApi';
 import { useAuth } from '../../hooks/useAuth';
 import { useCreatePost } from '../../hooks/usePosts';
+import toast from 'react-hot-toast';
 
 const PostCreatePage = ({ fetchPosts }) => {
   const { user } = useAuth();
@@ -25,18 +26,9 @@ const PostCreatePage = ({ fetchPosts }) => {
     createPostMutation.mutate(form, {
       onSuccess: () => {
         navigate("/posts");
+        toast.success("게시글이 작성되었습니다.");
       },
     })
-
-    // try {
-    //   await createPost(form);
-
-    //   await fetchPosts();
-    // } catch (error) {
-    //   console.error("게시글 작성 실패", error);
-    // } finally {
-    //   navigate("/posts");
-    // }
   };
 
   return (

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { HiOutlineTrash } from "react-icons/hi";
 
-import { createComment, deleteComment } from "../../api/commentApi";
 import { useAuth } from "../../hooks/useAuth";
 import { formatTimeAgo } from "../../utils/dataProcess";
 
@@ -10,6 +9,7 @@ import { useComments, useCreateComment, useDeleteComment } from "../../hooks/use
 import CommentForm from "./CommentForm"
 
 import NoProfile from "../../assets/icons/NoProfile.png";
+import toast from "react-hot-toast";
 
 const CommentList = ({ postId }) => {
   const { user } = useAuth();
@@ -30,6 +30,7 @@ const CommentList = ({ postId }) => {
       {
         onSuccess: () => {
           setContent("");
+          toast.success("댓글이 작성되었습니다.");
         },
         onError: (error) => {
           console.error("댓글 작성 실패", error);
@@ -45,6 +46,9 @@ const CommentList = ({ postId }) => {
     deleteCommentMutation.mutate(
       { postId, commentId },
       {
+        onSuccess: () => {
+          toast.success("댓글이 삭제되었습니다.");
+        },
         onError: (error) => {
           console.error("댓글 삭제 실패", error);
         }

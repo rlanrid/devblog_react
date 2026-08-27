@@ -30,32 +30,34 @@ function App() {
   // if (error) return <div>에러 발생: {error}</div>;=
 
   return (
-    <Routes>
+    <>
       <Toaster position="top-right" reverseOrder={false} />
-      <Route path="/" element={<Navigate to="/posts" replace />} />
-      <Route path="/*" element={<Navigate to="/posts" replace />} />
+      <Routes>
+        <Route path="/" element={<Navigate to="/posts" replace />} />
+        <Route path="/*" element={<Navigate to="/posts" replace />} />
 
-      <Route element={<BlogLayout query={query} updateQuery={updateQuery} />}>
-        <Route path="/posts" element={
-          <PostListPage />}
-        />
-        <Route path="/posts/:postId" element={<PostDeatilPage />} />
+        <Route element={<BlogLayout query={query} updateQuery={updateQuery} />}>
+          <Route path="/posts" element={
+            <PostListPage />}
+          />
+          <Route path="/posts/:postId" element={<PostDeatilPage />} />
 
-        <Route element={<PrivateRoute />}>
-          <Route path="/posts/create" element={<PostCreatePage />} />
-          <Route path="/posts/edit/:id" element={<PostEditPage />} />
-          <Route path="/user/setting" element={<UserSettingPage />} />
+          <Route element={<PrivateRoute />}>
+            <Route path="/posts/create" element={<PostCreatePage />} />
+            <Route path="/posts/edit/:id" element={<PostEditPage />} />
+            <Route path="/user/setting" element={<UserSettingPage />} />
+          </Route>
         </Route>
-      </Route>
 
-      <Route element={<AuthLayout />}>
-        <Route element={<PublicOnlyRoute />}>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
+        <Route element={<AuthLayout />}>
+          <Route element={<PublicOnlyRoute />}>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+          </Route>
         </Route>
-      </Route>
 
-    </Routes>
+      </Routes>
+    </>
   )
 }
 
