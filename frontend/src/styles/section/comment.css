@@ -105,3 +105,16 @@
   font-size: 14px;
   color: var(--color-red);
 }
+
+.comment__edit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.comment__edit-btn svg {
+  width: 100%;
+  height: 100%;
+  font-size: 14px;
+  color: var(--text-primary);
+}

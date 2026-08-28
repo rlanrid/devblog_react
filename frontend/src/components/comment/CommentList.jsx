@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { HiOutlineTrash } from "react-icons/hi";
+import { HiOutlineTrash, HiOutlinePencil } from "react-icons/hi";
 
 import { useAuth } from "../../hooks/useAuth";
 import { formatTimeAgo } from "../../utils/dataProcess";
@@ -39,6 +39,9 @@ const CommentList = ({ postId }) => {
     );
   };
 
+  const handleEdit = async (commentId) => { };
+
+
   const handleDelete = async (commentId) => {
     const isConfirm = window.confirm("정말 삭제하시겠습니까?");
     if (!isConfirm) return;
@@ -76,9 +79,14 @@ const CommentList = ({ postId }) => {
                 <div className="comment__author">{comment.author.username}</div>
                 <div className="comment__date">{formatTimeAgo(comment?.createdAt)}</div>
                 {user?.id === comment?.author?._id && (
-                  <button onClick={() => handleDelete(comment?._id)} className="comment__delete-btn">
-                    <HiOutlineTrash />
-                  </button>
+                  <>
+                    <button onClick={() => handleEdit(comment?._id)} className="comment__edit-btn">
+                      <HiOutlinePencil />
+                    </button>
+                    <button onClick={() => handleDelete(comment?._id)} className="comment__delete-btn">
+                      <HiOutlineTrash />
+                    </button>
+                  </>
                 )}
               </div>
 
