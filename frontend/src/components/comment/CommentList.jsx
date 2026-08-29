@@ -39,7 +39,9 @@ const CommentList = ({ postId }) => {
     );
   };
 
-  const handleEdit = async (commentId) => { };
+  const handleEdit = async () => {
+
+  };
 
 
   const handleDelete = async (commentId) => {
