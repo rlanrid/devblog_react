@@ -37,6 +37,18 @@ exports.createComment = async (req, res) => {
   }
 };
 
+// 댓글 수정
+exports.updateComment = async (req, res) => {
+  try {
+    const { content } = req.body;
+
+    const comment = await Comment.findById(req.params.commentId);
+  } catch (error) {
+    res.status(500).json({ message: "서버 오류" });
+    console.error(error);
+  }
+};
+
 // 댓글 삭제
 exports.deleteComment = async (req, res) => {
   try {
