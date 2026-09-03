@@ -43,6 +43,23 @@ exports.updateComment = async (req, res) => {
     const { content } = req.body;
 
     const comment = await Comment.findById(req.params.commentId);
+
+    if (!comment) {
+      return res.status(404).json({ message: "댓글을 찾을 수 없습니다." });
+    }
+
+    if (comment.author.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ message: "권한이 없습니다." });
+    }
+
+    comment.content = content;
+    comment.isUpdated = true;
+
+    await comment.save();
+
+    const populated = await comment.populate("author", "username profileImage");
+
+    res.status(200).json(populated);
   } catch (error) {
     res.status(500).json({ message: "서버 오류" });
     console.error(error);
