@@ -53,7 +53,6 @@ exports.updateComment = async (req, res) => {
     }
 
     comment.content = content;
-    comment.isUpdated = true;
 
     await comment.save();
 

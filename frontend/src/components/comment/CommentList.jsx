@@ -4,7 +4,7 @@ import { HiOutlineTrash, HiOutlinePencil } from "react-icons/hi";
 import { useAuth } from "../../hooks/useAuth";
 import { formatTimeAgo } from "../../utils/dataProcess";
 
-import { useComments, useCreateComment, useDeleteComment } from "../../hooks/useComments";
+import { useComments, useCreateComment, useDeleteComment, useUpdateComment } from "../../hooks/useComments";
 
 import CommentForm from "./CommentForm"
 
@@ -15,10 +15,13 @@ const CommentList = ({ postId }) => {
   const { user } = useAuth();
 
   const [content, setContent] = useState("");
+  const [editingCommentId, setEditingCommentId] = useState(null);
+  const [editContent, setEditContent] = useState("");
 
   const { comments, isPending, error } = useComments(postId);
 
   const createCommentMutation = useCreateComment();
+  const updateCommentMutation = useUpdateComment();
   const deleteCommentMutation = useDeleteComment();
 
   const handleCreate = async (e) => {
@@ -39,10 +42,37 @@ const CommentList = ({ postId }) => {
     );
   };
 
-  const handleEdit = async () => {
-
+  const handleEdit = (comment) => {
+    setEditingCommentId(comment._id);
+    setEditContent(comment.content);
   };
 
+  const handleCancelEdit = () => {
+    setEditingCommentId(null);
+    setEditContent("");
+  };
+
+  const handleUpdate = async (commentId) => {
+    if (!editContent.trim()) return;
+
+    updateCommentMutation.mutate(
+      {
+        postId,
+        commentId,
+        data: { content: editContent }
+      },
+      {
+        onSuccess: () => {
+          setEditingCommentId(null);
+          setEditContent("");
+          toast.success("댓글이 수정되었습니다.");
+        },
+        onError: (error) => {
+          console.error("댓글 수정 실패", error);
+        },
+      }
+    );
+  };
 
   const handleDelete = async (commentId) => {
     const isConfirm = window.confirm("정말 삭제하시겠습니까?");
@@ -82,7 +112,7 @@ const CommentList = ({ postId }) => {
                 <div className="comment__date">{formatTimeAgo(comment?.createdAt)}</div>
                 {user?.id === comment?.author?._id && (
                   <>
-                    <button onClick={() => handleEdit(comment?._id)} className="comment__edit-btn">
+                    <button onClick={() => handleEdit(comment)} className="comment__edit-btn">
                       <HiOutlinePencil />
                     </button>
                     <button onClick={() => handleDelete(comment?._id)} className="comment__delete-btn">
@@ -93,13 +123,29 @@ const CommentList = ({ postId }) => {
               </div>
 
               <div className="comment__info-bottom">
-                <div className="comment__content">{comment.content}</div>
+                {editingCommentId === comment._id ? (
+                  <div className="comment__content">
+                    <textarea
+                      value={editContent}
+                      onChange={(e) => setEditContent(e.target.value)}
+                    />
+                    <button type="button" onClick={() => handleUpdate(comment._id)}>
+                      저장
+                    </button>
+                    <button type="button" onClick={handleCancelEdit}>
+                      취소
+                    </button>
+                  </div>
+                ) :
+                  (
+                    <div className="comment__content">{comment.content}</div>
+                  )}
               </div>
             </div>
           </div>
         ))}
       </div>
-    </div>
+    </div >
   )
 }
 
