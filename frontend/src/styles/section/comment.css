@@ -65,6 +65,7 @@
 .comment__item {
   display: flex;
   gap: 1rem;
+  flex: 1;
 }
 
 .comment__info {
@@ -72,6 +73,7 @@
   flex-direction: column;
   justify-content: center;
   gap: 0.5rem;
+  flex: 1;
 }
 
 .comment__info-top {
@@ -117,4 +119,19 @@
   height: 100%;
   font-size: 14px;
   color: var(--text-primary);
+}
+
+.comment__content-btn {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.comment__content-btn button {
+  background-color: var(--color-brand-500);
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  color: var(--color-white);
 }

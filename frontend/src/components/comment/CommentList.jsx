@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { HiOutlineTrash, HiOutlinePencil } from "react-icons/hi";
+import { HiOutlineTrash, HiOutlinePencil, HiCursorClick } from "react-icons/hi";
 
 import { useAuth } from "../../hooks/useAuth";
 import { formatTimeAgo } from "../../utils/dataProcess";
@@ -126,15 +126,21 @@ const CommentList = ({ postId }) => {
                 {editingCommentId === comment._id ? (
                   <div className="comment__content">
                     <textarea
+                      name="comment"
+                      className="comment__textarea"
+                      rows={1}
+                      placeholder="댓글을 작성해주세요.."
                       value={editContent}
                       onChange={(e) => setEditContent(e.target.value)}
                     />
-                    <button type="button" onClick={() => handleUpdate(comment._id)}>
-                      저장
-                    </button>
-                    <button type="button" onClick={handleCancelEdit}>
-                      취소
-                    </button>
+                    <div className="comment__content-btn">
+                      <button type="button" onClick={() => handleUpdate(comment._id)}>
+                        저장
+                      </button>
+                      <button type="button" onClick={handleCancelEdit}>
+                        취소
+                      </button>
+                    </div>
                   </div>
                 ) :
                   (
